@@ -1,6 +1,6 @@
 <?php
 $euros=$_POST['euros'];
 
-echo $euros . " € son " . ($euros*166.386) . " pesetas";
+echo $euros . " € son " . round(($euros*166.386), 2) . " pesetas";
 ?>
 
