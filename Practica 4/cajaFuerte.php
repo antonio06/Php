@@ -10,7 +10,7 @@ $numero = $_POST['numero'];
 $oportunidades = $_POST['oportunidades'];
 $numeroSecreto=1306;
 
-    if ($oportunidades==0){
+    if (($oportunidades==0) || ($oportunidades==1)){
         echo "Alto ladron!!!! <br>";
         echo " <img src='imagenes/policia.jpg'";
     }else{
