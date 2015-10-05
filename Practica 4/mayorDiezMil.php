@@ -10,10 +10,19 @@ $numero = $_POST['numero'];
 $suma = $_POST['suma'];
 $contador = $_POST['contador'];
 
-if ($suma<10000){
-    $suma = $numero+$suma ;
-    $contador++ ;
-                 
+$suma = $numero+$suma ;
+if ($suma>10000){
+    $contador++ ;         
+    ?>
+        <div id="estilo">
+            La suma de todos tus números es <?= $suma ?><br>
+            Has introducido <?= $contador ?> números<br>
+            La media de los números es <?php echo ($suma/$contador); ?>
+        </div>
+<?php
+
+}else{
+    $contador++;
     ?>
         <div id="estilo">
             Introduce números positivos.
@@ -23,15 +32,6 @@ if ($suma<10000){
                 <input type="hidden" name="suma" value="<?= $suma ?>">
                 <input type="submit" value="Introducir">
             </form>
-        </div>
-<?php
-
-}else{
-    ?>
-        <div id="estilo">
-            La suma de todos tus números es <?= $suma ?><br>
-            Has introducido <?= $contador ?> números<br>
-            La media de los números es <?php echo ($suma/$contador); ?>
         </div>
         <?php
 }

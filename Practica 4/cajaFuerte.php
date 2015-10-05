@@ -14,7 +14,7 @@ $numeroSecreto=1306;
         echo "Alto ladron!!!! <br>";
         echo " <img src='imagenes/policia.jpg'";
     }else{
-        if ($numero==$numeroSecreto){
+        if (($numero==$numeroSecreto)){
             echo "Enhorabuena!!!! abriste la caja fuerte coje todo el dinero<br>";
             echo "<img src='imagenes/500.jpg'>";
         }else{
