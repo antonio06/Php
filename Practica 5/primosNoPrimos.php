@@ -29,7 +29,13 @@
             echo $n . " ";
         }
         echo "<br>";
-        $auxiliar=$arrayNumero[14];
+        $auxiliar= new SplFixedArray (10);
+        
+        for ($a = 0; $a<count($arrayNumero); $a++){
+            if (){
+                
+            }
+        }
         
         
     }
