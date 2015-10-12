@@ -24,20 +24,40 @@
         $texto = $texto . " " . $numero;
         $texto = substr($texto, 2);
         $arrayNumero = explode(" ", $texto);
+        $auxi1 = new SplFixedArray (10);
+        $auxi2 = new SplFixedArray (10);
+        
         echo "Array original <br>";
         foreach($arrayNumero as $n){
             echo $n . " ";
         }
         echo "<br>";
-        $auxiliar= new SplFixedArray (10);
         
+        $contador = 0;
         for ($a = 0; $a<count($arrayNumero); $a++){
-            if (){
-                
+            for ($b = 1; $b<=$arrayNumero[$a]; $b++){
+                if ($arrayNumero[$a]%$b==0){
+                $contador++;
+                }
             }
+            if ($contador>2){
+                $auxi2[$a]= $arrayNumero[$a];
+            }else{
+                $auxi1[$a]= $arrayNumero[$a];
+            }
+            $contador =0;
         }
         
         
+        
+        echo "Array cambiado <br>";
+        foreach($auxi1 as $n1){
+            echo $n1 . " ";
+        }
+        
+        foreach($auxi2 as $n2){
+            echo $n2 . " ";
+        }
     }
 ?>
 </body>
