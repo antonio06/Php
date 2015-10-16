@@ -7,7 +7,7 @@
     for ($a = 0; $a<count($arrayNumero); $a++){
         if ($arrayNumero[$a]==$numero){
             $arrayNumero[$a]=$cambio;
-           echo "<b>" . $arrayNumero[$a] . " " . "</b>";
+           echo "<b style = 'color = red'>" . $arrayNumero[$a] . " " . "</b>";
         }else{
             echo $arrayNumero[$a] . " ";
         }

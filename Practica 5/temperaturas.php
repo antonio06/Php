@@ -9,9 +9,12 @@
     $contador = $_POST['contador'];
     $texto = $_POST['texto'];
     
+    $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Júnio", "Júlio",
+             "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    
     if ($contador<12){
         ?>
-        Introduce las temperaturas de este año (de enero a diciembre)
+        Introduce las temperaturas de <?= $meses [$contador]?>
         <form action="temperaturas.php" method="post">
             <input type="number" name="temperaturas">
             <input type="hidden" name="contador" value="<?= ++$contador ?>">
@@ -24,9 +27,6 @@
         $texto = $texto . " " . $temperaturas;
         $texto = substr($texto, 2);
         $arrayTemperaturas = explode(" ", $texto);
-        
-        $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Júnio", "Júlio",
-            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         
         echo "<h1>" . "Estas son las Temperaturas del 2015 en Málaga" . "</h1>";
         for ($a = 0; $a<count($arrayTemperaturas); $a++){
