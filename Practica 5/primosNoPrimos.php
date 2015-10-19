@@ -48,8 +48,6 @@
             $contador =0;
         }
         
-        
-        
         echo "Array cambiado <br>";
         foreach($auxi1 as $n1){
             echo $n1 . " ";

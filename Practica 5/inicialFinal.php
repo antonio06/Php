@@ -24,30 +24,60 @@
         $texto = $texto . " " . $numero;
         $texto = substr($texto, 2);
         $arrayNumero = explode(" ", $texto);
-        echo "Array Original <br>";
-        foreach($arrayNumero as $n){
-            echo $n . " ";
-        }
+        
 ?>   
      Introduce un número Inicial
         <form action="inicialFinal.php" method="post">
-            <input type="number" max="9" min="0" name="inicial">
-            Introduce un número Final
+            <input type="number" max="9" min="0" name="inicial"><br>
+            Introduce un número Final<br>
             <input type="number" max="9" min="0" name="final">
             <input type="submit" value="Introducir">
+            <input type="hidden" name="numero">
+            <input type="hidden" name="contador" value="<?= ++$contador ?>">
+            <input type="hidden" name="texto" value="<?= $texto . " " . $numero?>">
         </form>   
         
         
 <?php   
-
     $inicial = $_POST['inicial'];
     $final = $_POST['final'];
   
-    $texto = $texto . " " . $numero;
+    /*$texto = $texto . " " . $numero;
     $texto = substr($texto, 2);
-    $arrayNumero = explode(" ", $texto);
+    $arrayNumero = explode(" ", $texto);*/
     
+    echo "Array Original <br>";
+        foreach($arrayNumero as $n){
+            echo $n . " ";
+        }
+        echo "<br>";
+        
+    $a = 0;
+    while ($a<10){
+	$arrayNumero2[$a] = $arrayNumero[$a];
+	$a++;
+    }
     
+    $arrayNumero2[$final] = $arrayNumero[$inicial];
+    $a = $final;
+		
+    while ($a<10){
+	$arrayNumero2[0] = $arrayNumero[$a-1];
+	$a++;
+    }
+		
+    $arrayNumero2[0] = $arrayNumero[9];
+		
+    $a=0;
+    while ($a<$inicial){
+    $arrayNumero[$a+1] = $arrayNumero[$a];
+    $a++;
+    }
+    
+    echo "Array Cambiado <br>";
+        foreach($arrayNumero2 as $n2){
+            echo $n2 . " ";
+        }
     }
 ?>
 </body>

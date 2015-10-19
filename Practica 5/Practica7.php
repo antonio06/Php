@@ -25,7 +25,8 @@
                 echo $auxiliar[$b] = $numero[$b] . " ";
             }
         }
-       
+        
+       //Meto en el array auxiliar los números impares
         for ($b = 0; $b<count($numero); $b++){
             if ($numero[$b]%2!=0){
                 echo $auxiliar2[$b] = $numero[$b] . " ";
