@@ -6,7 +6,7 @@
     <body>
         <?php
         
-        $arrayNumero = array ();
+        $arrayNumero = array();
         
         
         $i = 0;

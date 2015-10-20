@@ -6,9 +6,9 @@ $altura = $_POST['altura'];
 // si la altura introducida es 7 restamos los vertices y la linea del medio
 //lo divido para ver los saltos que tiene que dar el bucle sin tener en cuenta 
 // el vertice y la linea del medio
-$altura1 = ($altura - 3)/2;
-$altura2 = ($altura - 3)/2;
-$espacios1 = $altura - 4;
+$altura1 = ($altura - 2)/2;
+$altura2 = ($altura - 2)/2;
+$espacios1 = $altura - 3;
 $espacios2 = 1;
 $caracter = 3;
 
