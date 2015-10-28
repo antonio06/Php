@@ -26,11 +26,7 @@
     $texto = substr($texto, 2);
     $arrayNumero = explode(" ", $texto);
     
-       echo "Array Original <br>";
-       foreach($arrayNumero as $n){
-           echo $n . " ";
-        }
-       echo "<br>";
+       
 ?>   
      Introduce un número Inicial
         <form action="inicialFinal2.php" method="post">
@@ -42,7 +38,7 @@
 <?php
     for ($a = 0; $a<count($arrayNumero); $a++){
 ?>
-            <input type="hidden"  name="texto" value="<?= $texto = $texto . " " . $arrayNumero[$a]?>">
+            <input type="hidden"  name="texto" value="<?= $texto = implode(" ", $arrayNumero)?>">
         <?php
     }
         ?>

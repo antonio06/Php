@@ -1,0 +1,28 @@
+#estilo{
+    text-align: center;
+    width: 50%;
+    height: 60%;
+    border: 1px solid black;
+    margin-left: 300px;
+    border-radius: 6%;
+    background-color: buttonhighlight;
+    
+}
+
+a{
+    text-decoration: none;
+    color: white;
+    text-shadow: 0px 0px 0px rgb(255,255,255);
+    
+}
+
+button{
+    background: red;
+    width: 100px;
+    height: 40px;
+}
+
+p{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
