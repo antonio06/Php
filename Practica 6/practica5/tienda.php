@@ -21,11 +21,31 @@
                     );
                     if (isset($_SESSION['conectado'])){
                 ?>
-                <di>
-                    <img src="imagenes/iphone.png">
+                <div id="image">
+                    <img src="imagenes/iphone.png"><br>
                     Iphone 6s<br>
-                    Precio: 749€
-                </di>
+                    Precio: 749 €<br>
+                    <input id="boton" type="button" value="Comprar">
+                </div>
+                <div id="image2">
+                    <img src="imagenes/ipad.png"><br>
+                    Ipad Air 2<br>
+                    Precio: 489 €<br>
+                    <input id="boton" type="button" value="Comprar">
+                </div>
+                <div id="image3">
+                    <img src="imagenes/sansung.png"><br>
+                    Sansung Galaxi S6<br>
+                    Precio: 600 €<br>
+                    <input id="boton" type="button" value="Comprar">
+                </div>
+                <div id="image4">
+                    <img src="imagenes/huawei.png"><br>
+                    Huawei P8 Lite<br>
+                    Precio: 182 €<br>
+                    <input id="boton" type="button" value="Comprar">
+                </div>
+                <span id="carrito">Carrito</span>
                 <?php 
                     }
                 ?>
