@@ -9,7 +9,7 @@
         $_SESSION['conectado'] = TRUE;
         header('Location: tienda.php');
     }else{
-        header('Location: login.php');
+        header('Location: /Practica5.php');
     }
            
   
