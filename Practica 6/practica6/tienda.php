@@ -1,4 +1,4 @@
-<?php session_start();
+<?php session_start(); 
 $usuarioReal = "admin";?>
 <html>
     <head>
@@ -17,18 +17,22 @@ $usuarioReal = "admin";?>
             </div>
             <div id="cuerpo">
                 <span id="titulo">Productos de la tienda</span>
+                
                 <br>
                 <br>
                 <?php
                     $productos = array(
-                    "1" => array("Nombre"=> "Iphone 6s", "Descripción"=> "Iphone 6s en color blanco plata", "Precio"=>749, "imagen"=>"imagenes/iphone.png"),
-                    "2" => array("Nombre"=> "Ipad Air 2", "Descripción"=>"Ipad Air 2 en color blanco plata", "Precio"=>489, "imagen"=>"imagenes/ipad.png"),
-                    "3" => array("Nombre"=> "Sansung Galaxi S6", "Descripción"=>"Sansung Galaxi S6 color negro", "Precio"=>600, "imagen"=>"imagenes/sansung.png"),
-                    "4" => array("Nombre"=> "Huawei P8 Lite", "Descripción"=>"Huawei P8 Lite negro", "Precio"=>182, "imagen"=>"imagenes/huawei.png")
+                    "1" => array("Nombre"=> "Iphone 6s", "Descripcion"=> "Iphone 6s en color blanco plata", "Precio"=>749, "imagen"=>"imagenes/iphone.png"),
+                    "2" => array("Nombre"=> "Ipad Air 2", "Descripcion"=>"Ipad Air 2 en color blanco plata", "Precio"=>489, "imagen"=>"imagenes/ipad.png"),
+                    "3" => array("Nombre"=> "Sansung Galaxi S6", "Descripcion"=>"Sansung Galaxi S6 color negro", "Precio"=>600, "imagen"=>"imagenes/sansung.png"),
+                    "4" => array("Nombre"=> "Huawei P8 Lite", "Descripcion"=>"Huawei P8 Lite negro", "Precio"=>182, "imagen"=>"imagenes/huawei.png")
                     );
+                    
+                    $_SESSION['productos'] = $productos;
                         if (isset($_SESSION['conectado'])){
                         foreach($productos as $codigoProducto => $articulo){      
                 ?>
+                
                 
                 <div id="articulos">
                     <form action="carrito.php" method="post">
@@ -38,6 +42,11 @@ $usuarioReal = "admin";?>
                         <input type="hidden" name="accion" value="comprar">
                         <input type="hidden" name="codigoProducto" value="<?= $codigoProducto?>"> 
                         <input id="boton" type="submit" value="Comprar">
+                   </form>
+                    <br>
+                   <form action="detalles.php" method="post">
+                        <input type="hidden" name="codigoProducto" value="<?= $codigoProducto?>"> 
+                        <input id="boton" type="submit" value="Detalles">
                    </form>
                 </div>
                 
