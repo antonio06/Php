@@ -4,7 +4,7 @@ $usuarioReal = "admin";?>
     <head>
         <meta charset="UTF-8">
         <link type="text/css" rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" rel="stylesheet" href="css/font-awesome.css">
         <title></title>
     </head>
     <body>

@@ -10,7 +10,7 @@ session_start();
     <body>
         <div id="estilo">
             <?php
-            if (isset($_SESSION['conectado'])){
+            if (!isset($_SESSION['conectado'])){
             ?>
             <p>No estás conectado:</p>
             <button class="boton"><a href="practica4/login.php">conectar</a></button>
