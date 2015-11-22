@@ -1,17 +1,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Tienda Online</title>
-        <link type="text/css" rel="stylesheet" href="Practica3/styles.css">
+        <title>GESTISMAL</title>
+        <link type="text/css" rel="stylesheet" href="Practica4/styles.css">
         <link rel="stylesheet" rel="stylesheet" href="css/font-awesome.css">
     </head>
     <body>
         <div id="principal">
             <div id="cabecera">
-                <p>Tienda Online</p>
+                <p>GESTISMAL</p>
             </div>
             <div id="cuerpo">
-                <form action="Practica3/comprobacion.php" method="post">
+                <form action="Practica4/comprobacion.php" method="post">
                     <span>Usuario</span>
                     <input id="formulario" type="text" name="usuario"><br>
                     <span>Contraseña</span>
