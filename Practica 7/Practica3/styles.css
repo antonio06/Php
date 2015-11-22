@@ -1,0 +1,85 @@
+*{
+    margin: 0px;
+}
+
+#principal{
+    width: 1364px;
+    height: 665px;
+    background-color: white;
+    //background-image:-webkit-gradient(linear,left top,left bottom,from(#F781F3),to(#FF00FF));
+    border: 1px solid black;
+}
+
+#cabecera{
+    margin-left: 300px;
+    //border-bottom: 1px solid transparent;
+    background-color: #00FFFF;
+    border: 1px solid black;
+    text-align: center;
+    width: 700px;
+    height: 100px;
+    box-shadow: 1px 1px 1px 1px rgb(0,0,0);
+}
+
+@font-face{
+    font-family: miFuente;
+    src: url('miFuente/gaban-outline-italic-FFP.ttf') format("truetype");
+}   
+
+p{
+    font-family: miFuente;
+    font-size: 60px;
+    padding: 10px;
+    color: white;
+}
+
+#cuerpo{
+    border-top: 1px solid transparent;
+    margin-left: 300px;
+    border: 1px solid black;
+    text-align: center;
+    width: 700px;
+    height: 530px;
+    background-color:#CEF6EC; 
+    box-shadow: 1px 1px 1px 1px rgb(0,0,0);
+    padding-left: 1px;
+    padding-top: 30px;
+}
+
+#boton{
+    margin-top: 4px;
+    height: 30px;
+    width: 80px;
+    color: white;
+    background: green;
+    border-radius: 10%;
+    border: 0px;
+}
+
+#formulario{
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+span{
+    font-size: 20px;
+}
+
+img{
+    width: 120px;
+    height: 120px;
+}
+
+#titulo{
+    margin-left: 250px;
+    float: left;
+}
+
+#articulos{
+    display: inline-block;
+}
+
+#icono{
+    margin-left: 600px;
+    background-repeat: no-repeat;
+}
