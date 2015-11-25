@@ -31,7 +31,7 @@
                 </div>
                 <div id="cuerpo">
                     <span>Productos</span>
-<!--<form action="carrito.php" method="post">>-->
+<!--<form action="carrito.php" method="post">-->
                     <table>
                         <tr>
                             <th>Codigo</th>
