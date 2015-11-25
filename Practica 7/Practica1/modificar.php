@@ -44,7 +44,7 @@
                         while ($resultado = $consulta->fetchObject()) {
                             ?>
                             <span>DNI</span>
-                            <input id="formulario" type="text" name="dni"  value="<?= $resultado->dni ?>"><br>
+                            <input id="formulario" type="text" name="dni"  readonly="dni" value="<?= $resultado->dni ?>"><br>
                             <span>Nombre</span>
                             <input id="formulario" type="text" name="nombre" value="<?= $resultado->nombre ?>"><br>
                             <span>Dirección</span>

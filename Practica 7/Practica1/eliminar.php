@@ -34,7 +34,7 @@
                         // Dni se hace variable de sesión para manejarnos con ella cuando lo necesitemos
                         $_SESSION['dni'] = $_GET['dni'];
                         ?>
-                        <span>¿ Quieres eleminar el registro ?</span><br>
+                        <span>¿ Quieres eliminar el registro ?</span><br>
                         <select name="opciones">
                             <option value="si">Si</option>
                             <option value="no">No</option>

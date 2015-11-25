@@ -30,13 +30,15 @@
                     <?= $resultado->usuario ?> <a href="borrado.php"><i class="fa fa-user"></i></a> 
                 </div>
                 <div id="cuerpo">
+                    <div class="compraVenta"><span><a href="comprar.php">Comprar <i class="fa fa-cart-arrow-down"></i></a>
+                    <a href="vender.php">Vender <i class="fa fa-credit-card"></i></a></span></div>
                     <form action="alta.php" method="post">
                         <table>
                             <tr>
                                 <th>Codigo</th>
                                 <th>Descripción</th>
-                                <th>Precio Venta</th>
                                 <th>Precio Compra</th>
+                                <th>Precio Venta</th>
                                 <th>Stock</th>
                                 <th></th>
                             </tr>

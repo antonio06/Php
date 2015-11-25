@@ -9,7 +9,7 @@ if (isset($_SESSION['conectado'])) {
         echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
         die("Error: " . $e->getMessage());
     }
-// Con u switch miramos que opción a sido enviada por el formulario
+// Con un switch miramos que opción a sido enviada por el formulario
     switch ($_POST['opciones']) {
         // Si es si hacemos un delete del dni que enviamos 
         case "si":

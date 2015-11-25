@@ -54,8 +54,17 @@
                                 echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
                                 die("Error: " . $e->getMessage());
                             }
+                            $consulta = $conexion->query("SELECT * FROM cliente");
                             // Extraemos cada elemento con el bulce y los vamos mostrando uno a uno en la tabla
-                            $consulta = $conexion->query("SELECT dni, nombre, direccion, telefono FROM cliente ORDER BY nombre");
+                            $limite = 2;
+                            $totalRegistros = $consulta->rowCount();
+                            $numeroPaginas = $totalRegistros / $limite;
+                            if (isset($_SESSION['pagina'])) {
+                                $_SESSION['pagina'] = ($_GET['pagina'] - 1) * $limite;
+                            } else {
+                                $_SESSION['pagina'] = 1;
+                            }
+                            $consulta = $conexion->query("SELECT dni, nombre, direccion, telefono FROM cliente ORDER BY nombre LIMIT $_SESSION[pagina], $limite");
                             while ($resultado = $consulta->fetchObject()) {
                                 ?>
                                 <tr>
@@ -67,11 +76,25 @@
                                 </tr>
                                 <?php
                             }
-                        }
-                        ?>
-                    </table>
+                            ?>
+                        </table>
+                        <div class="paginas">
+                            <a href="clientes.php?pagina=<?= 1 ?>" style="text-decoration: none">Primero</a>
+                            <?php
+                            for ($i = 1; $i <= $numeroPaginas; $i++) {
+                                ?>
+                                <a href="clientes.php?pagina=<?= $i ?>" style="text-decoration: none"><?= $i ?></a>
+                                <?php
+                            }
+                            ?>
+                            <a href="clientes.php?pagina=<?= $numeroPaginas ?>" style="text-decoration: none">Último</a>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </form>
             </div>
+
         </div>
     </body>
 </html>

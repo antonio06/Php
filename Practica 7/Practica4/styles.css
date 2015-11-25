@@ -100,3 +100,10 @@ td{
     background-color: white;
     text-align: center;
 }
+
+
+div span a{
+    text-decoration: none;
+    float: right;
+    margin-left: 15px;
+}
