@@ -30,8 +30,21 @@
                     <?= $resultado->usuario ?> <a href="borrado.php"><i class="fa fa-user"></i></a> 
                 </div>
                 <div id="cuerpo">
+                    <form action="tienda.php" method="post" style="margin-left: -719px">
+                        <select name="opciones1">
+                            <option value="codigo">Codigo</option>
+                            <option value="stock">Stock</option>
+                        </select>
+                        <select name="opciones2">
+                            <option value="movil">Movil</option>
+                            <option value="tablet">Tablet</option>
+                            <option value="portatil">Portatil</option>
+                            <option value="sobremesa">Sobremesa</option>
+                        </select>
+                        <input id="boton" type="submit" value="Ordenar"> 
+                    </form>
                     <div class="compraVenta"><span><a href="comprar.php">Comprar <i class="fa fa-cart-arrow-down"></i></a>
-                    <a href="vender.php">Vender <i class="fa fa-credit-card"></i></a></span></div>
+                            <a href="vender.php">Vender <i class="fa fa-credit-card"></i></a></span></div>
                     <form action="alta.php" method="post">
                         <table>
                             <tr>
@@ -39,6 +52,7 @@
                                 <th>Descripción</th>
                                 <th>Precio Compra</th>
                                 <th>Precio Venta</th>
+                                <th>Categoría</th>
                                 <th>Stock</th>
                                 <th></th>
                             </tr>
@@ -47,6 +61,7 @@
                                 <td><input id="formulario" type="text" name="descripcion"></td>
                                 <td><input id="formulario" type="numbre" name="precioCompra"></td>
                                 <td><input id="formulario" type="number" name="precioVenta"></td>
+                                <td><input id="formulario" type="text" name="categoria"></td>
                                 <td><input id="formulario" type="number" name="stock"></td>
                                 <td><i class="fa fa-check"><input type="submit" id="boton"></i></td> 
                             </tr>
@@ -58,8 +73,13 @@
                                 echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
                                 die("Error: " . $e->getMessage());
                             }
+                            if (isset($_POST['opciones1']) && ($_POST['opciones2'])){
+                                $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, categoria, stock FROM productos WHERE categoria='". $_POST['opciones2'] ."' ORDER BY $_POST[opciones1]");
+                            }else{
                             // Extraemos cada elemento con el bulce y los vamos mostrando uno a uno en la tabla
-                            $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, stock FROM productos ORDER BY codigo");
+                            $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, categoria, stock FROM productos ORDER BY codigo");
+                            
+                            }
                             while ($resultado = $consulta->fetchObject()) {
                                 ?>
                                 <tr>
@@ -67,6 +87,7 @@
                                     <td><?= $resultado->descripcion ?></td>
                                     <td><?= $resultado->precioCompra ?></td>
                                     <td><?= $resultado->precioVenta ?></td>
+                                    <td><?= $resultado->categoria ?></td>
                                     <td><?= $resultado->stock ?></td>
                                     <td><a href="modificar.php?codigo=<?= $resultado->codigo ?>"><i class="fa fa-pencil"></i></a><a href="eliminar.php?codigo=<?= $resultado->codigo ?>"><i class="fa fa-trash"></i></a></td>
                                 </tr>

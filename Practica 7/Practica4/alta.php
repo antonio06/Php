@@ -4,6 +4,7 @@ $_POST['codigo'];
 $_POST['descripcion'];
 $_POST['precioCompra'];
 $_POST['precioVenta'];
+$_POST['categoria'];
 $_POST['stock'];
 
 // Comprueba si conectado está creada
@@ -24,8 +25,8 @@ El codigo <?= $_POST['codigo'] ?> ya existe en la base de datos<a href="tienda.p
         <?php
     } else {
         // En caso contrario lo inserta en la base de datos y reenvia a cliente
-        $alta = "INSERT INTO productos (codigo, descripcion, precioCompra, precioVenta, stock) VALUES"
-                . "('$_POST[codigo]', '$_POST[descripcion]', '$_POST[precioCompra]', '$_POST[precioVenta]', '$_POST[stock]')";
+        $alta = "INSERT INTO productos (codigo, descripcion, precioCompra, precioVenta, categoria, stock) VALUES"
+                . "('$_POST[codigo]', '$_POST[descripcion]', '$_POST[precioCompra]', '$_POST[precioVenta]', '$_POST[categoria]', '$_POST[stock]')";
         $conexion->exec($alta);
         header('Location: tienda.php');
     }

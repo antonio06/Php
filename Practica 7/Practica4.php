@@ -16,7 +16,16 @@
                     <input id="formulario" type="text" name="usuario"><br>
                     <span>Contraseña</span>
                     <input id="formulario" type="password" name="contrasena"><br>
-                    <input id="boton" type="submit" value="Iniciar">
+                    <input id="boton" type="submit" value="Iniciar"><br>
+                </form>
+                
+                <form action="Practica4/registrar.php" method="post">
+                    <span>Si no estas registrado</span><br>
+                    <span>Usuario</span>
+                    <input id="formulario" type="text" name="usuario"><br>
+                    <span>Contraseña</span>
+                    <input id="formulario" type="password" name="contrasena"><br>
+                    <input id="boton" type="submit" value="Registrar">
                 </form>
             </div>
         </div>

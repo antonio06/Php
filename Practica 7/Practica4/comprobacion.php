@@ -9,7 +9,7 @@ try {
     echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
     die("Error: " . $e->getMessage());
 }
-$consulta = $conexion->query("SELECT usuario, contrasena FROM usuarioscontrasena");
+$consulta = $conexion->query("SELECT usuario, contrasena FROM usuarioscontrasena WHERE usuario='" . $usuario . "'");
 $resultado = $consulta->fetchObject();
 if ((($resultado->usuario) == $usuario) && (($resultado->contrasena) == $contrasena)) {
     $_SESSION['conectado'] = TRUE;

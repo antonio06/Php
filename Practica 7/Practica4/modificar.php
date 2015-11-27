@@ -39,18 +39,20 @@
                             die("Error: " . $e->getMessage());
                         }
                         // Selecionamos los datos del dni 
-                        $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, stock FROM productos WHERE codigo =" . $_GET['codigo']);
+                        $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, categoria, stock FROM productos WHERE codigo =" . $_GET['codigo']);
                         // En cada iteración del bucle mostramos los datos del dni 
                         while ($resultado = $consulta->fetchObject()) {
                             ?>
                             <span>Codigo</span>
-                            <input id="formulario" type="text" name="codigo"  value="<?= $resultado->codigo ?>"><br>
+                            <input id="formulario" type="text" name="codigo"  readonly="codigo" value="<?= $resultado->codigo ?>"><br>
                             <span>Descripción</span>
                             <input id="formulario" type="text" name="descripcion" value="<?= $resultado->descripcion ?>"><br>
                             <span>Precio Compra</span>
                             <input id="formulario" type="text" name="precioCompra" value="<?= $resultado->precioCompra ?>"><br>
                             <span>Precio Venta</span>
                             <input id="formulario" type="text" name="precioVenta" value="<?= $resultado->precioVenta ?>"><br>
+                            <span>Categoría</span>
+                            <input id="formulario" type="text" name="categoria" value="<?= $resultado->categoria ?>"><br>
                             <span>Stock</span>
                             <input id="formulario" type="text" name="stock" value="<?= $resultado->stock ?>"><br>
                             <input id="boton" type="submit" value="Insertar">

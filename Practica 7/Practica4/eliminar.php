@@ -35,11 +35,8 @@
                         $_SESSION['codigo'] = $_GET['codigo'];
                         ?>
                         <span>¿ Quieres eleminar el registro ?</span><br>
-                        <select name="opciones">
-                            <option value="si">Si</option>
-                            <option value="no">No</option>
-                        </select>
-                        <input id="boton" type="submit" value="Enviar"> 
+                        <button id="boton" type="submit" style="background-color: red" value="si" name="opciones">Eliminar</button>
+                        <button id="boton" type="submit" style="background-color: orange" value="no" name="opciones">Cancelar</button>
                     </form>
                     <?php
                 }

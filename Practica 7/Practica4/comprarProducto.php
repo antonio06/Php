@@ -39,7 +39,7 @@
                             die("Error: " . $e->getMessage());
                         }
                         // Selecionamos los datos del dni 
-                        $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, stock FROM productos WHERE codigo =" . $_GET['codigo']);
+                        $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, categoria, stock FROM productos WHERE codigo =" . $_GET['codigo']);
                         // En cada iteración del bucle mostramos los datos del dni 
                         while ($resultado = $consulta->fetchObject()) {
                             ?>
@@ -51,6 +51,8 @@
                             <input id="formulario" type="text" name="precioCompra" readonly="precioCompra" value="<?= $resultado->precioCompra ?>"><br>
                             <span>Precio Venta</span>
                             <input id="formulario" type="text" name="precioVenta" readonly="precioVenta" value="<?= $resultado->precioVenta ?>"><br>
+                            <span>Categoría</span>
+                            <input id="formulario" type="text" name="categoria" readonly="categoria" value="<?= $resultado->categoria ?>"><br>
                             <span> ¿ Cuanto quiere de este producto ?</span>
                             <input id="formulario" type="number" name="cantidad"><br>
                             <input id="boton" type="submit" value="Comprar">
@@ -62,6 +64,7 @@
                         $_POST['descripcion'];
                         $_POST['precioCompra'];
                         $_POST['precioVenta'];
+                        $_POST['categoria'];
                         $cantidad = $_POST['cantidad'];
                         try {
                             // Nos conectamos a la base de datos
@@ -82,7 +85,7 @@
                             die("Error: " . $e->getMessage());
                         }
                         $consulta = ("UPDATE productos Set codigo='$_GET[codigo]',"
-                                . "descripcion='$_POST[descripcion];', precioCompra='$_POST[precioCompra];', precioVenta='$_POST[precioVenta];', stock='$cantidadTotal'  WHERE codigo =" . $_GET['codigo']);
+                                . "descripcion='$_POST[descripcion]', precioCompra='$_POST[precioCompra]', precioVenta='$_POST[precioVenta]', categoria='$_POST[categoria]', stock='$cantidadTotal'  WHERE codigo =" . $_GET['codigo']);
                         $conexion->exec($consulta);
                         header('Location: tienda.php');
                     }

@@ -6,6 +6,7 @@ $_POST['codigo'];
 $_POST['descripcion'];
 $_POST['precioCompra'];
 $_POST['precioVenta'];
+$_POST['categoria'];
 $_POST['stock'];
 
 if (isset($_SESSION['conectado'])) {
@@ -19,7 +20,7 @@ if (isset($_SESSION['conectado'])) {
 
     // Modificamos el cliente con el nombre del cliente ue enviamos por el formulario
     $consulta = ("UPDATE productos Set codigo='$_POST[codigo]',"
-            . "descripcion='$_POST[descripcion]', precioCompra='$_POST[precioCompra]', precioVenta='$_POST[precioVenta]', stock='$_POST[stock]'  WHERE codigo =" . $_POST[codigo]);
+            . "descripcion='$_POST[descripcion]', precioCompra='$_POST[precioCompra]', precioVenta='$_POST[precioVenta]', categoria='$_POST[categoria]', stock='$_POST[stock]'  WHERE codigo =" . $_POST[codigo]);
     $conexion->exec($consulta);
     header('Location: tienda.php');
 

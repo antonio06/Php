@@ -11,12 +11,12 @@
 }
 
 #cabecera{
-    margin-left: 203px;
+    margin-left: 122px;
     //border-bottom: 1px solid transparent;
     background-color: #00FFFF;
     border: 1px solid black;
     text-align: center;
-    width: 980px;
+    width: 1159px;
     height: 100px;
     box-shadow: 1px 1px 1px 1px rgb(0,0,0);
 }
@@ -35,10 +35,10 @@ p{
 
 #cuerpo{
     border-top: 1px solid transparent;
-    margin-left: 203px;
+    margin-left: 122px;
     border: 1px solid black;
     text-align: center;
-    width: 980px;
+    width: 1159px;
     height: 530px;
     background-color:#CEF6EC; 
     box-shadow: 1px 1px 1px 1px rgb(0,0,0);
@@ -80,7 +80,7 @@ img{
 }
 
 #icono{
-    margin-left: 1123px;
+    margin-left: 1206px;
     background-repeat: no-repeat;
     margin-top: -18px;
 }

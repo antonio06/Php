@@ -30,14 +30,28 @@
                     <?= $resultado->usuario ?> <a href="borrado.php"><i class="fa fa-user"></i></a> 
                 </div>
                 <div id="cuerpo">
+                    <form action="vender.php" method="post">
+                        <select name="opciones1">
+                            <option value="codigo">Codigo</option>
+                            <option value="stock">Stock</option>
+                        </select>
+                        <select name="opciones2">
+                            <option value="movil">Movil</option>
+                            <option value="tablet">Tablet</option>
+                            <option value="portatil">Portatil</option>
+                            <option value="sobremesa">Sobremesa</option>
+                        </select>
+                        <input id="boton" type="submit" value="Ordenar"> 
+                    </form>
                     <span>Productos</span>
-<!--<form action="carrito.php" method="post">-->
+                    <!--<form action="carrito.php" method="post">-->
                     <table style="margin-left: 51px">
                         <tr>
                             <th>Codigo</th>
                             <th>Descripción</th>
                             <th>Precio Compra</th>
                             <th>Precio Venta</th>
+                            <th>Categoría</th>
                             <th>Stock</th>
                             <th></th>
                         </tr>
@@ -49,8 +63,12 @@
                             echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
                             die("Error: " . $e->getMessage());
                         }
-                        // Extraemos cada elemento con el bulce y los vamos mostrando uno a uno en la tabla
-                        $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, stock FROM productos WHERE stock > 0 OR stock = 0");
+                        if (isset($_POST['opciones1']) && ($_POST['opciones2'])) {
+                            $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, categoria, stock FROM productos WHERE categoria='" . $_POST['opciones2'] . "' ORDER BY $_POST[opciones1]");
+                        } else {
+                            // Extraemos cada elemento con el bulce y los vamos mostrando uno a uno en la tabla
+                            $consulta = $conexion->query("SELECT codigo, descripcion, precioCompra, precioVenta, categoria, stock FROM productos WHERE stock > 0 OR stock = 0");
+                        }
                         while ($resultado = $consulta->fetchObject()) {
                             if ($resultado->stock == 0) {
                                 ?>
@@ -60,11 +78,32 @@
                                     <td><?= $resultado->descripcion ?></td>
                                     <td><?= $resultado->precioCompra ?></td>
                                     <td><?= $resultado->precioVenta ?></td>
+                                    <td><?= $resultado->categoria ?></td>
                                     <td><?= $resultado->stock ?></td>
                                 <input type="hidden" name="accion" value="comprar">
                                 <td><button id="boton" type="submit" style="background-color: red">Vender</button></td>
                                 </tr>
 
+                                <?php
+                            } elseif ($resultado->stock == 1) {
+                                ?>
+                                <form action="carrito.php" method="post">
+                                    <tr style="color: orange">
+                                        <td><?= $resultado->codigo ?></td>
+                                        <td><?= $resultado->descripcion ?></td>
+                                        <td><?= $resultado->precioCompra ?></td>
+                                        <td><?= $resultado->precioVenta ?></td>
+                                        <td><?= $resultado->categoria ?></td>
+                                        <td><?= $resultado->stock ?></td>
+                                    <input type="hidden" name="accion" value="comprar">
+                                    <input type="hidden" name="descripcion" value="<?= $resultado->descripcion ?>">
+                                    <input type="hidden" name="precioCompra" value="<?= $resultado->precioCompra ?>">
+                                    <input type="hidden" name="precioVenta" value="<?= $resultado->precioVenta ?>">
+                                    <input type="hidden" name="categoria" value="<?= $resultado->categoria ?>">
+                                    <input type="hidden" name="stock" value="<?= $resultado->stock ?>">
+                                    <td><button id="boton" type="submit" style="background-color: orange" value="<?= $resultado->codigo ?>" name="codigo">Vender</button></td>
+                                    </tr>
+                                </form>
                                 <?php
                             } else {
                                 ?>
@@ -74,11 +113,13 @@
                                         <td><?= $resultado->descripcion ?></td>
                                         <td><?= $resultado->precioCompra ?></td>
                                         <td><?= $resultado->precioVenta ?></td>
+                                        <td><?= $resultado->categoria ?></td>
                                         <td><?= $resultado->stock ?></td>
                                     <input type="hidden" name="accion" value="comprar">
                                     <input type="hidden" name="descripcion" value="<?= $resultado->descripcion ?>">
                                     <input type="hidden" name="precioCompra" value="<?= $resultado->precioCompra ?>">
                                     <input type="hidden" name="precioVenta" value="<?= $resultado->precioVenta ?>">
+                                    <input type="hidden" name="precioVenta" value="<?= $resultado->categoria ?>">
                                     <input type="hidden" name="stock" value="<?= $resultado->stock ?>">
                                     <td><button id="boton" type="submit" value="<?= $resultado->codigo ?>" name="codigo">Vender</button></td>
                                     </tr>
@@ -89,7 +130,7 @@
                         ?>
 
                     </table>
-<!-- </form>-->
+                    <!-- </form>-->
                     <span>Carrito</span><br>
                     <?php
                     $total = 0;
@@ -110,7 +151,7 @@
                             echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
                             die("Error: " . $e->getMessage());
                         }
-                        $sql = "SELECT precioVenta, precioCompra, descripcion, codigo, stock FROM productos WHERE " . $where;
+                        $sql = "SELECT precioVenta, precioCompra, descripcion, codigo, categoria, stock FROM productos WHERE " . $where;
                         $consulta = $conexion->query($sql);
 
                         while ($resultado = $consulta->fetchObject()) {
@@ -120,6 +161,7 @@
                                 <form action="carrito.php" method="post">
                                     Codigo: <?= $resultado->codigo ?><br>
                                     Descripción: <?= $resultado->descripcion ?><br>
+                                    Categoría: <?= $resultado->categoria ?><br>
                                     Precio:<?= $resultado->precioVenta ?> €<br>
                                     Unidad:<?= $_SESSION['carrito'][$resultado->codigo] ?><br>
                                     <input type="hidden" name="accion" value="borrar">
@@ -127,6 +169,7 @@
                                     <input type="hidden" name="precioCompra" value="<?= $resultado->precioCompra ?>">
                                     <input type="hidden" name="precioVenta" value="<?= $resultado->precioVenta ?>">
                                     <input type="hidden" name="stock" value="<?= $resultado->stock ?>">
+                                    <input type="hidden" name="categoria" value="<?= $resultado->categoria ?>">
                                     <input type="hidden" name="codigo" value="<?= $resultado->codigo ?>">
                                     <input id="boton" type="submit" value="Borrar">
                                 </form>
