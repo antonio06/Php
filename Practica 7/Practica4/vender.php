@@ -32,7 +32,7 @@
                 <div id="cuerpo">
                     <span>Productos</span>
 <!--<form action="carrito.php" method="post">-->
-                    <table>
+                    <table style="margin-left: 51px">
                         <tr>
                             <th>Codigo</th>
                             <th>Descripción</th>

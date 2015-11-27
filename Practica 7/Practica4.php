@@ -8,7 +8,7 @@
     <body>
         <div id="principal">
             <div id="cabecera">
-                <p>GESTISMAL</p>
+                <p>GESTISIMAL</p>
             </div>
             <div id="cuerpo">
                 <form action="Practica4/comprobacion.php" method="post">

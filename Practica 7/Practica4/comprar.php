@@ -31,7 +31,7 @@
                 </div>
                 <div id="cuerpo">
                     <span>Productos</span>
-                    <table>
+                    <table style="margin-left: 51px">
                         <tr>
                             <th>Codigo</th>
                             <th>Descripción</th>
