@@ -41,7 +41,7 @@
                             <option value="portatil">Portatil</option>
                             <option value="sobremesa">Sobremesa</option>
                         </select>
-                        <input id="boton" type="submit" value="Ordenar"> 
+                        <input id="boton" type="submit" value="Filtrar"> 
                     </form>
                     <span>Productos</span>
                     <!--<form action="carrito.php" method="post">-->
@@ -119,7 +119,7 @@
                                     <input type="hidden" name="descripcion" value="<?= $resultado->descripcion ?>">
                                     <input type="hidden" name="precioCompra" value="<?= $resultado->precioCompra ?>">
                                     <input type="hidden" name="precioVenta" value="<?= $resultado->precioVenta ?>">
-                                    <input type="hidden" name="precioVenta" value="<?= $resultado->categoria ?>">
+                                    <input type="hidden" name="categoria" value="<?= $resultado->categoria ?>">
                                     <input type="hidden" name="stock" value="<?= $resultado->stock ?>">
                                     <td><button id="boton" type="submit" value="<?= $resultado->codigo ?>" name="codigo">Vender</button></td>
                                     </tr>

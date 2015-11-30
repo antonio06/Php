@@ -41,7 +41,7 @@
                             <option value="portatil">Portatil</option>
                             <option value="sobremesa">Sobremesa</option>
                         </select>
-                        <input id="boton" type="submit" value="Ordenar"> 
+                        <input id="boton" type="submit" value="Filtrar"> 
                     </form>
                     <span>Productos</span>
                     <table style="margin-left: 51px">

@@ -4,20 +4,17 @@
 
 #principal{
     width: 1364px;
-    height: 665px;
+    height: auto;
     background-color: white;
-    //background-image:-webkit-gradient(linear,left top,left bottom,from(#F781F3),to(#FF00FF));
-    border: 1px solid black;
 }
 
 #cabecera{
     margin-left: 122px;
-    //border-bottom: 1px solid transparent;
     background-color: #00FFFF;
     border: 1px solid black;
     text-align: center;
     width: 1159px;
-    height: 100px;
+    height: auto;
     box-shadow: 1px 1px 1px 1px rgb(0,0,0);
 }
 
@@ -39,7 +36,7 @@ p{
     border: 1px solid black;
     text-align: center;
     width: 1159px;
-    height: 530px;
+    height: auto;
     background-color:#CEF6EC; 
     box-shadow: 1px 1px 1px 1px rgb(0,0,0);
     padding-left: 1px;

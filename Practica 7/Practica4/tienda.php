@@ -41,7 +41,7 @@
                             <option value="portatil">Portatil</option>
                             <option value="sobremesa">Sobremesa</option>
                         </select>
-                        <input id="boton" type="submit" value="Ordenar"> 
+                        <input id="boton" type="submit" value="Filtrar"> 
                     </form>
                     <div class="compraVenta"><span><a href="comprar.php">Comprar <i class="fa fa-cart-arrow-down"></i></a>
                             <a href="vender.php">Vender <i class="fa fa-credit-card"></i></a></span></div>
