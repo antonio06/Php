@@ -30,16 +30,31 @@
                     <?= $resultado->usuario ?> <a href="borrado.php"><i class="fa fa-user"></i></a> 
                 </div>
                 <div id="cuerpo">
+                    <?php
+                    try {
+                        // Conectamos con la base de datos
+                        $conexion = new PDO("mysql:host=localhost;dbname=gestisimal;charset=utf8", "root", "root");
+                    } catch (PDOException $e) {
+                        echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
+                        die("Error: " . $e->getMessage());
+                    }
+                    // Ejecutamos la query para obtener el nombre con el usuario introducido
+                    $consulta = $conexion->query("SELECT DISTINCT categoria FROM productos");
+                    // Obtenemos la siquiente fila y devuelve un objeto
+                    ?>
                     <form action="comprar.php" method="post">
                         <select name="opciones1">
                             <option value="codigo">Codigo</option>
                             <option value="stock">Stock</option>
                         </select>
                         <select name="opciones2">
-                            <option value="movil">Movil</option>
-                            <option value="tablet">Tablet</option>
-                            <option value="portatil">Portatil</option>
-                            <option value="sobremesa">Sobremesa</option>
+                            <?php
+                            while ($resultado = $consulta->fetchObject()) {
+                                ?>
+                                <option value="<?= $resultado->categoria ?>"><?= $resultado->categoria ?></option>
+                                <?php
+                            }
+                            ?>
                         </select>
                         <input id="boton" type="submit" value="Filtrar"> 
                     </form>

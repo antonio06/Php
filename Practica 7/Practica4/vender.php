@@ -30,16 +30,31 @@
                     <?= $resultado->usuario ?> <a href="borrado.php"><i class="fa fa-user"></i></a> 
                 </div>
                 <div id="cuerpo">
+                    <?php
+                    try {
+                        // Conectamos con la base de datos
+                        $conexion = new PDO("mysql:host=localhost;dbname=gestisimal;charset=utf8", "root", "root");
+                    } catch (PDOException $e) {
+                        echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
+                        die("Error: " . $e->getMessage());
+                    }
+                    // Ejecutamos la query para obtener el nombre con el usuario introducido
+                    $consulta = $conexion->query("SELECT DISTINCT categoria FROM productos");
+                    // Obtenemos la siquiente fila y devuelve un objeto
+                    ?>
                     <form action="vender.php" method="post">
                         <select name="opciones1">
                             <option value="codigo">Codigo</option>
                             <option value="stock">Stock</option>
                         </select>
                         <select name="opciones2">
-                            <option value="movil">Movil</option>
-                            <option value="tablet">Tablet</option>
-                            <option value="portatil">Portatil</option>
-                            <option value="sobremesa">Sobremesa</option>
+                            <?php
+                            while ($resultado = $consulta->fetchObject()) {
+                                ?>
+                                <option value="<?= $resultado->categoria ?>"><?= $resultado->categoria ?></option>
+                                <?php
+                            }
+                            ?>
                         </select>
                         <input id="boton" type="submit" value="Filtrar"> 
                     </form>
@@ -159,7 +174,6 @@
                             ?>
                             <div id="articulos">
                                 <form action="carrito.php" method="post">
-                                    Codigo: <?= $resultado->codigo ?><br>
                                     Descripción: <?= $resultado->descripcion ?><br>
                                     Categoría: <?= $resultado->categoria ?><br>
                                     Precio:<?= $resultado->precioVenta ?> €<br>
@@ -179,8 +193,14 @@
                     }
                     echo "<br>";
                     echo "Precio sin IVA " . $total . " € <br>";
+                    if ($total >= 500) {
+                        echo "Descuento por compra superior a 500 €  " . $descuento = ($total * 20) / 100 . "  € <br>";
+                    }else{
+                        $descuento = 0;
+                    }
                     echo "IVA del 21% <br>";
-                    echo "Precio Total " . ((($total * 21) / 100) + $total);
+                    echo "Total con IVA " . $totalSinDescuento = (($total * 21) / 100) + $total . "<br>";
+                    echo "Precio Total " . ($totalSinDescuento - $descuento);
                 }
                 ?>
             </div>
