@@ -22,9 +22,13 @@
                     die("Error: " . $e->getMessage());
                 }
                 // Ejecutamos la query para obtener el nombre con el usuario introducido
-                $consulta = $conexion->query("SELECT usuario FROM usuarioscontrasena where usuario='" . $_SESSION['usuario'] . "'");
+                // Permiso es un campo ENUM en la base de datos como FALSE Y TRUE
+                $consulta = $conexion->query("SELECT usuario, permiso FROM usuarioscontrasena where usuario='" . $_SESSION['usuario'] . "'");
                 // Obtenemos la siquiente fila y devuelve un objeto
                 $resultado = $consulta->fetchObject();
+                // guardo el resultado en una variable Por defecto si creo un usuario desde la página .php me lo pone como
+                // FALSE
+                $permiso = $resultado->permiso;
                 ?>
                 <div id="icono">
                     <?= $resultado->usuario ?> <a href="borrado.php"><i class="fa fa-user"></i></a> 
@@ -58,8 +62,21 @@
                         </select>
                         <input id="boton" type="submit" value="Filtrar"> 
                     </form>
-                    <div class="compraVenta"><span><a href="comprar.php">Comprar <i class="fa fa-cart-arrow-down"></i></a>
-                            <a href="vender.php">Vender <i class="fa fa-credit-card"></i></a></span></div>
+                    <?php
+                    // Si el resultado es TRUE el usuario tenemos acceso a Comprar y Vender
+                    if ($permiso === TRUE) {
+                        ?>
+                        <div class="compraVenta"><span><a href="comprar.php">Comprar <i class="fa fa-cart-arrow-down"></i></a>
+                                <a href="vender.php">Vender <i class="fa fa-credit-card"></i></a></span></div>
+                        <?php
+                        // En caso contrario solo tenemos acceso a Vender
+                    } else{
+                        ?>
+                        <div class="compraVenta"><span>
+                                <a href="vender.php">Vender <i class="fa fa-credit-card"></i></a></span></div>
+                        <?php
+                    }
+                    ?>
                     <form action="alta.php" method="post">
                         <table>
                             <tr>
