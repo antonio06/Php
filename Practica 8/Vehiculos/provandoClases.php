@@ -27,7 +27,7 @@ switch ($accion) {
         break;
 
     case "verKmCoche":
-        $coche1->getKilometros();
+        echo "El coche ha recorrido " . $coche1->getKilometros();
         break;
 
     case "andarBicicleta":
@@ -40,7 +40,7 @@ switch ($accion) {
         break;
 
     case "verKmBicicleta":
-        $bicicleta1->getKilometros();
+        echo "La bicicleta ha recorrido " . $bicicleta1->getKilometros();
         break;
 
     case "kmTotal";

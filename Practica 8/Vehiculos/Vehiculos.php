@@ -25,7 +25,7 @@ abstract class Vehiculos {
     }
     
     public function getKilometros() {
-        echo "Kilometros Recorridos " . $this->kilometrosRecorridos;
+        return $this->kilometrosRecorridos;
     }
     
     public static function getKmTotales () {

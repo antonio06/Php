@@ -3,8 +3,9 @@ include_once './Vehiculos.php';
 class coche extends Vehiculos {
 
     private $motor = 0;
+    private $ruedas ,$color;
 
-    
+
     public function __construct($motor) {
         parent::__construct($ruedas, $color);
         $this->motor = $motor;
