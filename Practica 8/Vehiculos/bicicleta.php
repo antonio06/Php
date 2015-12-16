@@ -5,7 +5,7 @@ include_once './Vehiculos.php';
 class bicicleta extends Vehiculos {
 
     private $pedales = 0;
-
+    private $ruedas, $color;
 // Setter parecido a hacer $color = "rojo";
 // Getter como hacer un echo a la variable $color;
     
