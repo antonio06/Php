@@ -1,16 +1,17 @@
 <?php
-include_once './Vehiculos.php';
-class coche extends Vehiculos {
+
+include_once './Vehiculo.php';
+
+class Coche extends Vehiculo {
 
     private $motor = 0;
-    private $ruedas ,$color;
+    private $ruedas, $color;
 
-
-    public function __construct($motor) {
+    public function __construct($ruedas, $color, $motor) {
         parent::__construct($ruedas, $color);
         $this->motor = $motor;
     }
-    
+
     public function getRuedas($ruedas) {
         return $this->ruedas = $ruedas;
     }
@@ -30,5 +31,5 @@ class coche extends Vehiculos {
     public function quemarRuedas() {
         echo "Estoy quemando las ruedas";
     }
-    
+
 }

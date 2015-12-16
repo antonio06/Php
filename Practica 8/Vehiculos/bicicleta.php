@@ -1,17 +1,18 @@
 <?php
 
-include_once './Vehiculos.php';
+include_once './Vehiculo.php';
 
-class bicicleta extends Vehiculos {
+class Bicicleta extends Vehiculo {
 
-    private $pedales = 0;
-    private $ruedas, $color;
+    private $pinones = 0;
+   
+
 // Setter parecido a hacer $color = "rojo";
 // Getter como hacer un echo a la variable $color;
-    
-    public function __construct($pedales) {
+
+    public function __construct($ruedas, $color, $pinones) {
         parent::__construct($ruedas, $color);
-        $this->pedales = $pedales;
+        $this->pinones = $pinones;
     }
 
     public function getRuedas($ruedas) {
