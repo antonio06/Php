@@ -53,7 +53,6 @@ if (isset($_POST["vender"])) {
             $resultado["mensaje"] = "La zona que has seleccionado no existe.";
             break;
     }
-
     // Actualizamos las entradas en la sesión (para mantener los datos)
     $_SESSION['entradas'] = [$zonaPrincipal->getEntradas(), $zonaCompraVenta->getEntradas(), $zonaVIP->getEntradas()];
 }

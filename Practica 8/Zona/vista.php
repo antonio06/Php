@@ -41,7 +41,6 @@
                 <li>Entradas de la Zona Compra-Venta: {{entradasCompraVenta}}</li>
                 <li>Entradas de la Zona VIP: {{entradasVIP}}</li>
             </ul>
-
         </div>
     </body>
 </html>
