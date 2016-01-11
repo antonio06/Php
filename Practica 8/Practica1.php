@@ -36,7 +36,7 @@ if (isset($_POST["tirar"])) {
     $_SESSION["tiradas"]+=DadoPoker::getTiradasTotales();
 
     // Creamos la respuesta para inyectarla en la vista
-    $resultado = "<ul>";
+    $resultado .= "<ul>";
     $resultado .= "<li> Dado1 ha sacado " . $dado1->nombreFigura() . "</li>";
     $resultado .= "<li> Dado2 ha sacado " . $dado2->nombreFigura() . "</li>";
     $resultado .= "<li> Dado3 ha sacado " . $dado3->nombreFigura() . "</li>";

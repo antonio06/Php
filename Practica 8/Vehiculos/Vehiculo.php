@@ -37,6 +37,8 @@ abstract class Vehiculo {
 
     // Creo un setter donde recivo los kmTotales 
     // y los guardo en el atributo de clase
+    // Si una variable es static significa que existe una única copia de ella en
+    // todo el programa si no ponemos static significa que hay n copias de ella
     public static function setKmTotales($kmTotales) {
         return self::$kmTotales = $kmTotales;
     }

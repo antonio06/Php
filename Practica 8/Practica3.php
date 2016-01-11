@@ -1,4 +1,6 @@
 <?php
+// REALIZAR ESTE MISMO EJERCICIO USANDO UN .TXT PARA GUARDAR LAS ENTRADAS O UN .JSON O UNA BASE DE DATOS SQL
+
 
 // Necesitamos las sesiones para almacenar los cambios de las ventas
 session_start();
@@ -22,7 +24,7 @@ $resultado = array(
     "mensaje" => "",
     "entradasPrincipal" => $zonaPrincipal->getEntradas(),
     "entradasCompraVenta" => $zonaCompraVenta->getEntradas(),
-    "entradasVIP" => $zonaVIP->getEntradas(),
+    "entradasVIP" => $zonaVIP->getEntradas()
 );
 
 
@@ -73,3 +75,10 @@ actualizarVista($vista, $resultado);
 // Mostramos la vista
 header("Content-type: text/html");
 echo $vista;
+
+/*$miresultado = array(
+    "entradasPrincipal" => $zonaPrincipal->getEntradas(),
+    "entradasCompraVenta" => $zonaCompraVenta->getEntradas(),
+    "entradasVIP" => $zonaVIP->getEntradas()
+);
+echo json_encode($miresultado);*/
