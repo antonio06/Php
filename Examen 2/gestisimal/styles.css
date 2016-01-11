@@ -1,0 +1,108 @@
+*{
+    margin: 0px;
+}
+
+#principal{
+    width: 1364px;
+    height: auto;
+    background-color: white;
+}
+
+#cabecera{
+    margin-left: 122px;
+    background-color: #00FFFF;
+    border: 1px solid black;
+    text-align: center;
+    width: 1159px;
+    height: auto;
+    box-shadow: 1px 1px 1px 1px rgb(0,0,0);
+}
+
+@font-face{
+    font-family: miFuente;
+    src: url('miFuente/gaban-outline-italic-FFP.ttf') format("truetype");
+}   
+
+p{
+    font-family: miFuente;
+    font-size: 60px;
+    padding: 10px;
+    color: white;
+}
+
+#cuerpo{
+    border-top: 1px solid transparent;
+    margin-left: 122px;
+    border: 1px solid black;
+    text-align: center;
+    width: 1159px;
+    height: auto;
+    background-color:#CEF6EC; 
+    box-shadow: 1px 1px 1px 1px rgb(0,0,0);
+    padding-left: 1px;
+    padding-top: 30px;
+}
+
+#boton{
+    margin-top: 4px;
+    height: 30px;
+    width: 80px;
+    color: white;
+    background: green;
+    border-radius: 10%;
+    border: 0px;
+}
+
+#formulario{
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+span{
+    font-size: 20px;
+}
+
+img{
+    width: 120px;
+    height: 120px;
+}
+
+#titulo{
+    margin-left: 250px;
+    float: left;
+}
+
+#articulos{
+    display: inline-block;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+#icono{
+    margin-left: 1206px;
+    background-repeat: no-repeat;
+    margin-top: -18px;
+}
+
+table, tr, td{
+    margin-left: -1px;
+    border: 1px solid green;
+    border-collapse: collapse;
+}
+th{
+    background-color: green;
+    text-align: center;
+}
+
+td{
+    width: 139px;
+    background-color: white;
+    text-align: center;
+}
+
+
+div span a{
+    text-decoration: none;
+    float: right;
+    margin-left: 15px;
+}
