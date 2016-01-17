@@ -11,9 +11,9 @@
         
         $rectangulo1 = new Rectangulo("*", 5, 4);
         $piramide1 = new Piramide("-", 5);
-        echo $rectangulo1;
-        echo "<br>";
-        echo $piramide1;
+        echo "<pre>" . $rectangulo1 . "</pre>";
+        echo  "<br>";
+        echo "<pre>" . $piramide1 . "</pre>";
         ?>
     </body>
 </html>

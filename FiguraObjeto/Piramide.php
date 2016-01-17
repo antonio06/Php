@@ -18,7 +18,7 @@ class Piramide extends Figura {
         $huecosEnMedio = 1;
 
         for ($bucle1 = 0; $bucle1 < $huecosDelante; $bucle1++) {
-            $inprimir .= "&nbsp;";
+            $inprimir .= " ";
         }
         $inprimir .= $this->caracter;
         $inprimir .= "<br>";
@@ -27,11 +27,11 @@ class Piramide extends Figura {
 
         for ($bucle2 = 0; $bucle2 < $alturaReal; $bucle2++) {
             for ($bucle3 = 0; $bucle3 < $huecosDelante; $bucle3++) {
-                $inprimir .= "&nbsp;";
+                $inprimir .= " ";
             }
             $inprimir .= $this->caracter; 
             for ($bucle4 = 0; $bucle4 < $huecosEnMedio; $bucle4++) {
-                $inprimir .= "&nbsp;";
+                $inprimir .= " ";
             }
             $inprimir .= $this->caracter;
            $inprimir .= "<br>";

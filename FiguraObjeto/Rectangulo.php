@@ -22,7 +22,7 @@ class Rectangulo extends Figura {
         for ($b = 0; $b < ($this->altura) - 2; $b++) {
             $inprimir .= $this->caracter;
             for ($c = 0; $c <($this->base) - 2; $c++) {
-                $inprimir .= "&nbsp;";
+                $inprimir .= " ";
             }
             $inprimir .= $this->caracter;
             $inprimir .= "<br>";
