@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
         <title>GESTISMAL</title>
         <link type="text/css" rel="stylesheet" href="Practica4/styles.css">
-        <link rel="stylesheet" rel="stylesheet" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/font-awesome.css">
     </head>
     <body>
         <div id="principal">

@@ -111,6 +111,23 @@ class Actividad {
         $this->IVA = $IVA;
     }
 
+    public function getActividades() {
+        $conexion = ActividadesDB::connectDB();
+        $seleccion = "SELECT * FROM actividad";
+        $consulta = $conexion->query($seleccion);
+
+        $actividades = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            $actividades[] = new Actividad($registro->codigo, $registro->titulo, $registro->estado
+                    , $registro->cordinador, $registro->ubicacion, $registro->fecha
+                    , $registro->horarios, $registro->totalHoras, $registro->precioTotal
+                    , $registro->IVA);
+        }
+
+        return $actividades;
+    }
+
     /**
      * Inserta una actividad en la base de datos.
      * @param number $codigo código numérico que identifica a la actividad.
@@ -126,11 +143,13 @@ class Actividad {
      */
     public function insert() {
         $conexion = ActividadesDB::connectDB();
-        $inserta = "INSERT INTO actividades (codigo, titulo, estado, coordinador"
+        $inserta = "INSERT INTO actividad (codigo, titulo, estado, cordinador"
                 . ", ubicacion, fecha, horarios, totalHoras, precioTotal, IVA)"
-                . "VALUES ('$this->codigo', '$this->titulo', '$this->estado',"
-                . "'$this->cordinador', '$this->ubicacion', '$this->fecha',"
-                . "'$this->horarios', '$this->totalHoras', '$this->IVA')";
+                . "VALUES (\"" . $this->codigo . "\", \"" . $this-> titulo . 
+                "\", \"" . $this->estado . "\" , \"" . $this->cordinador .
+                "\", \"" . $this->ubicacion . "\", \"" . $this->fecha . 
+                "\", \"" . $this->horarios . "\", \"" . $this->totalHoras .
+                "\", \"" . $this->precioTotal . "\", \"" . $this->IVA . "\")";
         $conexion->exec($inserta);
     }
 
@@ -140,7 +159,7 @@ class Actividad {
      */
     public function delete() {
         $conexion = ActividadesDB::connectDB();
-        $borrar = "DELETE FROM actividades WHERE codigo='" . $this->codigo . "'";
+        $borrar = "DELETE FROM actividad WHERE codigo='" . $this->codigo . "'";
         $conexion->exec($borrar);
     }
 
@@ -167,7 +186,7 @@ class Actividad {
                 . $precioTotal . "', IVA='" . $IVA . "'";
         $conexion->exec($modificar);
     }
-    
+
     /**
      * Selecciona los campos de la tabla según el campo y valor.
      * @param string $campo campo correspondiente a la base de datos.
@@ -183,10 +202,10 @@ class Actividad {
         $actividades = [];
 
         while ($registro = $consulta->fetchObject()) {
-            $actividades[] = new Actividad($codigo->codigo, $titulo->titulo, $estado->estado
-                    , $coordinador->coordinador, $ubicacion->ubicacion, $fecha->fecha
-                    , $horarios->horarios, $totalHoras->totalHoras, $precioTotal->precioTotal
-                    , $IVA->IVA);
+            $actividades[] = new Actividad($registro->codigo, $registro->titulo, $registro->estado
+                    , $registro->coordinador, $registro->ubicacion, $registro->fecha
+                    , $registro->horarios, $registro->totalHoras, $registro->precioTotal
+                    , $registro->IVA);
         }
 
         return $actividades;
@@ -200,7 +219,7 @@ class Actividad {
     public function getActividadByCodigo($codigo) {
         $conexion = ActividadesDB::connectDB();
         $selecciona = "SELECT codigo, titulo, estado, coordinador, ubicacion,"
-                . "fecha, horarios, totalHoras, precioTotal, IVA FROM actividades"
+                . "fecha, horarios, totalHoras, precioTotal, IVA FROM actividad"
                 . " WHERE codigo='" . $codigo . "'";
         $consulta = $conexion->query($selecciona);
         $registro = $consulta->fetchObject();
