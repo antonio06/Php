@@ -52,7 +52,9 @@
                                 <td>{{actividad.totalHoras}}</td>
                                 <td>{{actividad.precioTotal}}</td>
                                 <td>{{actividad.IVA}}</td>
-                                <td><a href="../Controller/baja.php"><i class="fa fa-times"></i></a>  <a href="../Controller/modificar.php"><i class="fa fa-pencil"></i></a></td>
+                                <td>
+                                    <a href="../Controller/baja.php?codigo={{actividad.codigo}}"><i class="fa fa-trash"></i></a><a href="../Controller/modificar.php?codigo={{actividad.codigo}}"><i class="fa fa-pencil"></i></a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Actividades BIN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../View/css/font-awesome.css">
+        <link rel="stylesheet" href="../View/css/bootstrap.min.css" >
+    </head>
+    <body>
+        <div class="container">
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">
+                    <h1>Actividades BIN</h1>
+                </div>
+                <div class="col-xs-3">
+                    <form action="modificarRegistro.php" method="post">
+                        {% for actividad in actividades %}
+                            <span>Código</span>
+                            <input type="number" class="form-control" readonly="codigo" value="{{actividad.codigo}}">
+                        {% endfor %}
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

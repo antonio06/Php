@@ -159,7 +159,7 @@ class Actividad {
      */
     public function delete() {
         $conexion = ActividadesDB::connectDB();
-        $borrar = "DELETE FROM actividad WHERE codigo='" . $this->codigo . "'";
+        $borrar = "DELETE FROM actividad WHERE codigo=\"" . $this->codigo . "\"";
         $conexion->exec($borrar);
     }
 
@@ -218,15 +218,15 @@ class Actividad {
      */
     public function getActividadByCodigo($codigo) {
         $conexion = ActividadesDB::connectDB();
-        $selecciona = "SELECT codigo, titulo, estado, coordinador, ubicacion,"
+        $selecciona = "SELECT codigo, titulo, estado, cordinador, ubicacion,"
                 . "fecha, horarios, totalHoras, precioTotal, IVA FROM actividad"
-                . " WHERE codigo='" . $codigo . "'";
+                . " WHERE codigo=\"" . $codigo . "\"";
         $consulta = $conexion->query($selecciona);
         $registro = $consulta->fetchObject();
-        $actividad = new Actividad($codigo->codigo, $titulo->titulo, $estado->estado
-                , $coordinador->coordinador, $ubicacion->ubicacion, $fecha->fecha
-                , $horarios->horarios, $totalHoras->totalHoras, $precioTotal->precioTotal
-                , $IVA->IVA);
+        $actividad = new Actividad($registro->codigo, $registro->titulo, $registro->estado
+                , $registro->cordinador, $registro->ubicacion, $registro->fecha
+                , $registro->horarios, $registro->totalHoras, $registro->precioTotal
+                , $registro->IVA);
 
         return $actividad;
     }
