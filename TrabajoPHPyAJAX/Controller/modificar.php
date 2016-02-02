@@ -7,7 +7,7 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../View');
 $twig = new Twig_Environment($loader);
 
-$actividades = new Actividad ($_GET['codigo'], "", "", "", "", "", "", "", "", "");
-$actividades->getActividadByCodigo($_GET['codigo']);
-echo $twig->render('formularioModificar.html.twig', ["actividades" => $actividades]);
+$actividad = Actividad::getActividadByCodigo($_GET['codigo']);
+
+echo $twig->render('formularioModificar.html.twig', ["actividad" => $actividad]);
 

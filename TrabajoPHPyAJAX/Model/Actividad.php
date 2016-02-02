@@ -176,14 +176,16 @@ class Actividad {
      * @param integer $precioTotal precio total nuevo introducido por el usuario
      * @param string $IVA IVA nuevo introducido por el usuario
      */
-    public function update($codigo, $titulo, $estado, $coordinador, $ubicacion, $fecha, $horarios, $totalHoras, $precioTotal, $IVA) {
+    public function update() {
         $conexion = ActividadesDB::connectDB();
-        $modificar = "UPDATE actividades Set codigo='" . $codigo . "', "
-                . "titulo='" . $titulo . "', estado='" . $estado . "'"
-                . ", coordinador='" . $coordinador . "', ubicacion='"
-                . $ubicacion . "', fecha='" . $fecha . "', horarios='"
-                . $horarios . "', totalHoras='" . $totalHoras . "', precioTotal='"
-                . $precioTotal . "', IVA='" . $IVA . "'";
+        $modificar = "UPDATE actividad Set codigo=\"" . $this->codigo . "\", titulo=\"" .
+                $this->titulo . "\", estado=\"" . $this->estado . 
+                "\", cordinador=\"" . $this->cordinador . "\", ubicacion=\"" . 
+                $this->ubicacion . "\" , fecha=\"" . $this->fecha . "\", horarios=\"" .
+                $this->horarios . "\" , totalHoras=\"" . $this->totalHoras . "\", precioTotal=\"" .
+                $this->precioTotal . "\", IVA=\"" . $this->IVA . "\" WHERE codigo=" . 
+                $this->codigo;
+        //echo $modificar;
         $conexion->exec($modificar);
     }
 
@@ -216,7 +218,7 @@ class Actividad {
      * @param string $codigo codigo correspondiente a la actividad.
      * @return array devuelve un objetos que cumple la consulta.
      */
-    public function getActividadByCodigo($codigo) {
+    public static function getActividadByCodigo($codigo) {
         $conexion = ActividadesDB::connectDB();
         $selecciona = "SELECT codigo, titulo, estado, cordinador, ubicacion,"
                 . "fecha, horarios, totalHoras, precioTotal, IVA FROM actividad"

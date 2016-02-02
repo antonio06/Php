@@ -11,3 +11,4 @@ $actividades = new Actividad($_GET['codigo'], "", "", "", "", "", "", "","", "")
 $actividades->delete();
 echo $twig->render('principal.html.twig', ["actividades" => $actividades]);
 
+header("Location: ../index.php");

@@ -1,0 +1,77 @@
+[{
+        "nombre": "Coldplay1",
+        "discografia": [{
+                "nombre": "Mylo Xyloto",
+                "canciones": [{
+                        "nombre": "Hurts Like Heaven"
+                    }, {
+                        "nombre": "Major Minus"
+                    }, {
+                        "nombre": "mmmmmmm"
+                    }, {
+                        "nombre": "Paradise"
+                    }, {
+                        "nombre": "xxaxaxaxaxa"
+                    }, {
+                        "nombre": "zazazazaz"
+                    }]
+            }, {
+                "nombre": "Viva la Vida",
+                "canciones": [{
+                        "nombre": "Cemeteries Of London"
+                    }, {
+                        "nombre": "Life In Technicolor"
+                    }, {
+                        "nombre": "Lovers In Japan"
+                    }]
+            }, {
+                "nombre": "zzzzz",
+                "canciones": [{
+                        "nombre": "sasasasas"
+                    }]
+            }]
+    }, {
+        "nombre": "Pearl Jam1",
+        "discografia": [{
+                "nombre": "Live On Ten Legs ",
+                "canciones": [{
+                        "nombre": "Arms Aloft"
+                    }, {
+                        "nombre": "World Wide Suicide"
+                    }, {
+                        "nombre": "zazaza"
+                    }]
+            }, {
+                "nombre": "Ten ",
+                "canciones": [{
+                        "nombre": "Jeremy"
+                    }, {
+                        "nombre": "Once"
+                    }]
+            }]
+    }, {
+        "nombre": "Radiohead1",
+        "discografia": [{
+                "nombre": "Boy",
+                "canciones": [{
+                        "nombre": "Twilight"
+                    }]
+            }, {
+                "nombre": "No Line On The Horizon",
+                "canciones": [{
+                        "nombre": "Get On Your Boots"
+                    }, {
+                        "nombre": "Magnificent"
+                    }]
+            }, {
+                "nombre": "October",
+                "canciones": [{
+                        "nombre": "Stranger In a Strange Land"
+                    }, {
+                        "nombre": "Tomorrow"
+                    }]
+            }]
+    }, {
+        "nombre": "U3",
+        "discografia": []
+    }]

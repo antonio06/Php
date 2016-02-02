@@ -14,13 +14,31 @@
                     <h1>Actividades BIN</h1>
                 </div>
                 <div class="col-xs-3">
-                    <form action="modificarRegistro.php" method="post">
-                        {% for actividad in actividades %}
-                            <span>Código</span>
-                            <input type="number" class="form-control" readonly="codigo" value="{{actividad.codigo}}">
-                        {% endfor %}
+                    <form action="../Controller/modificarRegistro.php" method="post" >
+                    
+                            <span>Código:</span>
+                            <input type="number" class="form-control" name="codigo" readonly="codigo" value="{{ actividad.codigo }}"><br>
+                            <span>Titulo:</span>
+                            <input type="text" name="titulo" class="form-control" value="{{ actividad.titulo }}"><br>
+                            <span>Estado:</span>
+                            <input type="text" name="estado" class="form-control" value="{{ actividad.estado }}"><br>
+                            <span>Cordinador:</span>
+                            <input type="text" name="cordinador" class="form-control" value="{{ actividad.cordinador }}"><br>
+                            <span>Ubicación:</span>
+                            <input type="text" name="ubicacion" class="form-control" value="{{ actividad.ubicacion }}"><br>
+                            <span>Fecha:</span>
+                            <input type="date" class="form-control" name="fecha" value="{{ actividad.fecha }}"><br>
+                            <span>Horarios:</span>
+                            <input type="time" name="horarios" class="form-control" value="{{ actividad.horarios }}"><br>
+                            <span>Total Horas:</span>
+                            <input type="number" name="totalHoras" class="form-control" value="{{ actividad.totalHoras }}"><br>
+                            <span>Precio Total:</span>
+                            <input type="number" name="precioTotal" class="form-control" value="{{ actividad.precioTotal }}"><br>
+                            <span>IVA:</span>
+                            <input type="text" name="IVA" class="form-control" value="{{ actividad.IVA }}"><br>
+                            <button type="submit" value="modificar" class="btn btn-success" name="opciones">Modificar</button>
+                            <button type="submit" value="cancelar" class="btn btn-info" name="opciones">Cancelar</button>
                     </form>
-
                 </div>
             </div>
         </div>

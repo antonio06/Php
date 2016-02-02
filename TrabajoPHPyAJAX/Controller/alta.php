@@ -11,3 +11,5 @@ $actividades = new Actividad($_POST['codigo'], $_POST['titulo'], $_POST['estado'
 
 $actividades->insert();
 echo $twig->render('principal.html.twig', ["actividades"=>$actividades]);
+header("Location: ../index.php");
+
