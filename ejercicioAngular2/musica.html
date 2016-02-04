@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html ng-app="musica">
+<head>
+<meta charset="utf-8">
+<title>MUSICA</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="angular.min.js"></script>
+	<script src="app.js"></script>
+</head>
+
+<body>
+
+<div ng-controller="artistasController">
+	<div class="caja">
+    <p class="titulo">ARTISTAS<p>
+    	<ul class="lista" ng-repeat="art in artistas" >
+        	<li  class="borderArtista"  ng-click="mostrarDiscos = !mostrarDiscos">{{ art.nombre }}</li>
+            <ul class="lista" ng-repeat="dis in art.discografia" ng-show="mostrarDiscos">
+            	<li  class="borderAlbum" ng-click="mostrarCanciones = !mostrarCanciones">{{ dis.nombre }}</li>
+                <ul class="lista" ng-repeat="can in dis.canciones" ng-show="mostrarCanciones">
+            		<li class="borderCancion">{{ can.nombre }}</li>
+        		</ul>
+        	</ul>
+        </ul>
+    </div>
+</div>
+
+
+</body>
+</html>
