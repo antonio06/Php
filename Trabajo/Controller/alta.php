@@ -9,6 +9,7 @@ $actividades = new Actividad($_POST['codigo'], $_POST['titulo'], $_POST['estado'
         $_POST['cordinador'], $_POST['ubicacion'], $_POST['fecha'], 
         $_POST['horarios'], $_POST['totalHoras'], $_POST['precioTotal'], $_POST['IVA']);
 
+
 $actividades->insert();
 echo $twig->render('principal.html.twig', ["actividades"=>$actividades]);
 header("Location: ../index.php");

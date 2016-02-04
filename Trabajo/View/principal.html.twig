@@ -37,23 +37,27 @@
                             <td><input type="time" name="horarios"></td>
                             <td><input type="number" style="width: 50px" name="totalHoras"></td>
                             <td><input type="number" style="width: 70px" name="precioTotal"></td>
-                            <td><input type="text" style="width: 70px" name="IVA"></td>
+                            <td><select name="IVA">
+                                    <option>Si</option>
+                                    <option>No</option>
+                                </select></td>
                             <td><input type="submit" class="btn btn-primary" value="Insertar"></td>
+
                         </tr>
                         {% for actividad in actividades %}
                             <tr>
-                                <td>{{actividad.codigo}}</td>
-                                <td>{{actividad.titulo}}</td>
-                                <td>{{actividad.estado}}</td>
-                                <td>{{actividad.cordinador}}</td>
-                                <td>{{actividad.ubicacion}}</td>
-                                <td>{{actividad.fecha}}</td>
-                                <td>{{actividad.horarios}}</td>
-                                <td>{{actividad.totalHoras}}</td>
-                                <td>{{actividad.precioTotal}}</td>
-                                <td>{{actividad.IVA}}</td>
+                                <td>{{ actividad.codigo }}</td>
+                                <td>{{ actividad.titulo }}</td>
+                                <td>{{ actividad.estado }}</td>
+                                <td>{{ actividad.cordinador }}</td>
+                                <td>{{ actividad.ubicacion }}</td>
+                                <td>{{ actividad.fecha }}</td>
+                                <td>{{ actividad.horarios }}</td>
+                                <td>{{ actividad.totalHoras }}</td>
+                                <td>{{ actividad.precioTotal }}</td>
+                                <td>{{ actividad.IVA }}</td>
                                 <td>
-                                    <a href="../Controller/baja.php?codigo={{actividad.codigo}}"><i class="fa fa-trash"></i></a><a href="../Controller/modificar.php?codigo={{actividad.codigo}}"><i class="fa fa-pencil"></i></a>
+                                    <a href="../Controller/baja.php?codigo={{ actividad.codigo }}"><i class="fa fa-trash"></i></a><a href="../Controller/modificar.php?codigo={{ actividad.codigo }}"><i class="fa fa-pencil"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}
