@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../View/css/font-awesome.css">
         <link rel="stylesheet" href="../View/css/bootstrap.min.css" >
+        <link rel="stylesheet" type="text/css" href="../View/css/ui-lightness/jquery-ui-1.10.3.custom.css"/>
+        <script src="../View/js/jquery-1.12.0.min.js"></script>
+        <script src="../View/js/jquery-ui-1.10.3.custom.js"></script>
+
     </head>
     <body>
         <div class="container">
@@ -13,58 +17,166 @@
                 <div class="panel-heading text-center">
                     <h1>Actividades BIN</h1>
                 </div>
-                <form action="../Controller/alta.php" method="post">
-                    <table class="table table-striped">
-                        <tr>
-                            <td>Código</td>
-                            <td>Título</td>
-                            <td>Estado</td>
-                            <td>Cordinador</td>
-                            <td>Ubicación</td>
-                            <td>Fecha</td>
-                            <td>Horarios</td>
-                            <td>Total Horas</td>
-                            <td>Precio Total</td>
-                            <td>IVA</td>
-                        </tr>
-                        <tr>
-                            <td><input type="number" style="width: 70px" name="codigo"></td>
-                            <td><input type="text" name="titulo"></td>
-                            <td><input type="text" style="width: 100px" name="estado"></td>
-                            <td><input type="text" name="cordinador"></td>
-                            <td><input type="text" style="width: 100px" name="ubicacion"></td>
-                            <td><input type="date" style="width: 140px" name="fecha"></td>
-                            <td><input type="time" name="horarios"></td>
-                            <td><input type="number" style="width: 50px" name="totalHoras"></td>
-                            <td><input type="number" style="width: 70px" name="precioTotal"></td>
-                            <td><select name="IVA">
-                                    <option>Si</option>
-                                    <option>No</option>
-                                </select></td>
-                            <td><input type="submit" class="btn btn-primary" value="Insertar"></td>
-
-                        </tr>
-                        {% for actividad in actividades %}
-                            <tr>
-                                <td>{{ actividad.codigo }}</td>
-                                <td>{{ actividad.titulo }}</td>
-                                <td>{{ actividad.estado }}</td>
-                                <td>{{ actividad.cordinador }}</td>
-                                <td>{{ actividad.ubicacion }}</td>
-                                <td>{{ actividad.fecha }}</td>
-                                <td>{{ actividad.horarios }}</td>
-                                <td>{{ actividad.totalHoras }}</td>
-                                <td>{{ actividad.precioTotal }}</td>
-                                <td>{{ actividad.IVA }}</td>
-                                <td>
-                                    <a href="../Controller/baja.php?codigo={{ actividad.codigo }}"><i class="fa fa-trash"></i></a><a href="../Controller/modificar.php?codigo={{ actividad.codigo }}"><i class="fa fa-pencil"></i></a>
-                                </td>
+                <div class="table-responsive">
+                    <form id="formActividad" action="../Controller/alta.php" method="post">
+                        <table id="tablaActividades" class="table table-striped">
+                            <tr class="row">
+                                <td class="col-md-1">Código</td>
+                                <td class="col-md-1">Título</td>
+                                <td class="col-md-1">Estado</td>
+                                <td class="col-md-1">Cordinador</td>
+                                <td class="col-md-1">Ubicación</td>
+                                <td class="col-md-1">Fecha</td>
+                                <td class="col-md-1">Horarios</td>
+                                <td class="col-md-1">Total Horas</td>
+                                <td class="col-md-1">Precio Total</td>
+                                <td class="col-md-1">IVA</td>
                             </tr>
-                        {% endfor %}
-                    </table>
-                </form>
+                            <tr class="row">
+                                <td class="col-md-1"><input type="number" style="width: 70px" name="codigo" required></td>
+                                <td class="col-md-1"><input type="text" name="titulo"></td>
+                                <td class="col-md-1"><input type="text" style="width: 100px" name="estado"></td>
+                                <td class="col-md-1"><input type="text" name="cordinador"></td>
+                                <td class="col-md-1"><input type="text" style="width: 100px" name="ubicacion"></td>
+                                <td class="col-md-1"><input type="date" style="width: 140px" name="fecha"></td>
+                                <td class="col-md-1"><input type="time" name="horarios"></td>
+                                <td class="col-md-1"><input type="number" style="width: 50px" name="totalHoras"></td>
+                                <td class="col-md-1"><input type="number" style="width: 70px" name="precioTotal"></td>
+                                <td class="col-md-1"><select name="IVA">
+                                        <option>Si</option>
+                                        <option>No</option>
+                                    </select></td>
+                                <td class="col-md-1"><input type="submit" class="btn btn-primary" value="Insertar"></td>
+                            </tr>
+                            {% for actividad in actividades %}
+                                <tr id="{{ actividad.codigo }}" class="row">
+                                    <td class="col-md-1">{{ actividad.codigo }}</td>
+                                    <td class="col-md-1">{{ actividad.titulo }}</td>
+                                    <td class="col-md-1">{{ actividad.estado }}</td>
+                                    <td class="col-md-1">{{ actividad.cordinador }}</td>
+                                    <td class="col-md-1">{{ actividad.ubicacion }}</td>
+                                    <td class="col-md-1">{{ actividad.fecha }}</td>
+                                    <td class="col-md-1">{{ actividad.horarios }}</td>
+                                    <td class="col-md-1">{{ actividad.totalHoras }}</td>
+                                    <td class="col-md-1">{{ actividad.precioTotal }}</td>
+                                    <td class="col-md-1">{{ actividad.IVA }}</td>
+                                    <td class="col-md-1">
+                                        <a class="eliminarActividad" href="../Controller/baja.php?codigo={{ actividad.codigo }}"><i class="fa fa-trash"></i></a><a class="modificarActividad" href="../Controller/modificar.php?codigo={{ actividad.codigo }}"><i class="fa fa-pencil"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </form>
+                    <div id="dialogModificar">
+                        {% include 'formularioModificar.html.twig' %}
+                    </div>
+                </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                cargarEventos();
+                $("#dialogModificar").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        //BOTON DE INCREMENTAR
+                        Modificar: function () {
+                            //Ajax con post
+                            var dialog = $(this);
+                            var data = {};
+                            $("#formModificar").serializeArray().map(function (x) {
+                                data[x.name] = x.value;
+                            });
+                            $.post('../Controller/modificarRegistro.php', data, function (resultado) {
+                                if (!resultado.error) {
+                                    console.log(resultado.html);
+                                    $("tr#" + data.codigo).replaceWith(resultado.html);
+                                    //Cerrar la ventana de dialogo				
+                                    dialog.dialog("close");
+                                } else {
+                                    alert("Ops! no hemos podido modificar la actividad, inténtalo más tarde.");
+                                }
+                            }, "json");
+                        },
+                        Cancelar: function () {
+                            //Cerrar la ventana de dialogo
+                            $(this).dialog("close");
+                        }
+                    },
+                    open: function () {
+                        var datosActividad = $(this).data("datosActividad");
+                        var formulario = $("#formModificar")[0];
+                        $(formulario.codigo).val(datosActividad.codigo);
+                        $(formulario.titulo).val(datosActividad.titulo);
+                        $(formulario.estado).val(datosActividad.estado);
+                        $(formulario.cordinador).val(datosActividad.cordinador);
+                        $(formulario.ubicacion).val(datosActividad.ubicacion);
+                        $(formulario.fecha).val(datosActividad.fecha);
+                        $(formulario.horarios).val(datosActividad.horarios);
+                        $(formulario.totalHoras).val(datosActividad.totalHoras);
+                        $(formulario.precioTotal).val(datosActividad.precioTotal);
+                        $(formulario.IVA).find("option").filter(function () {
+                            return this.text === datosActividad.IVA;
+                        }).attr('selected', true);
+                    }
+                });
+            });
+
+            function cargarEventos() {
+                // Eventos de borrado.
+                $(".eliminarActividad").click(function (e) {
+                    e.preventDefault();
+                    var idActividad = $(this).parent().parent().prop("id");
+                    $.post("../Controller/baja.php", {codigo: idActividad}, function (resultado) {
+                        if (resultado) {
+                            $("tr#" + idActividad).remove();
+                        } else {
+                            alert("Ops! no hemos podido crear la actividad, inténtalo más tarde.");
+                        }
+                    });
+                });
+
+                // Eventos de edición.
+                $(".modificarActividad").click(function (e) {
+                    e.preventDefault();
+                    var tr = $(this).parent().parent();
+                    var datosActividad = {
+                        codigo: tr.find("td").eq(0).html(),
+                        titulo: tr.find("td").eq(1).html(),
+                        estado: tr.find("td").eq(2).html(),
+                        cordinador: tr.find("td").eq(3).html(),
+                        ubicacion: tr.find("td").eq(4).html(),
+                        fecha: tr.find("td").eq(5).html(),
+                        horarios: tr.find("td").eq(6).html(),
+                        totalHoras: tr.find("td").eq(7).html(),
+                        precioTotal: tr.find("td").eq(8).html(),
+                        IVA: tr.find("td").eq(9).html()
+                    }
+                    $("#dialogModificar").data("datosActividad", datosActividad).dialog("open");
+                });
+
+                // Evento de inserción.
+                $("#formActividad").submit(enviarFormulario);
+            }
+
+
+            function enviarFormulario(e) {
+                var formulario = $(this)[0];
+                e.preventDefault();
+                var data = $("#formActividad").serialize();
+                $.post("../Controller/alta.php", data, function (resultado) {
+                    if (!resultado.error) {
+                        formulario.reset();
+                        $("#tablaActividades").append(resultado.html);
+                    } else {
+                        alert("Ops! no hemos podido crear la actividad, inténtalo más tarde.");
+                    }
+
+                }, "json");
+            }
+
+        </script>
     </body>
 </html>
-

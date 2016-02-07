@@ -7,8 +7,10 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../View');
 $twig = new Twig_Environment($loader);
 
-$actividades = new Actividad($_GET['codigo'], "", "", "", "", "", "", "","", "");
-$actividades->delete();
-echo $twig->render('principal.html.twig', ["actividades" => $actividades]);
+$actividades = new Actividad($_POST['codigo'], "", "", "", "", "", "", "","", "");
 
-header("Location: ../index.php");
+echo $actividades->delete();
+
+//echo $twig->render('principal.html.twig', ["actividades" => $actividades]);
+
+//header("Location: ../index.php");

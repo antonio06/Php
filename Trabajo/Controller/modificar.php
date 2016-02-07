@@ -1,5 +1,4 @@
 <?php
-
 require_once 'twig/lib/Twig/Autoloader.php';
 require_once '../Model/ActividadesDB.php';
 require_once '../Model/Actividad.php';

@@ -3,5 +3,5 @@
 const HOST="localhost";
 const NOMBRE_DB="musica";
 const USUARIO_DB="root";
-const CLAVE_DB = "";
+const CLAVE_DB = "root";
 ?>

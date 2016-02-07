@@ -1,0 +1,15 @@
+<tr id="{{ actividad.codigo }}" class="row">
+    <td class="col-md-1">{{ actividad.codigo }}</td>
+    <td class="col-md-1">{{ actividad.titulo }}</td>
+    <td class="col-md-1">{{ actividad.estado }}</td>
+    <td class="col-md-1">{{ actividad.cordinador }}</td>
+    <td class="col-md-1">{{ actividad.ubicacion }}</td>
+    <td class="col-md-1">{{ actividad.fecha }}</td>
+    <td class="col-md-1">{{ actividad.horarios }}</td>
+    <td class="col-md-1">{{ actividad.totalHoras }}</td>
+    <td class="col-md-1">{{ actividad.precioTotal }}</td>
+    <td class="col-md-1">{{ actividad.IVA }}</td>
+    <td class="col-md-1">
+        <a class="eliminarActividad" href="../Controller/baja.php?codigo={{ actividad.codigo }}"><i class="fa fa-trash"></i></a><a class="modificarActividad" href="../Controller/modificar.php?codigo={{ actividad.codigo }}"><i class="fa fa-pencil"></i></a>
+    </td>
+</tr>

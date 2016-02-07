@@ -145,12 +145,12 @@ class Actividad {
         $conexion = ActividadesDB::connectDB();
         $inserta = "INSERT INTO actividad (codigo, titulo, estado, cordinador"
                 . ", ubicacion, fecha, horarios, totalHoras, precioTotal, IVA)"
-                . "VALUES (\"" . $this->codigo . "\", \"" . $this-> titulo . 
+                . "VALUES (\"" . $this->codigo . "\", \"" . $this->titulo .
                 "\", \"" . $this->estado . "\" , \"" . $this->cordinador .
-                "\", \"" . $this->ubicacion . "\", \"" . $this->fecha . 
+                "\", \"" . $this->ubicacion . "\", \"" . $this->fecha .
                 "\", \"" . $this->horarios . "\", \"" . $this->totalHoras .
                 "\", \"" . $this->precioTotal . "\", \"" . $this->IVA . "\")";
-        $conexion->exec($inserta);
+        return $conexion->exec($inserta);
     }
 
     /**
@@ -160,7 +160,7 @@ class Actividad {
     public function delete() {
         $conexion = ActividadesDB::connectDB();
         $borrar = "DELETE FROM actividad WHERE codigo=\"" . $this->codigo . "\"";
-        $conexion->exec($borrar);
+        return $conexion->exec($borrar);
     }
 
     /**
@@ -179,14 +179,14 @@ class Actividad {
     public function update() {
         $conexion = ActividadesDB::connectDB();
         $modificar = "UPDATE actividad Set codigo=\"" . $this->codigo . "\", titulo=\"" .
-                $this->titulo . "\", estado=\"" . $this->estado . 
-                "\", cordinador=\"" . $this->cordinador . "\", ubicacion=\"" . 
+                $this->titulo . "\", estado=\"" . $this->estado .
+                "\", cordinador=\"" . $this->cordinador . "\", ubicacion=\"" .
                 $this->ubicacion . "\" , fecha=\"" . $this->fecha . "\", horarios=\"" .
                 $this->horarios . "\" , totalHoras=\"" . $this->totalHoras . "\", precioTotal=\"" .
-                $this->precioTotal . "\", IVA=\"" . $this->IVA . "\" WHERE codigo=" . 
+                $this->precioTotal . "\", IVA=\"" . $this->IVA . "\" WHERE codigo=" .
                 $this->codigo;
         //echo $modificar;
-        $conexion->exec($modificar);
+        return $conexion->exec($modificar);
     }
 
     /**
