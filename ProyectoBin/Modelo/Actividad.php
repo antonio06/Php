@@ -212,7 +212,7 @@ class Actividad {
      * Modifica una actividad de la base de datos.
      * @param number $codigo código numérico que identifica a la actividad.
      * @param string $titulo titulo de la actividad.
-     * @param estado $estado estado en el que se encuentra la actividad.
+     * @param string $estado estado en el que se encuentra la actividad.
      * @param string $coordinador nombre del coordinador de la actividad.
      * @param string $ponente nombre del ponente de la actividad
      * @param string $ubicacion dirección donde se realizará la actividad.
@@ -239,6 +239,25 @@ class Actividad {
                 . $this->descriptor . "\", observaciones=\"" . $this->observaciones .
                 "\" WHERE codigo=" . $this->codigo;
         return $conexion->exec($modificar);
+    }
+    
+    /**
+     * Selecciona el código de la actividad y devuelve FALSE si encuentra más 
+     * de un registro de esa actividad y TRUE si no encuentra nada.
+     * este método se aplicará siempre que se quiera comprobar si existe un objeto 
+     * con ese código.
+     * @param number $codigo.
+     * @return boolean.
+     */
+    public static function getActividadByCodigo($codigo){
+        $conexion = ActividadesDB::connectDB();
+        $consulta = "SELECT codigo FROM actividad WHERE codigo=\"" . $codigo . "\"";
+        $registro = $consulta->fetchObject();
+        if($registro->rowCount()>0){
+            return FALSE;
+        }else{
+            return TRUE;
+        }
     }
 
 }

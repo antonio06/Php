@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="productos">
+    <head>
+        <title>Productos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="angular.min.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body>
+        <div ng-controller="productosController">
+            <div class="caja">
+                <p class="titulo">Productos</p>
+                <ul class="lista" ng-repeat="categoria in categorias">
+                    <li  class="borderArtista"  ng-click="mostrarCategorias = !mostrarCategorias">{{ categoria.nombre }}</li>
+                    <ul class="lista" ng-repeat="producto in categoria.productos" ng-show="mostrarCategorias">
+                        <li  class="borderAlbum" ng-click="mostrarProductos = !mostrarProductos">{{ producto.nombre}}</li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

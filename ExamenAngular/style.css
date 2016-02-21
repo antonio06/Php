@@ -1,0 +1,39 @@
+body{
+	text-align:center;
+}
+.titulo{
+	padding-bottom:0px;
+	margin-bottom:0px;
+	background-color:#FC0;
+	color:white;
+}
+
+.borderAlbum {
+	background-color:black;
+	color:white;
+	border:2px solid;
+	margin-top: 10px;
+}
+
+.borderArtista {
+	background-color:red;
+	color:white;
+	border:2px solid;
+	margin-top: 10px;
+}
+
+.borderCancion {
+
+}
+	
+.lista{
+	list-style:none;
+	list-style-position:outside;
+	padding-left:0px;
+}
+
+
+.caja{
+	width:250px;
+	margin:0 auto;
+}

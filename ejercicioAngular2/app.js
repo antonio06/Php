@@ -5,5 +5,11 @@
         $http.get("musicajson.php").success(function (data) {
             $scope.artistas = data;
         });
+
     });
+
 })();
+
+
+
+

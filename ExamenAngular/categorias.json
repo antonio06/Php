@@ -1,0 +1,49 @@
+[{
+	"idcategoria": 1,
+	"nombre": "Camaras Reflex",
+	"productos": [{
+		"idproducto": 3,
+		"nombre": "Canon EOS 1100D",
+		"cantidad": 0
+	}, {
+		"idproducto": 4,
+		"nombre": "Canon EOS 600D",
+		"cantidad": 1
+	}]
+}, {
+	"idcategoria": 2,
+	"nombre": "Camaras compactas",
+	"productos": [{
+		"idproducto": 5,
+		"nombre": "Sony DSC-W570",
+		"cantidad": 0
+	}, {
+		"idproducto": 6,
+		"nombre": "Kodak C123",
+		"cantidad": 1
+	}]
+}, {
+	"idcategoria": 3,
+	"nombre": "Objetivos",
+	"productos": [{
+		"idproducto": 7,
+		"nombre": "Objetivo EF 50 mm",
+		"cantidad": 1
+	}, {
+		"idproducto": 8,
+		"nombre": "Objetivo EF 17-40 mm",
+		"cantidad": 1
+	}]
+}, {
+	"idcategoria": 4,
+	"nombre": "  ",
+	"productos": [{
+		"idproducto": 9,
+		"nombre": "Toshiba Camileo S30",
+		"cantidad": 0
+	}, {
+		"idproducto": 10,
+		"nombre": "JVC GZ-HM650BEU",
+		"cantidad": 1
+	}]
+}]
