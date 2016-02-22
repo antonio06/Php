@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>BIN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../public/asset/css/materialize.min.css" >
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="../public/asset/js/jquery-1.12.0.min.js"></script>
+        <script src="../public/asset/js/jquery-ui-1.10.3.custom.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <header class="deep-orange darken-3 section">
+                <section class="container white-text center-align">
+                    <h1>Asociación Bin</h1>
+                </section>
+            </header>
+            <nav class="container">
+                <div class="nav-wrapper">
+                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                        <li><a href="../index.php">Actividades</a></li>
+                        <li><a href="formulario_login.html.twig">Login</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container">
+                <table class="highlight">
+                    <tr>
+                        <td>Título</td>
+                        <td>Estado</td>
+                        <td>Ubicación</td>
+                        <td>Fecha Inicio</td>
+                        <td>Fecha Fin</td>
+                        <td>Descriptor</td>
+                        <td></td>
+                    </tr>
+                    {% for actividad in actividades %}
+                        <tr>
+                            <td>{{ actividad.titulo }}</td>
+                            <td>{{ actividad.estado }}</td>
+                            <td>{{ actividad.ubicacion }}</td>
+                            <td>{{ actividad.fecha_inicio }}</td>
+                            <td>{{ actividad.fecha_fin }}</td>
+                            <td>{{ actividad.descriptor }}</td>
+                            <td><i class="material-icons">zoom_in</i></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
