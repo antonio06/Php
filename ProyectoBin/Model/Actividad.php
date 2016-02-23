@@ -8,7 +8,7 @@
 class Actividad {
 
     // Atributos de la clase Actividad
-    private $codigo;
+    private $codigo_actividad;
     private $titulo;
     private $estado;
     private $coordinador;
@@ -44,7 +44,7 @@ class Actividad {
     }
 
     // Getters y Setters
-    function getCodigo() {
+    function getCodigo_actividad() {
         return $this->codigo_actividad;
     }
 
@@ -84,7 +84,7 @@ class Actividad {
         return $this->horario_fin;
     }
 
-    function getN_Total_Horas() {
+    function getn_Total_Horas() {
         return $this->n_Total_Horas;
     }
 
@@ -104,8 +104,8 @@ class Actividad {
         return $this->observaciones;
     }
 
-    function setCodigo($codigo) {
-        $this->codigo = $codigo;
+    function setCodigo_actividad($codigo_actividad) {
+        $this->codigo_actividad = $codigo_actividad;
     }
 
     function setTitulo($titulo) {
@@ -186,10 +186,10 @@ class Actividad {
      */
     public function insert() {
         $conexion = BinDb::connectDB();
-        $inserta = "INSERT INTO actividad_actividad (codigo, titulo, estado, coordinador"
+        $inserta = "INSERT INTO codigo_actividad (codigo, titulo, estado, coordinador"
                 . ", ponente, ubicacion, fecha_inicio, fecha_fin, horario_inicio"
                 . ", horario_fin, n_Total_Horas, precio, IVA, descriptor, observaciones) "
-                . "VALUES (\"" . $this->codigo . "\", \"" . $this->titulo .
+                . "VALUES (\"" . $this->codigo_actividad . "\", \"" . $this->titulo .
                 "\", \"" . $this->estado . "\" , \"" . $this->coordinador .
                 "\", \"" . $this->ponente . "\", \"" . $this->ubicacion . "\", \"" . $this->fecha_inicio .
                 "\", \"" . $this->fecha_fin . "\", \"" . $this->horario_inicio . "\", \"" . $this->horario_fin .
@@ -249,7 +249,7 @@ class Actividad {
      * @param number $codigo.
      * @return boolean.
      */
-    public static function getActividadByCodigo($codigo_actividad) {
+    public static function existeCodigo($codigo_actividad) {
         $conexion = ActividadesDB::connectDB();
         $consulta = "SELECT codigo FROM actividad WHERE codigo_actividad=\"" . $codigo_actividad . "\"";
         $registro = $consulta->fetchObject();
@@ -278,4 +278,27 @@ class Actividad {
         return $actividades;
     }
 
+    
+    /**
+     * Selecciona los campos de la tabla según el codigo.
+     * @param string $codigo codigo correspondiente a la actividad.
+     * @return array devuelve un objetos que cumple la consulta.
+     */
+    public static function getActividadByCodigo($codigo_actividad) {
+        $conexion = BinDb::connectDB();
+        $selecciona = "SELECT codigo_actividad, titulo, estado, coordinador, ponente,"
+                . "ubicacion, fecha_inicio, fecha_fin, horario_inicio, horario_fin,"
+                . "n_Total_Horas, precio, IVA, descriptor, observaciones FROM actividad"
+                . " WHERE codigo_actividad=\"" . $codigo_actividad . "\"";
+        $consulta = $conexion->query($selecciona);
+        $registro = $consulta->fetchObject();
+        $actividad = new Actividad($registro->codigo_actividad, $registro->titulo
+                , $registro->estado, $registro->coordinador, $registro->ponente
+                , $registro->ubicacion, $registro->fecha_inicio, $registro->fecha_fin
+                , $registro->horario_inicio, $registro->horario_fin
+                , $registro->n_Total_Horas, $registro->precio, $registro->IVA, 
+                $registro->descriptor, $registro->observaciones);
+
+        return $actividad;
+    }
 }

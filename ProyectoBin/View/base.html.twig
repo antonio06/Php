@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>BIN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../public/asset/css/materialize.min.css" >
+        <link rel="stylesheet" href="../public/asset/css/font-awesome.min.css" >
+        <script type="text/javascript" src="../public/asset/js/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="../public/asset/js/jquery-ui-1.10.3.custom.js"></script>
+        <script type="text/javascript" src="../public/asset/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <div class="row">
+            <header class="indigo lighten-5 section">
+                <section class="container white-text center-align">
+                    <h1>Asociación Bin</h1>
+                </section>
+            </header>
+        {% block menuPrincipal %}{% endblock %}
+        <div class="container">
+        {% block contenido %}{% endblock %}
+    </div>
+</div>
+<footer class="page-footer indigo lighten-4">
+    <div class="footer-copyright">
+        <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

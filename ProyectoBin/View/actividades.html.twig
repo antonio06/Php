@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block menuPrincipal %}
+    <nav class="nav-wrapper">
+        <div class="nav-wrapper indigo lighten-3">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <li><a href="../Controller/actividades.php">Actividades</a></li>
+                <li><a href="../Controller/formulario_login.php">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block contenido %}
+    <table class="bordered">
+        <tr>
+            <td>Codigo</td>
+            <td>Título</td>
+            <td>Estado</td>
+            <td>Ubicación</td>
+            <td>Fecha Inicio</td>
+            <td>Fecha Fin</td>
+            <td>Descriptor</td>
+            <td></td>
+        </tr>
+        {% for actividad in actividades %}
+            <tr>
+                <td>{{ actividad.codigo_actividad }}</td>
+                <td>{{ actividad.titulo }}</td>
+                <td>{{ actividad.estado }}</td>
+                <td>{{ actividad.ubicacion }}</td>
+                <td>{{ actividad.fecha_inicio }}</td>
+                <td>{{ actividad.fecha_fin }}</td>
+                <td>{{ actividad.descriptor }}</td>
+                <td><a href="../Controller/detalles.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}  

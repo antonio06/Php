@@ -1,1 +1,31 @@
+{% extends 'base.html.twig' %}
 
+{% block menuPrincipal %}
+    <nav class="nav-wrapper">
+        <div class="nav-wrapper indigo lighten-3">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <li><a href="../Controller/actividades.php">Actividades</a></li>
+                <li><a href="../Controller/formulario_login.php">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+    <form class="col s12" action="../Controller/panelPrincipal.php">
+      <div class="row">
+        <div class="input-field col s4">
+          <input id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">Nombre del Usuario</label>
+        </div>
+        <div class="input-field col s4">
+            <input id="icon_telephone" type="password" class="validate">
+          <label for="icon_telephone">Contraseña</label>
+        </div>
+      </div>
+        <input class="waves-effect waves-light btn" type="submit" value="Insertar">
+    </form>
+  </div>
+{% endblock %}

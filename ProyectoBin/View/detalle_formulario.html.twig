@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block menuPrincipal %}
+    <nav class="nav-wrapper">
+        <div class="nav-wrapper indigo lighten-3">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <li><a href="actividades.php">Actividades</a></li>
+                <li><a href="../Controller/PartePublica/formulario_login.php">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.codigo_actividad}}</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.titulo}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.estado}}</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.coordinador}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.ponente}}</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.ubicacion}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.fecha_inicio}}</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.fecha_fin}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.horario_inicio}}</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.horario_fin}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.n_Total_Horas}}</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.precio}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.IVA}}</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.descriptor}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled id="disabled" type="text" class="validate">
+                    <label for="disabled">{{actividad.observaciones}}</label>
+                </div>
+            </div>
+        </form>
+        <a class="waves-effect waves-light btn" href="actividades.php">Volver</a>
+    </div>
+{% endblock %}
