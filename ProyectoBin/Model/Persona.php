@@ -315,4 +315,24 @@ class Persona {
         }
     }
 
+    
+    public function getPersonas() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT * FROM persona";
+        $consulta = $conexion->query($seleccion);
+
+        $actividades = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            $personas[] = new Persona($registro->codigo, $registro->DNI, $registro->nombre
+                    , $registro->apellido1, $registro->apellido2, $registro->perfil
+                    , $registro->foto, $registro->sexo, $registro->fecha_nac
+                    , $registro->direccion, $registro->municipio, $registro->provincia,
+                    $registro->pais, $registro->fecha_alta, $registro->fecha_baja, 
+                    $registro->n_Seguridad_Social, $registro->n_Cuenta_Bancaria
+                    , $registro->email, $registro->observaciones);
+        }
+
+        return $personas;
+    }
 }

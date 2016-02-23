@@ -1,0 +1,39 @@
+{% extends 'panelPrincipalBase.html.twig' %}
+{% block menuPrincipalPanel %}
+    <nav class="nav-wrapper">
+        <div class="nav-wrapper indigo lighten-3">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <li><a href="../Controller/gestionActividades.php">Gestion Actividades</a></li>
+                <li><a href="../Controller/gestionParticipantes.php">Gestion Participanes</a></li>
+                <li><a href="../Controller/gestionPersonas.php">Gestion Personas</a></li>
+                <li><a href="../Controller/gestionAdminContrasena.php">Gestion AdminContraseñas</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block contenidoPanel %}
+    <table class="bordered">
+        <tr>
+            <td>Codigo</td>
+            <td>DNI</td>
+            <td>Nombre</td>
+            <td>1 Apellido</td>
+            <td>2 Apellido</td>
+            <td>Sexo</td>
+            <td><a href="../Controller/nuevaPersona.php"><i class="fa fa-plus"></i></a></td>
+        </tr>
+        {% for persona in personas %}
+            <tr>
+                <td>{{ persona.codigo }}</td>
+                <td>{{ persona.DNI }}</td>
+                <td>{{ persona.nombre }}</td>
+                <td>{{ persona.apellido1 }}</td>
+                <td>{{ persona.apellido2 }}</td>
+                <td>{{ persona.sexo }}</td>
+                <td><a href="../Controller/detallesPersona.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
