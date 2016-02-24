@@ -18,9 +18,37 @@
         <tr>
             <td>Codigo</td>
             <td>Usuario</td>
-            <td>Contreseña</td>
+            <td>Contraseña</td>
             <td>Perfil</td>
             <td></td>
         </tr>
-    </table>
+        <tr>
+        <div class="row">
+            <form class="col s12" action="../Controller/login.php">
+                <td>
+                    <select class="browser-default">
+                        {% for codigo in codigos %}
+                            <option value="{{codigo.codigo}}">{{codigo.codigo}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+
+                <div class="input-field col s3">
+                    <td><input id="icon_telephone" type="text" class="validate"></td>
+                </div>
+                <div class="input-field col s3">
+                    <td><input id="icon_telephone" type="password" class="validate"></td>
+                </div>
+                <td>
+                    <select class="browser-default">
+                        {% for perfil in perfiles %}
+                            <option value="{{perfil.perfil}}">{{perfil.perfil}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td><input class="waves-effect waves-light btn" type="submit" value="Insertar"></td>
+            </form>
+        </div>
+    </tr>
+</table>
 {% endblock %}

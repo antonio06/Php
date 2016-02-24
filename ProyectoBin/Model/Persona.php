@@ -315,24 +315,65 @@ class Persona {
         }
     }
 
-    
+    /**
+     * Selecciona todas las personas.
+     * @return array.
+     */
     public function getPersonas() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM persona";
         $consulta = $conexion->query($seleccion);
 
-        $actividades = [];
+        $persona = [];
 
         while ($registro = $consulta->fetchObject()) {
             $personas[] = new Persona($registro->codigo, $registro->DNI, $registro->nombre
                     , $registro->apellido1, $registro->apellido2, $registro->perfil
                     , $registro->foto, $registro->sexo, $registro->fecha_nac
-                    , $registro->direccion, $registro->municipio, $registro->provincia,
-                    $registro->pais, $registro->fecha_alta, $registro->fecha_baja, 
-                    $registro->n_Seguridad_Social, $registro->n_Cuenta_Bancaria
+                    , $registro->direccion, $registro->municipio, $registro->provincia, $registro->pais, $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social, $registro->n_Cuenta_Bancaria
                     , $registro->email, $registro->observaciones);
         }
 
         return $personas;
     }
+
+    /**
+     * Selecciona todos los códigos de las personas.
+     * @return array.
+     */
+    public static function getCodigosPersona() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo FROM persona";
+        $consulta = $conexion->query($seleccion);
+
+        $codigos = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            $codigos[] = new Persona($registro->codigo, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        }
+        return $codigos;
+    }
+
+    /**
+     * Selecciona todos los códigos de las personas.
+     * @return array.
+     */
+    public static function getPerfilesPersona() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SHOW COLUMNS FROM usuarioscontrasena WHERE field='perfil'";
+        $consulta = $conexion->query($seleccion);
+
+        $perfiles = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            array_push($perfiles, $registro);
+        }
+        
+        for($a = 0; $a<count($perfiles); $a++){
+            $array [$a] = $perfiles[$a];
+        }
+        var_dump($array);
+        return $perfiles;
+    }
+
 }
