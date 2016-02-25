@@ -11,28 +11,30 @@
             </ul>
         </div>
     </nav>
-{% endblock %}
+    {% endblock %}
 
 {% block contenidoPanel %}
     <table class="bordered">
         <tr>
             <td>Codigo</td>
-            <td>DNI</td>
-            <td>Nombre</td>
-            <td>1 Apellido</td>
-            <td>2 Apellido</td>
-            <td>Sexo</td>
-            <td><a href="../Controller/nuevaPersona.php"><i class="fa fa-plus"></i></a></td>
+            <td>Título</td>
+            <td>Estado</td>
+            <td>Ubicación</td>
+            <td>Fecha Inicio</td>
+            <td>Fecha Fin</td>
+            <td>Descriptor</td>
+            <td><a href="../Controller/nuevaActividad.php"><i class="fa fa-plus"></i></a></td>
         </tr>
-        {% for persona in personas %}
+        {% for actividad in actividades %}
             <tr>
-                <td>{{ persona.codigo }}</td>
-                <td>{{ persona.DNI }}</td>
-                <td>{{ persona.nombre }}</td>
-                <td>{{ persona.apellido1 }}</td>
-                <td>{{ persona.apellido2 }}</td>
-                <td>{{ persona.sexo }}</td>
-                <td><a href="../Controller/detallesPersona.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
+                <td>{{ actividad.codigo_actividad }}</td>
+                <td>{{ actividad.titulo }}</td>
+                <td>{{ actividad.estado }}</td>
+                <td>{{ actividad.ubicacion }}</td>
+                <td>{{ actividad.fecha_inicio }}</td>
+                <td>{{ actividad.fecha_fin }}</td>
+                <td>{{ actividad.descriptor }}</td>
+                <td><a href="../Controller/detalles.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
             </tr>
         {% endfor %}
     </table>

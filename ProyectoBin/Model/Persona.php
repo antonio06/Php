@@ -362,17 +362,20 @@ class Persona {
         $conexion = BinDb::connectDB();
         $seleccion = "SHOW COLUMNS FROM usuarioscontrasena WHERE field='perfil'";
         $consulta = $conexion->query($seleccion);
-
         $perfiles = [];
 
-        while ($registro = $consulta->fetchObject()) {
-            array_push($perfiles, $registro);
+        $registro = $consulta->fetchObject();
+        $cadena = "";
+        foreach ($registro as $key => $value) {
+            if ($key == "Type") {
+                $cadena = $cadena . $value;
+            }
         }
+        substr($cadena, 4, -1);
+        $cadena = str_replace("'", "", $cadena);
+        $cadena = substr($cadena, 4, -1);
+        $perfiles = explode(",", $cadena);
         
-        for($a = 0; $a<count($perfiles); $a++){
-            $array [$a] = $perfiles[$a];
-        }
-        var_dump($array);
         return $perfiles;
     }
 
