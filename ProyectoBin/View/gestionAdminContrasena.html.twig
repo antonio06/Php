@@ -48,7 +48,17 @@
                     </select>
                 </td>
                 <td><input class="waves-effect waves-light btn" type="submit" value="Insertar"></td>
-
+                </tr>
+            </div>
+            <div class="row">
+                <tr>
+                    {% for usuarioContrasena in usuariosContrasenas %}
+                        <td>{{usuarioContrasena.codigo_persona}}</td>
+                        <td>{{usuarioContrasena.user}}</td>
+                        <td>{{usuarioContrasena.password}}</td>
+                        <td>{{usuarioContrasena.perfil}}</td>
+                        <td><a href="../Controller/modificarContrasena.php?codigo_persona={{ usuarioContrasena.codigo_persona }}"><i class="fa fa-pencil"></i></a> <a href="../Controller/borrarContrasena.php?codigo_persona={{ usuarioContrasena.codigo_persona }}"><i class="fa fa-trash"></i></a></td>
+                    {% endfor %}
                 </tr>
             </div>
         </table>
