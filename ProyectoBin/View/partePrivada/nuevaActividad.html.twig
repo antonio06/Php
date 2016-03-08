@@ -1,0 +1,96 @@
+{% extends 'panelPrincipalBase.html.twig' %}
+{% block menuPrincipalPanel %}
+    <nav class="nav-wrapper">
+        <div class="nav-wrapper indigo lighten-3">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestion Actividades</a></li>
+                <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestion Participanes</a></li>
+                <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestion Personas</a></li>
+                <li><a href="../../Controller/partePrivada/gestionAdminContrasena.php">Gestion AdminContraseñas</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block contenidoPanel %}
+    <div class="row">
+        <form class="col s12" action="../Controller/ingresarNuevaPersona.php">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="codigo">
+                    <label for="last_name">Nombre</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="nombre">
+                    <label for="last_name">Nombre</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="apellido1">
+                    <label for="last_name">1º Apellido</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="apellido2">
+                    <label for="last_name">2º Apellido</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="perfil">
+                    <label for="last_name">Perfil</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="foto">
+                    <label for="last_name">Foto/Logo</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="sexo">
+                    <label for="last_name">Sexo</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="date" class="validate" name="fecha_nac">
+                    <label for="last_name"></label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="direccion">
+                    <label for="last_name">Dirección</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="municipio">
+                    <label for="last_name">Municipio</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="provincia">
+                    <label for="last_name">Provincia</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="pais">
+                    <label for="last_name">Pais</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="date" class="validate" name="fecha_alta">
+                    <label for="last_name"></label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="date" class="validate" name="fecha_baja">
+                    <label for="last_name"></label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="n_Seguridad_Social">
+                    <label for="last_name">Nº Seguridad Social</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="n_Cuenta_Bancaria">
+                    <label for="last_name">Nº Cuenta Bancaria</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="email" class="validate" name="email">
+                    <label for="last_name">Email</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="last_name" type="text" class="validate" name="observaciones">
+                    <label for="last_name">Observaciones</label>
+                </div>
+            </div>
+            <input class="waves-effect waves-light btn" type="submit" value="Ingresar">
+        </form>
+    </div>
+{% endblock %}
