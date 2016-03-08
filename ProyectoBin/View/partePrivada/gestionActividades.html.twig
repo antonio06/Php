@@ -1,18 +1,19 @@
-{% extends 'base.html.twig' %}
-
-{% block menuPrincipal %}
+{% extends 'panelPrincipalBase.html.twig' %}
+{% block menuPrincipalPanel %}
     <nav class="nav-wrapper">
         <div class="nav-wrapper indigo lighten-3">
             <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
-                <li><a href="../Controller/actividades.php">Actividades</a></li>
-                <li><a href="../Controller/formulario_login.php">Login</a></li>
+                <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestión Actividades</a></li>
+                <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestión Participantes</a></li>
+                <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestión Personas</a></li>
+                <li><a href="../../Controller/partePrivada/gestionAdminContrasena.php">Gestión AdminContraseñas</a></li>
             </ul>
         </div>
     </nav>
-{% endblock %}
+    {% endblock %}
 
-{% block contenido %}
+{% block contenidoPanel %}
     <table class="bordered">
         <tr>
             <td>Codigo</td>
@@ -22,7 +23,7 @@
             <td>Fecha Inicio</td>
             <td>Fecha Fin</td>
             <td>Descriptor</td>
-            <td></td>
+            <td><a href="../Controller/nuevaActividad.php"><i class="fa fa-plus"></i></a></td>
         </tr>
         {% for actividad in actividades %}
             <tr>
@@ -37,4 +38,4 @@
             </tr>
         {% endfor %}
     </table>
-{% endblock %}  
+{% endblock %}

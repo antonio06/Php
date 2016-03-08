@@ -4,17 +4,17 @@
         <div class="nav-wrapper indigo lighten-3">
             <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
-                <li><a href="../Controller/gestionActividades.php">Gestión Actividades</a></li>
-                <li><a href="../Controller/gestionParticipantes.php">Gestión Participantes</a></li>
-                <li><a href="../Controller/gestionPersonas.php">Gestión Personas</a></li>
-                <li><a href="../Controller/gestionAdminContrasena.php">Gestión AdminContraseñas</a></li>
+                <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestión Actividades</a></li>
+                <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestión Participantes</a></li>
+                <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestión Personas</a></li>
+                <li><a href="../../Controller/partePrivada/gestionAdminContrasena.php">Gestión AdminContraseñas</a></li>
             </ul>
         </div>
     </nav>
 {% endblock %}
 
 {% block contenidoPanel %}
-    <form class="col s12" action="../Controller/insertarContrasena.php" method="post">
+    <form class="col s12" action="../../Controller/partePrivada/insertarContrasena.php" method="post">
         <table class="bordered">
             <tr>
                 <td>Codigo</td>
@@ -51,15 +51,15 @@
                 </tr>
             </div>
             <div class="row">
-                <tr>
-                    {% for usuarioContrasena in usuariosContrasenas %}
+                {% for usuarioContrasena in usuariosContrasenas %}
+                    <tr>
                         <td>{{usuarioContrasena.codigo_persona}}</td>
                         <td>{{usuarioContrasena.user}}</td>
                         <td>{{usuarioContrasena.password}}</td>
                         <td>{{usuarioContrasena.perfil}}</td>
-                        <td><a href="../Controller/modificarContrasena.php?codigo_persona={{ usuarioContrasena.codigo_persona }}"><i class="fa fa-pencil"></i></a> <a href="../Controller/borrarContrasena.php?codigo_persona={{ usuarioContrasena.codigo_persona }}"><i class="fa fa-trash"></i></a></td>
-                    {% endfor %}
-                </tr>
+                        <td><a href="../../Controller/partePrivada/modificarContrasena.php?codigo_persona={{ usuarioContrasena.codigo_persona }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarContrasena.php?codigo_persona={{ usuarioContrasena.codigo_persona }}"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
             </div>
         </table>
     </form>
