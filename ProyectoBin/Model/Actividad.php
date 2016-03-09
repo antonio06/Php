@@ -186,7 +186,7 @@ class Actividad {
      */
     public function insert() {
         $conexion = BinDb::connectDB();
-        $inserta = "INSERT INTO codigo_actividad (codigo, titulo, estado, coordinador"
+        $inserta = "INSERT INTO actividad (codigo_actividad, titulo, estado, coordinador"
                 . ", ponente, ubicacion, fecha_inicio, fecha_fin, horario_inicio"
                 . ", horario_fin, n_Total_Horas, precio, IVA, descriptor, observaciones) "
                 . "VALUES (\"" . $this->codigo_actividad . "\", \"" . $this->titulo .
@@ -204,7 +204,7 @@ class Actividad {
      */
     public function delete() {
         $conexion = BinDb::connectDB();
-        $borrar = "DELETE FROM actividad WHERE codigo=\"" . $this->codigo_actividad . "\"";
+        $borrar = "DELETE FROM actividad WHERE codigo_actividad=\"" . $this->codigo_actividad . "\"";
         return $conexion->exec($borrar);
     }
 
@@ -300,5 +300,80 @@ class Actividad {
                 $registro->descriptor, $registro->observaciones);
 
         return $actividad;
+    }
+    
+    /**
+     * Selecciona todos los descriptores de las actividades.
+     * @return array.
+     */
+    public static function getDescriptoresActividad() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SHOW COLUMNS FROM actividad WHERE field='descriptor'";
+        $consulta = $conexion->query($seleccion);
+        $descriptores = [];
+
+        $registro = $consulta->fetchObject();
+        $cadena = "";
+        foreach ($registro as $key => $value) {
+            if ($key == "Type") {
+                $cadena = $cadena . $value;
+            }
+        }
+        substr($cadena, 4, -1);
+        $cadena = str_replace("'", "", $cadena);
+        $cadena = substr($cadena, 4, -1);
+        $descriptores = explode(",", $cadena);
+
+        return $descriptores;
+    }
+    
+    /**
+     * Selecciona todos los estados de las actividades.
+     * @return array.
+     */
+    public static function getEstadosActividad() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SHOW COLUMNS FROM actividad WHERE field='estado'";
+        $consulta = $conexion->query($seleccion);
+        $estados = [];
+
+        $registro = $consulta->fetchObject();
+        $cadena = "";
+        foreach ($registro as $key => $value) {
+            if ($key == "Type") {
+                $cadena = $cadena . $value;
+            }
+        }
+        substr($cadena, 4, -1);
+        $cadena = str_replace("'", "", $cadena);
+        $cadena = substr($cadena, 4, -1);
+        $estados = explode(",", $cadena);
+
+        return $estados;
+    }
+    
+    /**
+     * Selecciona todos los IVA de las actividades.
+     * @return array.
+     */
+    public static function getIvaActividad() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SHOW COLUMNS FROM actividad WHERE field='IVA'";
+        $consulta = $conexion->query($seleccion);
+        $IVA = [];
+
+        $registro = $consulta->fetchObject();
+        $cadena = "";
+        foreach ($registro as $key => $value) {
+            if ($key == "Type") {
+                $cadena = $cadena . $value;
+            }
+        }
+        substr($cadena, 4, -1);
+        $cadena = str_replace("'", "", $cadena);
+        $cadena = substr($cadena, 4, -1);
+        $IVA = explode(",", $cadena);
+
+        return $IVA;
     }
 }

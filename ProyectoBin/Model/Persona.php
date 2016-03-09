@@ -355,7 +355,7 @@ class Persona {
     }
 
     /**
-     * Selecciona todos los códigos de las personas.
+     * Selecciona todos los perfiles de las personas.
      * @return array.
      */
     public static function getPerfilesPersona() {
@@ -379,4 +379,6 @@ class Persona {
         return $perfiles;
     }
 
+    
+    
 }

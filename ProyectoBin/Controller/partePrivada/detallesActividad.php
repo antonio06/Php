@@ -6,8 +6,6 @@ require_once '../../Model/Actividad.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 $twig = new Twig_Environment($loader);
-$descriptores = Actividad::getDescriptoresActividad();
-$estados = Actividad::getEstadosActividad();
-$IVA = Actividad::getIvaActividad();
+$actividad = Actividad::getActividadByCodigo($_GET['codigo']);
 
-echo $twig->render('nuevaActividad.html.twig', ["descriptores"=> $descriptores, "estados"=> $estados, "IVA"=> $IVA]);
+echo $twig->render('detallesActividad.html.twig', ["actividad" => $actividad]);

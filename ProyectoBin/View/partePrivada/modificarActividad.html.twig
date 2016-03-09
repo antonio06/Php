@@ -4,10 +4,10 @@
         <div class="nav-wrapper indigo lighten-3">
             <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
-                <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestion Actividades</a></li>
-                <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestion Participanes</a></li>
-                <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestion Personas</a></li>
-                <li><a href="../../Controller/partePrivada/gestionAdminContrasena.php">Gestion AdminContraseñas</a></li>
+                <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestión Actividades</a></li>
+                <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestión Participantes</a></li>
+                <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestión Personas</a></li>
+                <li><a href="../../Controller/partePrivada/gestionAdminContrasena.php">Gestión AdminContraseñas</a></li>
             </ul>
         </div>
     </nav>
@@ -18,52 +18,52 @@
         <form class="col s12" action="../../Controller/partePrivada/insertarActividad.php" method="post">
             <div class="row">
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="titulo">
+                    <input id="last_name" type="text" class="validate" name="titulo" value="{{actividad.titulo}}">
                     <label for="last_name">Título</label>
                 </div>
                 <div class="input-field col s4">
                     <select class="browser-default" name="estado">
-                        <option value="" disabled selected>Estado</option>
+                        <option  disabled selected>Estado</option>
                         {% for estado in estados %}
                             <option value="{{estado}}">{{estado}}</option>
-                        {% endfor %}
+                        {% endfor %}}
                     </select>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="coordinador">
+                    <input id="last_name" type="text" class="validate" name="coordinador" value="{{actividad.coordinador}}">
                     <label for="last_name">Coordinador</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="ponente">
+                    <input id="last_name" type="text" class="validate" name="ponente" value="{{actividad.ponente}}">
                     <label for="last_name">Ponente</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="ubicacion">
+                    <input id="last_name" type="text" class="validate" name="ubicacion" value="{{actividad.ubicacion}}">
                     <label for="last_name">Ubicación</label>
                 </div>
 
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Fecha Inicio</label>
-                    <input id="last_name" type="date" class="validate" name="fecha_inicio">
+                    <input id="last_name" type="date" class="validate" name="fecha_inicio" value="{{actividad.fecha_inicio}}">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Fecha Fin</label>
-                    <input id="last_name" type="date" class="validate" name="fecha_fin">
+                    <input id="last_name" type="date" class="validate" name="fecha_fin" value="{{actividad.fecha_fin}}">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Hora Inicio</label>
-                    <input id="last_name" type="time" class="validate" name="horario_inicio">
+                    <input id="last_name" type="time" class="validate" name="horario_inicio" value="{{actividad.horario_inicio}}">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Hora Fin</label>
-                    <input id="last_name" type="time" class="validate" name="horario_fin">
+                    <input id="last_name" type="time" class="validate" name="horario_fin" value="{{actividad.horario_fin}}">
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="number" class="validate" name="n_Total_Horas">
+                    <input id="last_name" type="number" class="validate" name="n_Total_Horas" value="{{actividad.n_Total_Horas}}">
                     <label for="last_name">Nº Total Horas</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="number" class="validate" name="precio">
+                    <input id="last_name" type="number" class="validate" name="precio" value="{{actividad.precio}}">
                     <label for="last_name">Precio</label>
                 </div>
                 <div class="input-field col s3">
@@ -84,7 +84,7 @@
                     </select>
                 </div>
                 <div class="input-field col s6">
-                    <textarea id="textarea1" class="materialize-textarea" name="observaciones"></textarea>
+                    <textarea id="textarea1" class="materialize-textarea" name="observaciones">{{actividad.observaciones}}</textarea>
                     <label for="last_name">Observaciones</label>
                 </div>
             </div>

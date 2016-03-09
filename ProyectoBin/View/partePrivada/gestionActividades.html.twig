@@ -34,7 +34,7 @@
                 <td>{{ actividad.fecha_inicio }}</td>
                 <td>{{ actividad.fecha_fin }}</td>
                 <td>{{ actividad.descriptor }}</td>
-                <td><a href="../Controller/detalles.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
+                <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarActividad.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/eliminarActividad.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-times"></i></a></td>
             </tr>
         {% endfor %}
     </table>
