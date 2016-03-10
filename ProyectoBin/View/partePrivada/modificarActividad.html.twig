@@ -15,7 +15,7 @@
 
 {% block contenidoPanel %}
     <div class="row">
-        <form class="col s12" action="../../Controller/partePrivada/insertarActividad.php" method="post">
+        <form class="col s12" action="../../Controller/partePrivada/modificado.php" method="post">
             <div class="row">
                 <div class="input-field col s3">
                     <input id="last_name" type="text" class="validate" name="titulo" value="{{actividad.titulo}}">
@@ -88,7 +88,8 @@
                     <label for="last_name">Observaciones</label>
                 </div>
             </div>
-            <input class="waves-effect waves-light btn" type="submit" value="Ingresar">
+            <input class="waves-effect waves-light btn yellow accent-2" type="submit" value="modificar" name="opcion">
+            <input class="waves-effect waves-light btn" type="submit" value="cancelar" name="opcion">
         </form>
     </div>
 {% endblock %}

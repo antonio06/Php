@@ -227,7 +227,7 @@ class Actividad {
      * @param string $observaciones observaciones que puede tener una actividad
      */
     public function update() {
-        $conexion = ActividadesDB::connectDB();
+        $conexion = BinDb::connectDB();
         $modificar = "UPDATE actividad Set codigo_actividad=\"" . $this->codigo_actividad . "\", titulo=\"" .
                 $this->titulo . "\", estado=\"" . $this->estado .
                 "\", coordinador=\"" . $this->coordinador . "\", ponente=\"" .
@@ -237,7 +237,7 @@ class Actividad {
                 "\", n_Total_Horas=\"" . $this->n_Total_Horas . "\", precio=\""
                 . $this->precio . "\", IVA=\"" . $this->IVA . "\", descriptor=\""
                 . $this->descriptor . "\", observaciones=\"" . $this->observaciones .
-                "\" WHERE codigo=" . $this->codigo_actividad;
+                "\" WHERE codigo_actividad=" . $this->codigo_actividad;
         return $conexion->exec($modificar);
     }
 
@@ -375,5 +375,9 @@ class Actividad {
         $IVA = explode(",", $cadena);
 
         return $IVA;
+    }
+    
+    public static function getPagina() {
+        
     }
 }
