@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 /**
  * Descripción de Actividad
  *
@@ -271,14 +273,12 @@ class Actividad {
             $actividades[] = new Actividad($registro->codigo_actividad, $registro->titulo, $registro->estado
                     , $registro->coordinador, $registro->ponente, $registro->ubicacion
                     , $registro->fecha_inicio, $registro->fecha_fin, $registro->horario_inicio
-                    , $registro->horario_fin, $registro->n_Total_Horas, $registro->precio,
-                    $registro->IVA, $registro->descriptor, $registro->observaciones);
+                    , $registro->horario_fin, $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
         }
 
         return $actividades;
     }
 
-    
     /**
      * Selecciona los campos de la tabla según el codigo.
      * @param string $codigo codigo correspondiente a la actividad.
@@ -296,12 +296,11 @@ class Actividad {
                 , $registro->estado, $registro->coordinador, $registro->ponente
                 , $registro->ubicacion, $registro->fecha_inicio, $registro->fecha_fin
                 , $registro->horario_inicio, $registro->horario_fin
-                , $registro->n_Total_Horas, $registro->precio, $registro->IVA, 
-                $registro->descriptor, $registro->observaciones);
+                , $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
 
         return $actividad;
     }
-    
+
     /**
      * Selecciona todos los descriptores de las actividades.
      * @return array.
@@ -326,7 +325,7 @@ class Actividad {
 
         return $descriptores;
     }
-    
+
     /**
      * Selecciona todos los estados de las actividades.
      * @return array.
@@ -351,7 +350,7 @@ class Actividad {
 
         return $estados;
     }
-    
+
     /**
      * Selecciona todos los IVA de las actividades.
      * @return array.
@@ -376,8 +375,19 @@ class Actividad {
 
         return $IVA;
     }
-    
-    public static function getPagina() {
-        
+
+    public static function getPagina($pagina) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT * FROM actividad";
+        $consulta = $conexion->query($seleccion);
+        $limite = 2;
+        $totalRegistros = $consulta->rowCount();
+        $numeroPaginas = $totalRegistros / $limite;
+        if (isset($_SESSION['pagina'])) {
+            return $_SESSION['pagina'] = ($pagina - 1) * $limite;
+        } else {
+            return $_SESSION['pagina'] = 1;
+        }
     }
+
 }
