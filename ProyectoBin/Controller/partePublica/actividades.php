@@ -8,6 +8,8 @@ require_once '../../Model/Actividad.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePublica');
 $twig = new Twig_Environment($loader);
+$descriptores = Actividad::getDescriptoresActividad();
+$estados = Actividad::getEstadosActividad();
 $limite = 2;
 $numeroPaginas = Actividad::getNumeroPaginas($limite);
 $arrayNumeros = [];
@@ -20,6 +22,7 @@ for ($i = 1; $i <= $numeroPaginas; $i++) {
 
 if (!isset($_GET['pagina'])) {
     $pagina = 1;
+
     $_SESSION['pagina'] = Actividad::getSesionPagina($pagina, $limite, $_SESSION['pagina']);
     $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
     echo $twig->render('actividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros]);

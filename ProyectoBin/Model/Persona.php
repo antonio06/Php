@@ -26,10 +26,12 @@ class Persona {
     private $n_Seguridad_Social;
     private $n_Cuenta_Bancaria;
     private $email;
+    private $password;
+    private $perfil_usuario;
     private $observaciones;
 
     // Contructor de la clase Persona
-    function __construct($codigo, $DNI, $nombre, $apellido1, $apellido2, $perfil, $foto, $sexo, $fecha_nac, $direccion, $municipio, $provincia, $pais, $fecha_alta, $fecha_baja, $n_Seguridad_Social, $n_Cuenta_Bancaria, $email, $observaciones) {
+    function __construct($codigo, $DNI, $nombre, $apellido1, $apellido2, $perfil, $foto, $sexo, $fecha_nac, $direccion, $municipio, $provincia, $pais, $fecha_alta, $fecha_baja, $n_Seguridad_Social, $n_Cuenta_Bancaria, $email, $password, $perfil_usuario, $observaciones) {
         $this->codigo = $codigo;
         $this->DNI = $DNI;
         $this->nombre = $nombre;
@@ -49,12 +51,22 @@ class Persona {
         $this->n_Seguridad_Social = $n_Seguridad_Social;
         $this->n_Cuenta_Bancaria = $n_Cuenta_Bancaria;
         $this->email = $email;
+        $this->password = $password;
+        $this->perfil_usuario = $perfil_usuario;
         $this->observaciones = $observaciones;
     }
 
     // Getters y Setters
     function getCodigo() {
         return $this->codigo;
+    }
+
+    function getPassword() {
+        return $this->password;
+    }
+
+    function getPerfil_usuario() {
+        return $this->perfil_usuario;
     }
 
     function getDNI() {
@@ -125,6 +137,14 @@ class Persona {
         return $this->email;
     }
 
+    function setPassword($password) {
+        $this->password = $password;
+    }
+
+    function setPerfil_usuario($perfil_usuario) {
+        $this->perfil_usuario = $perfil_usuario;
+    }
+    
     function getObservaciones() {
         return $this->observaciones;
     }
@@ -227,6 +247,8 @@ class Persona {
      * @param number $n_Seguridad_Social número de la seguridad social de la persona.
      * @param number $n_Cuenta_Bancaria número de cuenta bancaria de la persona.
      * @param string $email email de la persona.
+     * @param string $password password de la persona.
+     * @param string $perfil_usuario perfil del usuario de la persona.
      * @param string $observaciones observaciones que podemos ponerle al perfil de la persona.
      */
     public function insert() {
@@ -242,7 +264,7 @@ class Persona {
                 "\", \"" . $this->municipio . "\", \"" . $this->provincia . "\", \"" . $this->pais .
                 "\", \"" . $this->fecha_alta . "\", \"" . $this->fecha_baja .
                 "\", \"" . $this->n_Seguridad_Social . "\", \"" . $this->n_Cuenta_Bancaria
-                . "\", \"" . $this->email . "\", \"" . $this->observaciones . "\")";
+                . "\", \"" . $this->email . "\", \"" . $this->password . "\", \"" . $this->email . "\", \"" . $this->observaciones . "\")";
         return $conexion->exec($inserta);
     }
 
@@ -276,22 +298,26 @@ class Persona {
      * @param number $n_Seguridad_Social número de la seguridad social de la persona.
      * @param number $n_Cuenta_Bancaria número de cuenta bancaria de la persona.
      * @param string $email email de la persona.
+     * @param string $password password de la persona.
+     * @param string $perfil_usuario perfil del usuario de la persona.
      * @param string $observaciones observaciones que podemos ponerle al perfil de la persona.
      */
     public function update() {
         $conexion = ActividadesDB::connectDB();
-        $modificar = "UPDATE actividad Set codigo=\"" . $this->codigo . "\", DNI=\"" .
-                $this->DNI . "\", nombre=\"" . $this->nombre .
-                "\", apellido1=\"" . $this->apellido1 . "\", apellido2=\"" .
-                $this->apellido2 . "\" , perfil=\"" . $this->perfil . "\", foto=\"" .
-                $this->foto . "\" , sexo=\"" . $this->sexo . "\", fecha_nac=\"" .
-                $this->fecha_nac . "\", fireccion=\"" . $this->direccion .
-                "\", municipio=\"" . $this->municipio . "\", provincia=\""
+        $modificar = "UPDATE actividad Set codigo=\"" . $this->codigo . "\", DNI=\""
+                .$this->DNI . "\", nombre=\"" . $this->nombre 
+                ."\", apellido1=\"" . $this->apellido1 . "\", apellido2=\"" 
+                .$this->apellido2 . "\" , perfil=\"" . $this->perfil . "\", foto=\"" 
+                .$this->foto . "\" , sexo=\"" . $this->sexo . "\", fecha_nac=\"" 
+                .$this->fecha_nac . "\", fireccion=\"" . $this->direccion 
+                ."\", municipio=\"" . $this->municipio . "\", provincia=\""
                 . $this->provincia . "\", pais=\"" . $this->pais . "\", fecha_alta=\""
                 . $this->fecha_alta . "\", fecha_baja=\"" . $this->fecha_baja .
                 "\", n_Seguridad_Social=\"" . $this->n_Seguridad_Social .
                 "\", n_Cuenta_Bancaria=\"" . $this->n_Cuenta_Bancaria .
-                "\", email=\"" . $this->email . "\", observaciones=\"" . $this->observaciones .
+                "\", email=\"" . $this->email . "\", password=\"" . $this->password 
+                . "\", perfil_usuario=\"" . $this->perfil_usuario . "\", observaciones=\"" 
+                . $this->observaciones .
                 "\" WHERE codigo=" . $this->codigo;
         return $conexion->exec($modificar);
     }
@@ -331,7 +357,7 @@ class Persona {
                     , $registro->apellido1, $registro->apellido2, $registro->perfil
                     , $registro->foto, $registro->sexo, $registro->fecha_nac
                     , $registro->direccion, $registro->municipio, $registro->provincia, $registro->pais, $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social, $registro->n_Cuenta_Bancaria
-                    , $registro->email, $registro->observaciones);
+                    , $registro->email, $registro->pasword, $registro->perfil_usuario, $registro->observaciones);
         }
 
         return $personas;
@@ -349,7 +375,7 @@ class Persona {
         $codigos = [];
 
         while ($registro = $consulta->fetchObject()) {
-            $codigos[] = new Persona($registro->codigo, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+            $codigos[] = new Persona($registro->codigo, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
         }
         return $codigos;
     }
@@ -360,7 +386,7 @@ class Persona {
      */
     public static function getPerfilesPersona() {
         $conexion = BinDb::connectDB();
-        $seleccion = "SHOW COLUMNS FROM usuarioscontrasena WHERE field='perfil'";
+        $seleccion = "SHOW COLUMNS FROM persona WHERE field='perfil_usuario'";
         $consulta = $conexion->query($seleccion);
         $perfiles = [];
 
@@ -375,10 +401,8 @@ class Persona {
         $cadena = str_replace("'", "", $cadena);
         $cadena = substr($cadena, 4, -1);
         $perfiles = explode(",", $cadena);
-        
+
         return $perfiles;
     }
 
-    
-    
 }
