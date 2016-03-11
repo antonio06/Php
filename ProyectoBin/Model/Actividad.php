@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 /**
  * Descripción de Actividad
  *
@@ -376,18 +374,49 @@ class Actividad {
         return $IVA;
     }
 
-    public static function getPagina($pagina) {
+    /*
+     * Devuelve el número total de páginas 
+     * @returm numeroPaginas
+     */
+    public static function getNumeroPaginas($limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM actividad";
         $consulta = $conexion->query($seleccion);
-        $limite = 2;
         $totalRegistros = $consulta->rowCount();
-        $numeroPaginas = $totalRegistros / $limite;
-        if (isset($_SESSION['pagina'])) {
-            return $_SESSION['pagina'] = ($pagina - 1) * $limite;
+        return $numeroPaginas = $totalRegistros / $limite;
+    }
+
+    /*
+     * Devuelve la sesion de la página
+     */
+    public static function getSesionPagina($pagina, $limite, $sesionPagina) {
+        if (isset($sesionPagina)) {
+            return $sesionPagina = ($pagina - 1) * $limite;
         } else {
-            return $_SESSION['pagina'] = 1;
+            return $sesionPagina = 1;
         }
+    }
+
+    /*
+     * Devuelve los objetos que cumplen la sentencia
+     * @returm array 
+     */
+    public static function getActividadesByLimit($sesionPagina, $limite) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo_actividad, titulo, estado, coordinador, ponente,"
+                . "ubicacion, fecha_inicio, fecha_fin, horario_inicio, horario_fin,"
+                . "n_Total_Horas, precio, IVA, descriptor, observaciones"
+                . " FROM actividad ORDER BY codigo_actividad LIMIT $sesionPagina , $limite";
+        $consulta = $conexion->query($seleccion);
+        $actividades = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            $actividades[] = new Actividad($registro->codigo_actividad, $registro->titulo, $registro->estado
+                    , $registro->coordinador, $registro->ponente, $registro->ubicacion
+                    , $registro->fecha_inicio, $registro->fecha_fin, $registro->horario_inicio
+                    , $registro->horario_fin, $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
+        }
+        return $actividades;
     }
 
 }
