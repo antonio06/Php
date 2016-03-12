@@ -358,7 +358,7 @@ class Persona {
                     , $registro->apellido1, $registro->apellido2, $registro->perfil
                     , $registro->foto, $registro->sexo, $registro->fecha_nac
                     , $registro->direccion, $registro->municipio, $registro->provincia, $registro->pais, $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social, $registro->n_Cuenta_Bancaria
-                    , $registro->email, $registro->pasword, $registro->perfil_usuario, $registro->observaciones);
+                    , $registro->email, $registro->password, $registro->perfil_usuario, $registro->observaciones);
         }
 
         return $personas;
