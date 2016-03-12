@@ -256,7 +256,7 @@ class Persona {
         $inserta = "INSERT INTO persona (codigo, DNI, nombre, apellido1"
                 . ", apellido2, perfil, foto, sexo, fecha_nac"
                 . ", direccion, municipio, provincia, pais, fecha_alta, fecha_baja"
-                . "n_Seguridad_Social, n_Cuenta_Bancaria, email, observaciones) "
+                . ", n_Seguridad_Social, n_Cuenta_Bancaria, email, password, perfil_usuario, observaciones) "
                 . "VALUES (\"" . $this->codigo . "\", \"" . $this->DNI .
                 "\", \"" . $this->nombre . "\" , \"" . $this->apellido1 .
                 "\", \"" . $this->apellido2 . "\", \"" . $this->perfil . "\", \"" . $this->foto .
@@ -264,7 +264,8 @@ class Persona {
                 "\", \"" . $this->municipio . "\", \"" . $this->provincia . "\", \"" . $this->pais .
                 "\", \"" . $this->fecha_alta . "\", \"" . $this->fecha_baja .
                 "\", \"" . $this->n_Seguridad_Social . "\", \"" . $this->n_Cuenta_Bancaria
-                . "\", \"" . $this->email . "\", \"" . $this->password . "\", \"" . $this->email . "\", \"" . $this->observaciones . "\")";
+                . "\", \"" . $this->email . "\", \"" . $this->password . "\", \"" . $this->perfil_usuario . "\", \"" . $this->observaciones . "\")";
+        
         return $conexion->exec($inserta);
     }
 
@@ -350,7 +351,7 @@ class Persona {
         $seleccion = "SELECT * FROM persona";
         $consulta = $conexion->query($seleccion);
 
-        $persona = [];
+        $personas = [];
 
         while ($registro = $consulta->fetchObject()) {
             $personas[] = new Persona($registro->codigo, $registro->DNI, $registro->nombre
@@ -375,7 +376,7 @@ class Persona {
         $codigos = [];
 
         while ($registro = $consulta->fetchObject()) {
-            $codigos[] = new Persona($registro->codigo, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+            $codigos[] = new Persona($registro->codigo, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
         }
         return $codigos;
     }
@@ -384,7 +385,7 @@ class Persona {
      * Selecciona todos los perfiles de las personas.
      * @return array.
      */
-    public static function getPerfilesPersona() {
+    public static function getPerfiles_usuariosPersona() {
         $conexion = BinDb::connectDB();
         $seleccion = "SHOW COLUMNS FROM persona WHERE field='perfil_usuario'";
         $consulta = $conexion->query($seleccion);
@@ -405,4 +406,39 @@ class Persona {
         return $perfiles;
     }
 
+    public static function getPerfilesPersona() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SHOW COLUMNS FROM perfil WHERE field='descripcion'";
+        $consulta = $conexion->query($seleccion);
+        $perfiles = [];
+
+        $registro = $consulta->fetchObject();
+
+        $cadena = "";
+        foreach ($registro as $key => $value) {
+            if ($key == "Type") {
+                $cadena = $cadena . $value;
+            }
+        }
+        substr($cadena, 4, -1);
+        $cadena = str_replace("'", "", $cadena);
+        $cadena = substr($cadena, 4, -1);
+        $perfiles = explode(",", $cadena);
+
+        return $perfiles;
+    }
+    
+    
+    public static function getCodigoPerfilbyDescripcion($descripcion){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo FROM perfil WHERE descripcion='$descripcion'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        $perfil = [];
+        foreach ($registro as $key => $value) {
+            if ($key == "codigo") {
+                return $perfil[$key] = $value;
+            }
+        }
+    } 
 }

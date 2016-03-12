@@ -22,7 +22,6 @@ for ($i = 1; $i <= $numeroPaginas; $i++) {
 
 if (!isset($_GET['pagina'])) {
     $pagina = 1;
-
     $_SESSION['pagina'] = Actividad::getSesionPagina($pagina, $limite, $_SESSION['pagina']);
     $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
     echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores"=> $descriptores, "estados"=> $estados,]);
