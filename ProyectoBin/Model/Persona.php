@@ -144,7 +144,7 @@ class Persona {
     function setPerfil_usuario($perfil_usuario) {
         $this->perfil_usuario = $perfil_usuario;
     }
-    
+
     function getObservaciones() {
         return $this->observaciones;
     }
@@ -265,7 +265,7 @@ class Persona {
                 "\", \"" . $this->fecha_alta . "\", \"" . $this->fecha_baja .
                 "\", \"" . $this->n_Seguridad_Social . "\", \"" . $this->n_Cuenta_Bancaria
                 . "\", \"" . $this->email . "\", \"" . $this->password . "\", \"" . $this->perfil_usuario . "\", \"" . $this->observaciones . "\")";
-        
+
         return $conexion->exec($inserta);
     }
 
@@ -304,20 +304,20 @@ class Persona {
      * @param string $observaciones observaciones que podemos ponerle al perfil de la persona.
      */
     public function update() {
-        $conexion = ActividadesDB::connectDB();
-        $modificar = "UPDATE actividad Set codigo=\"" . $this->codigo . "\", DNI=\""
-                .$this->DNI . "\", nombre=\"" . $this->nombre 
-                ."\", apellido1=\"" . $this->apellido1 . "\", apellido2=\"" 
-                .$this->apellido2 . "\" , perfil=\"" . $this->perfil . "\", foto=\"" 
-                .$this->foto . "\" , sexo=\"" . $this->sexo . "\", fecha_nac=\"" 
-                .$this->fecha_nac . "\", fireccion=\"" . $this->direccion 
-                ."\", municipio=\"" . $this->municipio . "\", provincia=\""
+        $conexion = BinDb::connectDB();
+        $modificar = "UPDATE persona Set codigo=\"" . $this->codigo . "\", DNI=\""
+                . $this->DNI . "\", nombre=\"" . $this->nombre
+                . "\", apellido1=\"" . $this->apellido1 . "\", apellido2=\""
+                . $this->apellido2 . "\" , perfil=\"" . $this->perfil . "\", foto=\""
+                . $this->foto . "\" , sexo=\"" . $this->sexo . "\", fecha_nac=\""
+                . $this->fecha_nac . "\", direccion=\"" . $this->direccion
+                . "\", municipio=\"" . $this->municipio . "\", provincia=\""
                 . $this->provincia . "\", pais=\"" . $this->pais . "\", fecha_alta=\""
                 . $this->fecha_alta . "\", fecha_baja=\"" . $this->fecha_baja .
                 "\", n_Seguridad_Social=\"" . $this->n_Seguridad_Social .
                 "\", n_Cuenta_Bancaria=\"" . $this->n_Cuenta_Bancaria .
-                "\", email=\"" . $this->email . "\", password=\"" . $this->password 
-                . "\", perfil_usuario=\"" . $this->perfil_usuario . "\", observaciones=\"" 
+                "\", email=\"" . $this->email . "\", password=\"" . $this->password
+                . "\", perfil_usuario=\"" . $this->perfil_usuario . "\", observaciones=\""
                 . $this->observaciones .
                 "\" WHERE codigo=" . $this->codigo;
         return $conexion->exec($modificar);
@@ -331,7 +331,7 @@ class Persona {
      * @param number $codigo.
      * @return boolean.
      */
-    public static function getPersonadByCodigo($codigo) {
+    public static function existeCodigo($codigo) {
         $conexion = ActividadesDB::connectDB();
         $consulta = "SELECT codigo FROM persona WHERE codigo=\"" . $codigo . "\"";
         $registro = $consulta->fetchObject();
@@ -427,9 +427,8 @@ class Persona {
 
         return $perfiles;
     }
-    
-    
-    public static function getCodigoPerfilbyDescripcion($descripcion){
+
+    public static function getCodigoPerfilbyDescripcion($descripcion) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo FROM perfil WHERE descripcion='$descripcion'";
         $consulta = $conexion->query($seleccion);
@@ -440,5 +439,109 @@ class Persona {
                 return $perfil[$key] = $value;
             }
         }
-    } 
+    }
+
+    public static function getSexoPersona() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SHOW COLUMNS FROM persona WHERE field='sexo'";
+        $consulta = $conexion->query($seleccion);
+        $sexo = [];
+
+        $registro = $consulta->fetchObject();
+        $cadena = "";
+        foreach ($registro as $key => $value) {
+            if ($key == "Type") {
+                $cadena = $cadena . $value;
+            }
+        }
+        substr($cadena, 4, -1);
+        $cadena = str_replace("'", "", $cadena);
+        $cadena = substr($cadena, 4, -1);
+        $sexo = explode(",", $cadena);
+
+        return $sexo;
+    }
+
+    /**
+     * Selecciona los campos de la tabla según el codigo.
+     * @param string $codigo codigo correspondiente a la persona.
+     * @return array devuelve un objetos que cumple la consulta.
+     */
+    public static function getPersonaByCodigo($codigo_persona) {
+        $conexion = BinDb::connectDB();
+        $selecciona = "SELECT codigo, DNI, nombre, apellido1, apellido2,"
+                . "perfil, foto, sexo, fecha_nac, direccion,"
+                . "municipio, provincia, pais, fecha_alta, fecha_baja,"
+                . "n_Seguridad_Social, n_Cuenta_Bancaria, email, password,"
+                . "perfil_usuario, observaciones FROM persona"
+                . " WHERE codigo=\"" . $codigo_persona . "\"";
+        $consulta = $conexion->query($selecciona);
+        $registro = $consulta->fetchObject();
+        $persona = new Persona($registro->codigo, $registro->DNI
+                , $registro->nombre, $registro->apellido1, $registro->apellido2
+                , $registro->perfil, $registro->foto, $registro->sexo
+                , $registro->fecha_nac, $registro->direccion
+                , $registro->municipio, $registro->provincia, $registro->pais
+                , $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social
+                , $registro->n_Cuenta_Bancaria, $registro->email, $registro->password
+                , $registro->perfil_usuario, $registro->observaciones);
+
+        return $persona;
+    }
+
+    /*
+     * Devuelve el número total de páginas 
+     * @returm numeroPaginas
+     */
+
+    public static function getNumeroPaginas($limite) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT * FROM persona";
+        $consulta = $conexion->query($seleccion);
+        $totalRegistros = $consulta->rowCount();
+        return $numeroPaginas = $totalRegistros / $limite;
+    }
+
+    /*
+     * Devuelve la sesion de la página
+     */
+
+    public static function getSesionPagina($pagina, $limite, $sesionPagina) {
+        if (isset($sesionPagina)) {
+            return $sesionPagina = ($pagina - 1) * $limite;
+        } else {
+            return $sesionPagina = 1;
+        }
+    }
+
+    /*
+     * Devuelve los objetos que cumplen la sentencia
+     * @returm array 
+     */
+
+    public static function getPersonasByLimit($sesionPagina, $limite) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo, DNI, nombre, apellido1, apellido2,"
+                . "perfil, foto, sexo, fecha_nac, direccion,"
+                . "municipio, provincia, pais, fecha_alta, fecha_baja,"
+                . "n_Seguridad_Social, n_Cuenta_Bancaria, email, password, perfil_usuario, observaciones"
+                . " FROM persona ORDER BY codigo LIMIT $sesionPagina , $limite";
+        $consulta = $conexion->query($seleccion);
+
+        $personas = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            $personas[] = new Persona($registro->codigo, $registro->DNI
+                    , $registro->nombre, $registro->apellido1, $registro->apellido2
+                    , $registro->perfil, $registro->foto, $registro->sexo
+                    , $registro->fecha_nac, $registro->direccion
+                    , $registro->municipio, $registro->provincia, $registro->pais
+                    , $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social
+                    , $registro->n_Cuenta_Bancaria, $registro->email, $registro->password
+                    , $registro->perfil_usuario, $registro->observaciones);
+        }
+
+        return $personas;
+    }
+
 }

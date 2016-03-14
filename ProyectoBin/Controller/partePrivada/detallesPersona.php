@@ -6,8 +6,7 @@ require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 $twig = new Twig_Environment($loader);
-$perfilesUsuarios = Persona::getPerfiles_usuariosPersona();
-$perfiles = Persona::getPerfilesPersona();
-$sexo = Persona::getSexoPersona();
-echo $twig->render('nuevaPersona.html.twig', ["perfilesUsuarios"=> $perfilesUsuarios, "perfiles"=> $perfiles, "sexo"=> $sexo]);
+$persona = Persona::getPersonaByCodigo($_GET['codigo_persona']);
+
+echo $twig->render('detallesPersona.html.twig', ["persona" => $persona]);
 

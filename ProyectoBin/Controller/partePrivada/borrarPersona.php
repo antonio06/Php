@@ -8,5 +8,5 @@ $twig = new Twig_Environment($loader);
 
 $_SESSION['codigo_persona'] = $_GET['codigo_persona'];
 
-echo $twig->render('borrarContrasena.html.twig', []);
+echo $twig->render('borrarPersona.html.twig', []);
 

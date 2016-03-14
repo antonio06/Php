@@ -32,8 +32,15 @@
                 <td>{{ persona.apellido1 }}</td>
                 <td>{{ persona.apellido2 }}</td>
                 <td>{{ persona.sexo }}</td>
-                <td><a href="../Controller/detallesPersona.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
+                <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-times"></i></a></td>
             </tr>
         {% endfor %}
     </table>
+    <div class="center-align">
+        <ul class="pagination">
+            {% for arrayNumero in arrayNumeros %}
+                <li class="active"><a href="../../Controller/partePrivada/gestionPersonas.php?pagina={{ arrayNumero }}">{{ arrayNumero }}</a></li>
+                {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
