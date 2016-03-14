@@ -419,4 +419,16 @@ class Actividad {
         return $actividades;
     }
 
+    public static function getTituloActividad(){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT titulo FROM actividad";
+        $consulta = $conexion->query($seleccion);
+        $titulos = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            $titulos[] = new Actividad("", $registro->titulo, "", "", "", "", "", "", "", "", "", "", "", "", "");
+        }
+
+        return $titulos;
+    }
 }

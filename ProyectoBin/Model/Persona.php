@@ -544,4 +544,16 @@ class Persona {
         return $personas;
     }
 
+    public static function getNombrePersona(){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT nombre FROM persona";
+        $consulta = $conexion->query($seleccion);
+        $nombres = [];
+
+        while ($registro = $consulta->fetchObject()) {
+            $nombres[] = new Persona("", "", $registro->nombre, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        }
+ 
+        return $nombres;
+    }
 }
