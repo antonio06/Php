@@ -431,4 +431,24 @@ class Actividad {
 
         return $titulos;
     }
+    
+    public static function getCodigoActividadByTitulo($titulo) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo_actividad FROM `actividad` WHERE titulo='$titulo'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        $codigo = [];
+        foreach ($registro as $key => $value) {
+            if ($key == "codigo_actividad") {
+                return $codigo[$key] = $value;
+            }
+        }
+    }
+    
+    public function insertParticipantes($perfil, $nombre, $codigo) {
+        $conexion = BinDb::connectDB();
+        $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) "
+                . "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
+        return $conexion->exec($inserta);
+    }
 }

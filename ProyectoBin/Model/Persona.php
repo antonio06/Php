@@ -544,7 +544,7 @@ class Persona {
         return $personas;
     }
 
-    public static function getNombrePersona(){
+    public static function getNombrePersona() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT nombre FROM persona";
         $consulta = $conexion->query($seleccion);
@@ -553,7 +553,21 @@ class Persona {
         while ($registro = $consulta->fetchObject()) {
             $nombres[] = new Persona("", "", $registro->nombre, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
         }
- 
+
         return $nombres;
     }
+
+    public static function getCodigoPersonabyNombre($nombre) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo FROM persona WHERE nombre='$nombre'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        $nombre = [];
+        foreach ($registro as $key => $value) {
+            if ($key == "codigo") {
+                return $nombre[$key] = $value;
+            }
+        }
+    }
+
 }
