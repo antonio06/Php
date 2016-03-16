@@ -20,10 +20,13 @@
             <td>Perfiles</td>
             <td><a href="../../Controller/partePrivada/nuevoParticipante.php"><i class="fa fa-plus"></i></a></td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        {% for participante in participantes %}
+            <tr>
+                <td>{{ participante.codigo_persona }}</td>
+                <td>{{ participante.codigo_actividad }}</td>
+                <td>{{ participante.codigo_perfil }}</td>
+                <td><a href="../../Controller/partePrivada/detallesParticipa.php?codigo_actividad={{ participante.codigo_persona }}"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarParticipa.php?codigo_actividad={{ participante.codigo_persona }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarParticipa.php?codigo_actividad={{ participante.codigo_persona }}"><i class="fa fa-times"></i></a></td>
+            </tr>
+        {% endfor %}
     </table>
 {% endblock %}

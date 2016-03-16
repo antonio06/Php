@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-02-2016 a las 17:07:37
--- Versión del servidor: 5.5.32
--- Versión de PHP: 5.4.19
+-- Tiempo de generación: 15-03-2016 a las 23:59:59
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,13 +14,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `actividadesbin`
 --
-CREATE DATABASE IF NOT EXISTS `actividadesbin` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
-USE `actividadesbin`;
 
 -- --------------------------------------------------------
 
@@ -28,8 +26,8 @@ USE `actividadesbin`;
 -- Estructura de tabla para la tabla `actividad`
 --
 
-CREATE TABLE IF NOT EXISTS `actividad` (
-  `codigo_actividad` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `actividad` (
+  `codigo_actividad` int(50) NOT NULL,
   `titulo` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` set('En proyecto','Abierto plazo de solicitud','Finalizado plazo de solicitud','Actividades en desarrollo','Terminadas') COLLATE utf8_spanish2_ci NOT NULL,
   `coordinador` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
@@ -43,16 +41,26 @@ CREATE TABLE IF NOT EXISTS `actividad` (
   `precio` int(50) NOT NULL,
   `IVA` set('Si','No') COLLATE utf8_spanish2_ci NOT NULL,
   `descriptor` set('Infantil','Primaria','Profesores de primaria','Profesores de secundaria','Padres','Madres') COLLATE utf8_spanish2_ci NOT NULL,
-  `observaciones` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  PRIMARY KEY (`codigo_actividad`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=2 ;
+  `observaciones` varchar(500) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `actividad`
 --
 
 INSERT INTO `actividad` (`codigo_actividad`, `titulo`, `estado`, `coordinador`, `ponente`, `ubicacion`, `fecha_inicio`, `fecha_fin`, `horario_inicio`, `horario_fin`, `n_Total_Horas`, `precio`, `IVA`, `descriptor`, `observaciones`) VALUES
-(1, 'Alimentación personas mayores', 'En proyecto', 'Alejandro Molina', 'Antonio Mendoza', 'C/Random nº7', '2016-02-21', '2016-02-23', '13:45:00', '14:30:00', 1, 7, 'Si', 'Padres', 'sfasfasfdasfsdfs');
+(1, 'Alimentación personas mayores', 'En proyecto', 'Alejandro Molina', 'Antonio Mendoza', 'C/Random nº8', '2016-02-21', '2016-02-23', '13:45:00', '14:30:00', 1, 7, 'Si', 'Padres', 'sfasfasfdasfsdfs'),
+(4, 'Nuevas formas de educación', 'Abierto plazo de solicitud', 'Álvaro Fernandez ', 'Jose Montiel', 'C/Salitre', '2016-03-16', '2016-03-18', '13:30:00', '14:30:00', 1, 5, 'Si', 'Profesores de primaria', 'La actividad tiene plazo abierto'),
+(5, 'Curso de cocina Infantil', 'Abierto plazo de solicitud', 'Manuel ', 'Isabel', 'C/ Ayala nº 21', '2016-03-10', '2016-03-10', '10:00:00', '14:00:00', 4, 5, 'Si', 'Primaria', 'Cocina para los más pequeños de la casa'),
+(6, 'Clases de matemáticas', 'En proyecto', 'Juan Martinez', 'Manuel Sanchez', 'C/Los Majarones', '2016-03-21', '2016-03-23', '13:00:00', '14:00:00', 1, 5, 'Si', 'Primaria', 'Clases de matemáticas para niños'),
+(7, 'Clases de lengua', 'Abierto plazo de solicitud', 'Sergio Banderas', 'Luis Sanchez', 'C/ Ayala nº 21', '2016-03-30', '2016-03-31', '10:00:00', '14:00:00', 4, 6, 'Si', 'Infantil', 'Clases de lengua para niños'),
+(8, 'Curso Comida para embarazadas', 'En proyecto', 'Edurne', 'Pedro', 'C/Los Majarones', '2016-04-01', '2016-04-03', '13:00:00', '14:30:00', 1, 3, 'Si', 'Madres', 'Curso de cocina indicada para mujeres embarazadas'),
+(9, 'Curso contra el maltrato escolar', 'Abierto plazo de solicitud', 'Miguel Angel', 'David', 'C/Random 7', '2016-03-30', '2016-03-31', '09:00:00', '11:00:00', 2, 3, 'No', 'Profesores de secundaria', 'Curso para profesores para prevenir el maltrato entre los jóvenes'),
+(10, 'Cursos para maquillaje saludable', 'Finalizado plazo de solicitud', 'Eva', 'Pedro', 'C/Random 10', '2016-04-05', '2016-03-06', '09:00:00', '11:00:00', 2, 3, 'No', 'Madres', 'Curso de maquillaje con productos naturales y sin perjuicios para la piel '),
+(11, 'Curso Reciclaje', 'En proyecto', 'Juan y Medio', 'Eva Sanchez', 'C/Los Sevillanos', '2016-03-11', '2016-03-13', '07:00:00', '13:00:00', 6, 3, 'No', 'Madres', 'Cursos para aprender a reciclar en casa'),
+(12, 'Curso Móviles ', 'Abierto plazo de solicitud', 'Eva H', 'Manuel Orta', 'Antonio', '2016-03-11', '2016-03-12', '13:00:00', '15:00:00', 2, 5, 'No', 'Primaria', 'Curso de móviles para niños '),
+(13, 'Internet para padres ', 'Actividades en desarrollo', 'Conchi Román', 'María Victoria Contreras', 'C/Random 9', '2016-04-15', '2016-04-16', '09:30:00', '11:30:00', 2, 3, 'No', 'Padres', 'Curso de internet para padres nivel principiante '),
+(14, 'Costura para pequeños', 'Abierto plazo de solicitud', 'Leticia', 'Pablo', 'C/Random 4', '2016-03-11', '2016-03-13', '12:00:00', '14:00:00', 2, 2, 'Si', 'Infantil', 'Costura para pequeños');
 
 -- --------------------------------------------------------
 
@@ -60,14 +68,19 @@ INSERT INTO `actividad` (`codigo_actividad`, `titulo`, `estado`, `coordinador`, 
 -- Estructura de tabla para la tabla `participa`
 --
 
-CREATE TABLE IF NOT EXISTS `participa` (
+CREATE TABLE `participa` (
   `codigo_persona` int(15) NOT NULL,
   `codigo_actividad` int(15) NOT NULL,
-  `codigo_perfil` int(15) NOT NULL,
-  PRIMARY KEY (`codigo_persona`,`codigo_actividad`,`codigo_perfil`),
-  KEY `codigo_actividad` (`codigo_actividad`),
-  KEY `codigo_perfil` (`codigo_perfil`)
+  `codigo_perfil` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `participa`
+--
+
+INSERT INTO `participa` (`codigo_persona`, `codigo_actividad`, `codigo_perfil`) VALUES
+(13, 1, 1),
+(21, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -75,11 +88,10 @@ CREATE TABLE IF NOT EXISTS `participa` (
 -- Estructura de tabla para la tabla `perfil`
 --
 
-CREATE TABLE IF NOT EXISTS `perfil` (
-  `codigo` int(15) NOT NULL AUTO_INCREMENT,
-  `descripcion` set('socio','ponente','monitor','participante','colaborador') COLLATE utf8_spanish2_ci NOT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=6 ;
+CREATE TABLE `perfil` (
+  `codigo` int(15) NOT NULL,
+  `descripcion` set('socio','ponente','monitor','participante','colaborador') COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `perfil`
@@ -98,8 +110,8 @@ INSERT INTO `perfil` (`codigo`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `persona`
 --
 
-CREATE TABLE IF NOT EXISTS `persona` (
-  `codigo` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persona` (
+  `codigo` int(50) NOT NULL,
   `DNI` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
   `nombre` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
   `apellido1` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
@@ -117,11 +129,79 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `n_Seguridad_Social` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
   `n_Cuenta_Bancaria` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `observaciones` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
-  PRIMARY KEY (`codigo`),
-  UNIQUE KEY `perfil` (`perfil`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
+  `password` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
+  `perfil_usuario` set('Administrador','Limitado','Usuario') COLLATE utf8_spanish2_ci NOT NULL,
+  `observaciones` varchar(500) COLLATE utf8_spanish2_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`codigo`, `DNI`, `nombre`, `apellido1`, `apellido2`, `perfil`, `foto`, `sexo`, `fecha_nac`, `direccion`, `municipio`, `provincia`, `pais`, `fecha_alta`, `fecha_baja`, `n_Seguridad_Social`, `n_Cuenta_Bancaria`, `email`, `password`, `perfil_usuario`, `observaciones`) VALUES
+(13, '11112-M', 'Antonio', 'Contreras', 'Román', 1, 'Desert.jpg', 'hombre', '2016-12-31', 'C/Random 7', 'Málaga', 'Málaga', 'España', '2016-12-31', '2016-12-30', '11111-M', '1425836C', 'antonio@gmail.com', '$2y$10$X9m.oy.j/2zAhw8B5KC1rebTv3aq7Buy3B..t6P0C..99azOXBTUa', 'Administrador', 'Otra persona más'),
+(21, '44444-L', 'Mariá Victoria', 'Contreras', 'Martín', 1, 'Koala.jpg', 'mujer', '2016-03-13', 'C/Random 1', 'Granada', 'Granada', 'España', '2016-03-13', '2016-03-15', '44444-6', '147238-O', 'mariavictoria@gmail.com', '$2y$10$cXZTKzAsNDhcnTjqNcXZFOo114VhkpLnXUwxBzroHfjGqj2/n0CVK', 'Usuario', 'Otra persona más'),
+(24, '77777-P', 'Conchi', 'Román', 'Losada', 5, 'Chrysanthemum.jpg', 'mujer', '1946-02-14', 'C/Random 7', 'Málaga', 'Málaga', 'España', '2016-03-13', '2016-03-30', '777777-P', '1428236-D', 'conchi@gmail.com', '$2y$10$w9jcxBEfMQXbBLiWPwBq3eqFttcErH0wLsNlOvW2OGHHCczVQdj/S', 'Usuario', 'una persona más'),
+(26, '9999-W', 'Alejandro', 'Sanchez', 'Nuñez', 2, 'Jellyfish.jpg', 'hombre', '2016-03-16', 'C/Random 4', 'Málaga', 'Málaga', 'España', '2016-03-14', '2016-03-16', '9999-W', '147235-V', 'alejandro@gmail.com', '$2y$10$7o4AIYMQeoWQcQ0s4Rw5/eHjSyYWgMLhdfqB73ZhfH0Z9XL5lnwTK', 'Administrador', 'Usuario Alejandro'),
+(27, '22222-J', 'Luis', 'Sanchez', 'Castejón', 2, 'Hydrangeas.jpg', 'hombre', '2016-03-21', 'C/Salmonete 4', 'Málaga', 'Málaga', 'España', '2016-03-14', '2016-03-15', '22222.J', '147529-O', 'luis@gmail.com', '$2y$10$dptckPed2UX/jUZoFa4iMefd418yIXs78iB4Sjb14EE2W0QlIqgnG', 'Usuario', 'Usuario Luis'),
+(28, '88888-A', 'Juan', 'Fernandez', 'Ruiz', 2, '1.jpg', 'hombre', '2016-03-14', 'C/Aprobado', 'Málaga', 'Málaga', 'España', '2016-03-14', '2016-03-15', '888888-A', '427639-P', 'juan@gmail.com', '$2y$10$hnK9tunhGtH4u2sHkc2woO3epw7/O7JqQZX4tLYdDOKB3zdsaEqEu', 'Limitado', 'Una persona llamada Juan'),
+(29, '2222-P', 'Luisa', 'Gutierrez', 'Franco', 5, '2.jpg', 'mujer', '2016-03-07', 'C/Salmonete 3', 'Málaga', 'Málaga', 'España', '2016-03-08', '2016-03-14', '2222-P', '235871-L', 'luisa@gmail.com', '$2y$10$rSbMWhTQcYnoUE7HPF6cIepmMLdFWrcrWtrh7QiMOJ/mn/4aUoJVO', 'Usuario', 'Una persona llamada Luisa'),
+(30, '5555-Ñ', 'Carmela', 'Contreras', 'Frias', 3, 'Tulips.jpg', 'mujer', '2016-03-01', 'C/Aprobado 9', 'Málaga', 'Málaga', 'España', '2016-03-14', '2016-03-20', '8888-Ñ', '748639-P', 'carmela@gmail.com', '$2y$10$sJKbmZEclPBHQ/G.Go6na.v7pLBjRlwGf3nHr.SqaY.h0nny3/MyC', 'Usuario', 'Una persona llamada Carmela'),
+(31, '9999-L', 'María', 'Nuñez', 'Lopez', 4, 'Jellyfish.jpg', 'mujer', '2016-03-14', 'C/Aprobado 4', 'Málaga', 'Málaga', 'España', '2016-03-14', '2016-03-15', '9999-L', '15839-O', 'maria@gmail.com', '$2y$10$reUM9RUe2esJ6JubzYJgvOzbCUDvw3xspBrkpSwRBsB9Y6gjwWxGS', 'Limitado', 'Una persona llamada María'),
+(32, '77777-I', 'Iñaki', 'Gurruchaga', 'Ñoñez', 1, 'Lighthouse.jpg', 'mujer', '2016-02-15', 'C/Random 11', 'Málaga', 'Málaga', 'España', '2016-03-15', '2016-03-18', '77777-I', '48239-k', 'inaki@gmail.com', '$2y$10$3Bxdq29SFnYrzOeopal0/uhRTw7IEw/0246paREEsJ0Dc8AuZ6/gq', 'Usuario', 'Una persona llamada Iñaki'),
+(33, '9999-O', 'Jesús', 'Facundo', 'Lopez', 1, 'Desert.jpg', 'hombre', '2016-01-04', 'C/Aprobado 5', 'Málaga', 'Málaga', 'España', '2016-03-14', '2016-03-19', '9999-O', '38475-I', 'jesus@gmail.com', '$2y$10$Nx0U23oR3Fe.1LKPQr3dYuAcTAdL4MgMtLsJK6uqvV3FQtbItxxeu', 'Administrador', 'Una persona llamada Jesús'),
+(34, '44444-T', 'Marta', 'Contreras', 'Ruíz', 2, 'Tulips.jpg', 'mujer', '2016-01-18', 'C/Aprobado 14', 'Málaga', 'Málaga', 'España', '2016-03-08', '2016-03-31', '44444-T', '992571-T', 'marta@gmail.com', '$2y$10$bVAYmU/JsIzaPjVgUCcJC.n2Rpge.B4TND9cTsTc3TMn9ivYSaGrG', 'Usuario', 'Una persona llamada Marta');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  ADD PRIMARY KEY (`codigo_actividad`);
+
+--
+-- Indices de la tabla `participa`
+--
+ALTER TABLE `participa`
+  ADD PRIMARY KEY (`codigo_persona`,`codigo_actividad`,`codigo_perfil`),
+  ADD KEY `codigo_actividad` (`codigo_actividad`),
+  ADD KEY `codigo_perfil` (`codigo_perfil`);
+
+--
+-- Indices de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  ADD PRIMARY KEY (`codigo`);
+
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `perfil` (`perfil`) USING BTREE;
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `actividad`
+--
+ALTER TABLE `actividad`
+  MODIFY `codigo_actividad` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  MODIFY `codigo` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `codigo` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- Restricciones para tablas volcadas
 --

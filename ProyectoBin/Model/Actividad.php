@@ -378,6 +378,7 @@ class Actividad {
      * Devuelve el número total de páginas 
      * @returm numeroPaginas
      */
+
     public static function getNumeroPaginas($limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM actividad";
@@ -389,6 +390,7 @@ class Actividad {
     /*
      * Devuelve la sesion de la página
      */
+
     public static function getSesionPagina($pagina, $limite, $sesionPagina) {
         if (isset($sesionPagina)) {
             return $sesionPagina = ($pagina - 1) * $limite;
@@ -401,6 +403,7 @@ class Actividad {
      * Devuelve los objetos que cumplen la sentencia
      * @returm array 
      */
+
     public static function getActividadesByLimit($sesionPagina, $limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo_actividad, titulo, estado, coordinador, ponente,"
@@ -419,7 +422,7 @@ class Actividad {
         return $actividades;
     }
 
-    public static function getTituloActividad(){
+    public static function getTituloActividad() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT titulo FROM actividad";
         $consulta = $conexion->query($seleccion);
@@ -431,7 +434,7 @@ class Actividad {
 
         return $titulos;
     }
-    
+
     public static function getCodigoActividadByTitulo($titulo) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo_actividad FROM `actividad` WHERE titulo='$titulo'";
@@ -444,11 +447,25 @@ class Actividad {
             }
         }
     }
-    
+
     public function insertParticipantes($perfil, $nombre, $codigo) {
         $conexion = BinDb::connectDB();
         $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) "
                 . "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
         return $conexion->exec($inserta);
     }
+
+    public static function getParticipantes() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT * FROM participa";
+        $consulta = $conexion->query($seleccion);
+        $participantes = [];
+
+        foreach ($consulta as $key => $value) {
+            $participantes[$key] = $value;
+        }
+        
+        return $participantes;
+    }
+
 }

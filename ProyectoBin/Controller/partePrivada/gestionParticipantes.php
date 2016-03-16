@@ -7,5 +7,7 @@ require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 $twig = new Twig_Environment($loader);
+ $participantes = Actividad::getParticipantes();
 
-echo $twig->render('gestionParticipantes.html.twig', []);
+
+echo $twig->render('gestionParticipantes.html.twig', ["participantes" => $participantes]);

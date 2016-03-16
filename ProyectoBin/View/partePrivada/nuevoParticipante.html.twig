@@ -20,7 +20,7 @@
                 <select class="browser-default" name="nombre">
                     <option value="" disabled selected>Persona</option>
                     {% for nombre in nombres %}
-                        <option value="{{nombre.nombre}}">{{nombre.nombre}}</option>
+                        <option value="{{ nombre.nombre }}">{{ nombre.nombre }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -28,7 +28,7 @@
                 <select class="browser-default" name="titulo">
                     <option value="" disabled selected>Actividad</option>
                     {% for titulo in titulos %}
-                        <option value="{{titulo.titulo}}">{{titulo.titulo}}</option>
+                        <option value="{{ titulo.titulo }}">{{ titulo.titulo }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -36,7 +36,7 @@
                 <select class="browser-default" name="perfil">
                     <option value="" disabled selected>Perfiles</option>
                     {% for perfil in perfiles %}
-                        <option value="{{perfil}}">{{perfil}}</option>
+                        <option value="{{ perfil }}">{{ perfil }}</option>
                     {% endfor %}
                 </select>
             </div>
