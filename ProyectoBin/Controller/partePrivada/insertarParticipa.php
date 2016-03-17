@@ -16,3 +16,5 @@ $codigo = Actividad::getCodigoActividadByTitulo($_POST['titulo']);
 $perfil = Persona::getCodigoPerfilbyDescripcion($_POST['perfil']);
 
 Actividad::insertParticipantes($nombre, $codigo, $perfil);
+
+header("Location: gestionParticipantes.php");

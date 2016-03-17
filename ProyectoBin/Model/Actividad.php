@@ -468,4 +468,11 @@ class Actividad {
         return $participantes;
     }
 
+    public static function updateParticipa($perfil, $nombre, $codigo) {
+        $conexion = BinDb::connectDB();
+        $modificar = "UPDATE participa  codigo_persona=\"" . $perfil . "\", codigo_actividad=\"" .
+                $nombre . "\", codigo_perfil=\"" . $codigo 
+                . "\" WHERE codigo_perfil=" . $codigo;
+        return $conexion->exec($modificar);
+    }
 }
