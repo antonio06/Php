@@ -14,14 +14,14 @@
 
 {% block contenido %}
     <div class="row">
-    <form class="col s12" action="../../Controller/partePrivada/panelPrincipal.php">
+        <form class="col s12" action="../../Controller/partePublica/login.php" method="post">
       <div class="row">
         <div class="input-field col s4">
-          <input id="icon_prefix" type="text" class="validate">
+            <input id="icon_prefix" type="email" class="validate" name="email">
           <label for="icon_prefix">Nombre del Usuario</label>
         </div>
         <div class="input-field col s4">
-            <input id="icon_telephone" type="password" class="validate">
+            <input id="icon_telephone" type="password" class="validate" name="password">
           <label for="icon_telephone">Contraseña</label>
         </div>
       </div>

@@ -570,4 +570,16 @@ class Persona {
         }
     }
 
+    public static function getPasswordByEmail($email) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT password FROM persona WHERE email='$email'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        foreach ($registro as $key => $value) {
+            if ($key == "password") {
+                $password = $value;
+            }
+        }
+        return $password;
+    }
 }
