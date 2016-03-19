@@ -464,22 +464,55 @@ class Actividad {
         foreach ($consulta as $key => $value) {
             $participantes[$key] = $value;
         }
-        
+
         return $participantes;
     }
 
     public static function updateParticipa($perfil, $nombre, $codigo, $sesionCodigo) {
         $conexion = BinDb::connectDB();
         $modificar = "UPDATE participa  SET codigo_persona=\"" . $perfil . "\", codigo_actividad=\"" .
-                $nombre . "\", codigo_perfil=\"" . $codigo 
+                $nombre . "\", codigo_perfil=\"" . $codigo
                 . "\" WHERE codigo_persona=" . $sesionCodigo;
         //print_r($modificar);
         return $conexion->exec($modificar);
     }
-    
+
     public static function deleteParticipa($sesionCodigo) {
         $conexion = BinDb::connectDB();
         $borrar = "DELETE FROM participa WHERE codigo_persona=\"" . $sesionCodigo . "\"";
         return $conexion->exec($borrar);
     }
+
+    /*
+     * Devuelve el número total de páginas 
+     * @returm numeroPaginas
+     */
+
+    public static function getNumeroPaginasParticipa($limite) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT * FROM participa";
+        $consulta = $conexion->query($seleccion);
+        $totalRegistros = $consulta->rowCount();
+        return $numeroPaginas = $totalRegistros / $limite;
+    }
+
+    /*
+     * Devuelve los objetos que cumplen la sentencia
+     * @returm array 
+     */
+
+    public static function getParticipantesByLimit($sesionPagina, $limite) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
+                . "ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
+        $consulta = $conexion->query($seleccion);
+        $participantes = [];
+
+        foreach ($consulta as $key => $value) {
+            $participantes[$key] = $value;
+        }
+
+        return $participantes;
+    }
+
 }

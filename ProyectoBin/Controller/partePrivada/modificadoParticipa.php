@@ -11,6 +11,9 @@ $twig = new Twig_Environment($loader);
 
 switch ($_POST['opcion']) {
     case "modificar":
+        if (!isset($_POST['nombre']) || ($_POST['titulo']) || ($_POST['perfil'])){
+            
+        }
         $nombre = Persona::getCodigoPersonabyNombre($_POST['nombre']);
 
         $codigo = Actividad::getCodigoActividadByTitulo($_POST['titulo']);

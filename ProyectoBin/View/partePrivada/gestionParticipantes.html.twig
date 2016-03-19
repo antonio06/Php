@@ -29,4 +29,11 @@
             </tr>
         {% endfor %}
     </table>
+    <div class="center-align">
+        <ul class="pagination">
+            {% for arrayNumero in arrayNumeros %}
+                <li class="active"><a href="../../Controller/partePrivada/gestionParticipantes.php?pagina={{ arrayNumero }}">{{ arrayNumero }}</a></li>
+                {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
