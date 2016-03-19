@@ -25,7 +25,7 @@
                 <td>{{ participante.codigo_persona }}</td>
                 <td>{{ participante.codigo_actividad }}</td>
                 <td>{{ participante.codigo_perfil }}</td>
-                <td><a href="../../Controller/partePrivada/modificarParticipa.php?codigo_actividad={{ participante.codigo_persona }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarParticipa.php?codigo_actividad={{ participante.codigo_persona }}"><i class="fa fa-times"></i></a></td>
+                <td><a href="../../Controller/partePrivada/modificarParticipa.php?codigo_persona={{ participante.codigo_persona }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarParticipa.php?codigo_persona={{ participante.codigo_persona }}"><i class="fa fa-times"></i></a></td>
             </tr>
         {% endfor %}
     </table>

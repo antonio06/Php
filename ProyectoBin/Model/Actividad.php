@@ -468,11 +468,18 @@ class Actividad {
         return $participantes;
     }
 
-    public static function updateParticipa($perfil, $nombre, $codigo) {
+    public static function updateParticipa($perfil, $nombre, $codigo, $sesionCodigo) {
         $conexion = BinDb::connectDB();
-        $modificar = "UPDATE participa  codigo_persona=\"" . $perfil . "\", codigo_actividad=\"" .
+        $modificar = "UPDATE participa  SET codigo_persona=\"" . $perfil . "\", codigo_actividad=\"" .
                 $nombre . "\", codigo_perfil=\"" . $codigo 
-                . "\" WHERE codigo_perfil=" . $codigo;
+                . "\" WHERE codigo_persona=" . $sesionCodigo;
+        //print_r($modificar);
         return $conexion->exec($modificar);
+    }
+    
+    public static function deleteParticipa($sesionCodigo) {
+        $conexion = BinDb::connectDB();
+        $borrar = "DELETE FROM participa WHERE codigo_persona=\"" . $sesionCodigo . "\"";
+        return $conexion->exec($borrar);
     }
 }

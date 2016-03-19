@@ -11,5 +11,5 @@ $twig = new Twig_Environment($loader);
 $perfiles = Persona::getPerfilesPersona();
 $titulos = Actividad::getTituloActividad();
 $nombres = Persona::getNombrePersona();
-$_SESSION['codigo_actividad'] = $_GET['codigo_actividad'];
+$_SESSION['codigo_persona'] = $_GET['codigo_persona'];
 echo $twig->render('modificarParticipa.html.twig', ["perfiles" => $perfiles, "nombres" => $nombres, "titulos" => $titulos]);
