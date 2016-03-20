@@ -7,11 +7,12 @@
                 <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestion Actividades</a></li>
                 <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestion Participantes</a></li>
                 <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestion Personas</a></li>
+                <li><a href="../../Controller/partePrivada/gestionPersonas.php">{{ email }}</a></li>
             </ul>
         </div>
     </nav>
 {% endblock %}
 
 {% block contenidoPanel %}
-    <h4>Bienvenido al panel de Administración de Bin</h4>
+    <h4>Bienvenido {{ email }} al panel de Administración</h4>
 {% endblock %}

@@ -582,4 +582,17 @@ class Persona {
         }
         return $password;
     }
+    
+    public static function getPerfil_usuarioByEmail($email) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT perfil_usuario FROM persona WHERE email='$email'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        foreach ($registro as $key => $value) {
+            if ($key == "perfil_usuario") {
+                $perfil_usuario = $value;
+            }
+        }
+        return $perfil_usuario;
+    }
 }
