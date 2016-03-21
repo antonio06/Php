@@ -1,15 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block menuPrincipal %}
-    <nav class="nav-wrapper">
-        <div class="nav-wrapper indigo lighten-3">
-            <a href="#" class="brand-logo">Logo</a>
-            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
-                <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
-                <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
-            </ul>
-        </div>
-    </nav>
+    {% if email != null %}
+        <nav class="nav-wrapper">
+            <div class="nav-wrapper indigo lighten-3">
+                <a href="#" class="brand-logo">Logo</a>
+                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                    <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                    <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
+                    <li><a href="../../Controller/partePublica/formulario_login.php">{{ email }}</a></li>
+                </ul>
+            </div>
+        </nav>
+    {% else %}
+        <nav class="nav-wrapper">
+            <div class="nav-wrapper indigo lighten-3">
+                <a href="#" class="brand-logo">Logo</a>
+                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                    <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                    <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    {% endif %}
 {% endblock %}
 
 {% block contenido %}
@@ -20,14 +33,14 @@
                 <option value="{{estado}}">{{estado}}</option>
             {% endfor %}
         </select>
-        
+
         <select class="browser-default col s3" name="descriptor">
             <option value="" disabled selected>Descriptor</option>
             {% for descriptor in descriptores %}
                 <option value="{{descriptor}}">{{descriptor}}</option>
             {% endfor %}
         </select>
-        
+
         <input class="waves-effect waves-light btn" type="submit" value="Buscar">
     </form>
     <table class="bordered">
@@ -54,11 +67,11 @@
             </tr>
         {% endfor %}
     </table>
-        <div class="center-align">
+    <div class="center-align">
         <ul class="pagination">
             {% for arrayNumero in arrayNumeros %}
                 <li class="active"><a href="../../Controller/partePublica/actividades.php?pagina={{ arrayNumero }}">{{ arrayNumero }}</a></li>
-            {% endfor %}
+                {% endfor %}
         </ul>
     </div>
 {% endblock %}  
