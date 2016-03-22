@@ -7,7 +7,12 @@
                 <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestión Actividades</a></li>
                 <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestión Participantes</a></li>
                 <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestión Personas</a></li>
-                <li><a href="../../Controller/partePrivada/gestionPersonas.php">{{ email }}</a></li>
+                <li><select class="browser-default indigo lighten-3">
+                    <option value="" disabled selected>{{ email }}</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    </select></li>
             </ul>
         </div>
     </nav>
@@ -28,7 +33,7 @@
                 <td>{{ participante.codigo_perfil }}</td>
                 {% if esAdministrador != null %}
                     <td><a href="../../Controller/partePrivada/modificarParticipa.php?codigo_persona={{ participante.codigo_persona }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarParticipa.php?codigo_persona={{ participante.codigo_persona }}"><i class="fa fa-times"></i></a></td>
-                {% endif %}    
+                        {% endif %}    
             </tr>
         {% endfor %}
     </table>

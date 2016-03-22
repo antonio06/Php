@@ -7,7 +7,12 @@
                 <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestión Actividades</a></li>
                 <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestión Participantes</a></li>
                 <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestión Personas</a></li>
-                <li><a href="../../Controller/partePrivada/gestionPersonas.php">{{ email }}</a></li>
+                <li><select class="browser-default indigo lighten-3">
+                        <option value="" disabled selected>{{ email }}</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select></li>
             </ul>
         </div>
     </nav>
@@ -21,14 +26,14 @@
                 <option value="{{estado}}">{{estado}}</option>
             {% endfor %}
         </select>
-        
+
         <select class="browser-default col s3" name="descriptor">
             <option value="" disabled selected>Descriptor</option>
             {% for descriptor in descriptores %}
                 <option value="{{descriptor}}">{{descriptor}}</option>
             {% endfor %}
         </select>
-        
+
         <input class="waves-effect waves-light btn" type="submit" value="Buscar">
     </form>
 
@@ -53,10 +58,10 @@
                 <td>{{ actividad.fecha_fin }}</td>
                 <td>{{ actividad.descriptor }}</td>
                 {% if esAdministrador != null %}
-                <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-times"></i></a></td>
-                {% else %}
-                <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
-                {% endif %}
+                    <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-times"></i></a></td>
+                        {% else %}
+                    <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
+                        {% endif %}
             </tr>
         {% endfor %}
     </table>
