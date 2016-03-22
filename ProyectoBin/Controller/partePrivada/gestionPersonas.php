@@ -24,11 +24,23 @@ if ($_SESSION['logeado'] == "Si") {
         $pagina = 1;
         $_SESSION['pagina'] = Persona::getSesionPagina($pagina, $limite, $_SESSION['pagina']);
         $personas = Persona::getPersonasByLimit($_SESSION['pagina'], $limite);
-        echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+        $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
+        if ($perfil_usuario == "Administrador") {
+        $_SESSION['esAdministrador'] = "Si";
+            echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+        }else{
+            echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+        }
     } else {
+        $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         $_SESSION['pagina'] = Persona::getSesionPagina($_GET['pagina'], $limite, $_SESSION['pagina']);
         $personas = Persona::getPersonasByLimit($_SESSION['pagina'], $limite);
-        echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+        if ($perfil_usuario == "Administrador") {
+        $_SESSION['esAdministrador'] = "Si";
+            echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+        }else{
+            echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+        }
     }
 }
 

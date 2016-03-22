@@ -32,7 +32,12 @@
                 <td>{{ persona.apellido1 }}</td>
                 <td>{{ persona.apellido2 }}</td>
                 <td>{{ persona.sexo }}</td>
-                <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-times"></i></a></td>
+                {% if esAdministrador != null %}
+                    <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-times"></i></a></td>
+                {% else %}
+                    <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}"><i class="fa fa-search-plus"></i></a></td>
+                {% endif %}
+                
             </tr>
         {% endfor %}
     </table>
