@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Cargamos la librería de twig y las clases de la base de datos de BindDB y 
 // de la clase de actividad
 require_once '../twig/lib/Twig/Autoloader.php';
