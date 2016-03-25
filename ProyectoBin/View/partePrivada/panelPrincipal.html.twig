@@ -7,7 +7,13 @@
                 <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestion Actividades</a></li>
                 <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestion Participantes</a></li>
                 <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestion Personas</a></li>
-                <li><a href="../../Controller/partePrivada/gestionPersonas.php">{{ email }}</a></li>
+                <li><a class="dropdown-button" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
+                <!-- Dropdown Structure -->
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="#!">Mi perfil</a></li>
+                    <li><a href="#!">Mis actividades</a></li>
+                    <li><a href="../../Controller/partePrivada/salirPerfil.php">Salir del perfil</a></li>
+                </ul>
             </ul>
         </div>
     </nav>
