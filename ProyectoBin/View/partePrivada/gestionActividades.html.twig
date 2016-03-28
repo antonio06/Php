@@ -10,8 +10,8 @@
                 <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
                 <!-- Dropdown Structure -->
                 <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!">Mi perfil</a></li>
-                    <li><a href="#!">Mis actividades</a></li>
+                    <li><a href="../../Controller/partePrivada/miPerfil.php">Mi perfil</a></li>
+                    <li><a href="../../Controller/partePrivada/misActividades.php">Mis actividades</a></li>
                     <li><a href="../../Controller/partePrivada/salirPerfil.php">Salir del perfil</a></li>
                 </ul>
             </ul>
@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block contenidoPanel %}
-    <form class="col s12" action="../../Controller/partePrivada/gestionActividades.php" method="post">
+    <!--<form class="col s12" action="../../Controller/partePrivada/gestionActividades.php" method="post">
         <select class="browser-default col s3" name="estado">
             <option value="" disabled selected>Estado</option>
             {% for estado in estados %}
@@ -36,7 +36,7 @@
         </select>
 
         <input class="waves-effect waves-light btn" type="submit" value="Buscar">
-    </form>
+    </form>-->
 
     <table class="bordered">
         <tr>
