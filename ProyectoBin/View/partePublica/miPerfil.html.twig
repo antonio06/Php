@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block menuPrincipal %}
+    {% if email != null %}
+        <nav class="nav-wrapper">
+            <div class="nav-wrapper indigo lighten-3">
+                <a href="#" class="brand-logo">Logo</a>
+                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                    <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                    <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
+                    <!-- Dropdown Structure -->
+                    <ul id="dropdown1" class="dropdown-content">
+                        <li><a href="../../Controller/partePublica/miPerfil.php">Mi perfil</a></li>
+                        <li><a href="../../Controller/partePublica/misActividades.php">Mis actividades</a></li>
+                        <li><a href="../../Controller/partePublica/salirPerfil.php">Salir del perfil</a></li>
+                    </ul>
+                </ul>
+            </div>
+        </nav>
+    {% else %}
+        <nav class="nav-wrapper">
+            <div class="nav-wrapper indigo lighten-3">
+                <a href="#" class="brand-logo">Logo</a>
+                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                    <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                    <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    {% endif %}
+{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+        <form class="col s12" action="../../Controller/partePrivada/modificadoMiperfil.php" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="DNI" value="{{ persona.DNI }}">
+                    <label for="last_name">DNI</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="nombre" value="{{ persona.nombre }}">
+                    <label for="last_name">Nombre</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="apellido1" value="{{ persona.apellido1 }}">
+                    <label for="last_name">1º Apellido</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="apellido2" value="{{ persona.apellido2 }}">
+                    <label for="last_name">2º Apellido</label>
+                </div>
+                <div class="input-field col s4">
+                    <select class="browser-default" name="perfil">
+                        <option  disabled selected>Perfiles</option>
+                        {% for perfil in perfiles %}
+                            <option value="{{ perfil }}">{{ perfil }}</option>
+                        {% endfor %}}
+                    </select>
+                </div>
+                <div class="file-field input-field col s6">
+                    <div class="btn">
+                        <span>Foto/Logo</span>
+                        <input type="file" id="foto" name="foto" value="{{ persona.foto }}">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="input-field col s4">
+                    <select class="browser-default" name="sexo">
+                        <option  disabled selected>Sexo</option>
+                        {% for sexo in sexo %}
+                            <option value="{{ sexo }}">{{ sexo }}</option>
+                        {% endfor %}}
+                    </select>
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: -11%">Fecha Nacimiento</label>
+                    <input id="last_name" type="date" class="validate" name="fecha_nac" value="{{ persona.fecha_nac }}">
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="direccion" value="{{ persona.direccion }}">
+                    <label for="last_name">Direccion</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="municipio" value="{{ persona.municipio }}">
+                    <label for="last_name">Municipio</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="provincia" value="{{ persona.provincia }}">
+                    <label for="last_name">Provincia</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" type="text" class="validate" name="pais" value="{{ persona.pais }}">
+                    <label for="last_name">País</label>
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: -11%">Fecha Alta</label>
+                    <input id="last_name" type="date" class="validate" name="fecha_alta" value="{{ persona.fecha_alta }}">
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: -11%">Fecha Baja</label>
+                    <input id="last_name" type="date" class="validate" name="fecha_baja" value="{{ persona.fecha_baja }}">
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: -1%">Nº Seguridad Social</label>
+                    <input id="last_name" type="text" class="validate" name="n_Seguridad_Social" value="{{ persona.n_Seguridad_Social }}">
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: -1%">Nº Cuenta Bancaria</label>
+                    <input id="last_name" type="text" class="validate" name="n_Cuenta_Bancaria" value="{{ persona.n_Cuenta_Bancaria }}">
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: -1%">Email</label>
+                    <input id="last_name" type="email" class="validate" name="email" value="{{ persona.email }}">
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: 1%">Password</label>
+                    <input id="last_name" type="password" class="validate" name="password" value="{{ persona.password }}">
+                </div>
+                <div class="input-field col s3">
+                    <select class="browser-default" name="perfil_usuario">
+                        <option value="" disabled selected>Perfil Usuario</option>
+                        {% for perfilUsuario in perfilesUsuarios %}
+                            <option value="{{ perfilUsuario }}">{{ perfilUsuario }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field col s3">
+                    <label style="margin-top: -11%">Observaciones</label>
+                    <input id="last_name" type="text" class="validate" name="observaciones" value="{{persona.observaciones}}">
+                </div>
+            </div>
+            <input class="waves-effect waves-light btn yellow accent-2" type="submit" value="modificar" name="opcion">
+            <input class="waves-effect waves-light btn" type="submit" value="cancelar" name="opcion">
+        </form>
+    </div>
+{% endblock %}

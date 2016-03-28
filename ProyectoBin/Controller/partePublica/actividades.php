@@ -6,6 +6,7 @@ session_start();
 require_once '../twig/lib/Twig/Autoloader.php';
 require_once '../../Model/BinDb.php';
 require_once '../../Model/Actividad.php';
+require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePublica');
 $twig = new Twig_Environment($loader);
@@ -16,6 +17,7 @@ $limite = 2;
 $numeroPaginas = Actividad::getNumeroPaginas($limite);
 $arrayNumeros = [];
 $auxi = 0;
+
 for ($i = 1; $i <= $numeroPaginas; $i++) {
     if ($auxi <= $numeroPaginas) {
         $arrayNumeros[$auxi++] = $i;

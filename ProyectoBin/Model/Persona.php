@@ -595,4 +595,17 @@ class Persona {
         }
         return $perfil_usuario;
     }
+    
+    public static function getCodigoByEmail($email) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo FROM persona WHERE email='$email'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        foreach ($registro as $key => $value) {
+            if ($key == "codigo") {
+                $codigo = $value;
+            }
+        }
+        return $codigo;
+    }
 }
