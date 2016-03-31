@@ -611,4 +611,17 @@ class Persona {
         }
         return $codigo;
     }
+    
+    public static function getPerfilByCodigo($codigo) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT perfil FROM persona WHERE codigo=$codigo";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        foreach ($registro as $key => $value) {
+            if ($key == "perfil") {
+                $perfil = $value;
+            }
+        }
+        return $perfil;
+    }
 }

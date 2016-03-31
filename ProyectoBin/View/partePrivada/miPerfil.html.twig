@@ -22,14 +22,10 @@
 {% block contenidoPanel %}
     <div class="row">
         <form class="col s12" action="../../Controller/partePrivada/modificadoMiperfil.php" method="post" enctype="multipart/form-data">
-            {% for perfil in perfiles %}
             <input type="hidden" name="perfil" value="{{ perfil }}">
-            {% endfor %}
             <input type="hidden" name="fecha_alta" value="{{ persona.fecha_alta }}">
             <input type="hidden" name="fecha_baja" value="{{ persona.fecha_baja }}">
-            {% for perfilUsuario in perfilesUsuarios %}
             <input type="hidden" name="perfil_usuario" value="{{ perfil_usuario }}"> 
-            {% endfor %}
             <input type="hidden" name="observaciones" value="{{ persona.observaciones }}">
             <div class="row">
                 <div class="input-field col s3">

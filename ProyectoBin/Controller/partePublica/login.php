@@ -12,12 +12,12 @@ if (password_verify($contrasenaIntroducida, $password)) {
     if (($perfil_usuario == "Administrador") || ($perfil_usuario == "Limitado")) {
         $_SESSION['email'] = $email;
         $_SESSION['logeado'] = "Si";
-        $_SESSION['codigo_persona'] = Persona::getCodigoByEmail($_SESSION['email']);
+        $_SESSION['codigo'] = Persona::getCodigoByEmail($_SESSION['email']);
         header("Location: ../partePrivada/panelPrincipal.php");
     } else {
         $_SESSION['email'] = $email;
         $_SESSION['logeado'] = "Si";
-        $_SESSION['codigo_persona'] = Persona::getCodigoByEmail($_SESSION['email']);
+        $_SESSION['codigo'] = Persona::getCodigoByEmail($_SESSION['email']);
         header("Location: actividades.php");
     }
 } else {
