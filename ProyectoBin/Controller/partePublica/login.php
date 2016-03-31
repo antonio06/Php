@@ -7,6 +7,7 @@ $email = $_POST['email'];
 $password = Persona::getPasswordByEmail($email);
 $contrasenaIntroducida = $_POST['password'];
 $perfil_usuario = Persona::getPerfil_usuarioByEmail($email);
+//var_dump($perfil_usuario);
 if (password_verify($contrasenaIntroducida, $password)) {
     if (($perfil_usuario == "Administrador") || ($perfil_usuario == "Limitado")) {
         $_SESSION['email'] = $email;

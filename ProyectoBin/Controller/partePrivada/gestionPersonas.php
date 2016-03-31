@@ -25,6 +25,7 @@ if ($_SESSION['logeado'] == "Si") {
         $_SESSION['pagina'] = Persona::getSesionPagina($pagina, $limite, $_SESSION['pagina']);
         $personas = Persona::getPersonasByLimit($_SESSION['pagina'], $limite);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
+
         if ($perfil_usuario == "Administrador") {
         $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);

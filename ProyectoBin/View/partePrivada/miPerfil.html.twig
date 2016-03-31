@@ -22,6 +22,15 @@
 {% block contenidoPanel %}
     <div class="row">
         <form class="col s12" action="../../Controller/partePrivada/modificadoMiperfil.php" method="post" enctype="multipart/form-data">
+            {% for perfil in perfiles %}
+            <input type="hidden" name="perfil" value="{{ perfil }}">
+            {% endfor %}
+            <input type="hidden" name="fecha_alta" value="{{ persona.fecha_alta }}">
+            <input type="hidden" name="fecha_baja" value="{{ persona.fecha_baja }}">
+            {% for perfilUsuario in perfilesUsuarios %}
+            <input type="hidden" name="perfil_usuario" value="{{ perfil_usuario }}"> 
+            {% endfor %}
+            <input type="hidden" name="observaciones" value="{{ persona.observaciones }}">
             <div class="row">
                 <div class="input-field col s3">
                     <input id="last_name" type="text" class="validate" name="DNI" value="{{ persona.DNI }}">
@@ -39,14 +48,14 @@
                     <input id="last_name" type="text" class="validate" name="apellido2" value="{{ persona.apellido2 }}">
                     <label for="last_name">2º Apellido</label>
                 </div>
-                <div class="input-field col s4">
+                <!--<div class="input-field col s4">
                     <select class="browser-default" name="perfil">
                         <option  disabled selected>Perfiles</option>
                         {% for perfil in perfiles %}
                             <option value="{{ perfil }}">{{ perfil }}</option>
                         {% endfor %}}
                     </select>
-                </div>
+                </div>-->
                 <div class="file-field input-field col s6">
                     <div class="btn">
                         <span>Foto/Logo</span>
@@ -84,14 +93,14 @@
                     <input id="last_name" type="text" class="validate" name="pais" value="{{ persona.pais }}">
                     <label for="last_name">País</label>
                 </div>
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <label style="margin-top: -11%">Fecha Alta</label>
                     <input id="last_name" type="date" class="validate" name="fecha_alta" value="{{ persona.fecha_alta }}">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Fecha Baja</label>
                     <input id="last_name" type="date" class="validate" name="fecha_baja" value="{{ persona.fecha_baja }}">
-                </div>
+                </div>-->
                 <div class="input-field col s3">
                     <label style="margin-top: -1%">Nº Seguridad Social</label>
                     <input id="last_name" type="text" class="validate" name="n_Seguridad_Social" value="{{ persona.n_Seguridad_Social }}">
@@ -108,7 +117,7 @@
                     <label style="margin-top: 1%">Password</label>
                     <input id="last_name" type="password" class="validate" name="password" value="{{ persona.password }}">
                 </div>
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <select class="browser-default" name="perfil_usuario">
                         <option value="" disabled selected>Perfil Usuario</option>
                         {% for perfilUsuario in perfilesUsuarios %}
@@ -119,7 +128,7 @@
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Observaciones</label>
                     <input id="last_name" type="text" class="validate" name="observaciones" value="{{persona.observaciones}}">
-                </div>
+                </div>-->
             </div>
             <input class="waves-effect waves-light btn yellow accent-2" type="submit" value="modificar" name="opcion">
             <input class="waves-effect waves-light btn" type="submit" value="cancelar" name="opcion">
