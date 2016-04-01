@@ -624,4 +624,5 @@ class Persona {
         }
         return $perfil;
     }
+
 }
