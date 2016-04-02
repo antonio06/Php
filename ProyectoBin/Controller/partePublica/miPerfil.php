@@ -8,10 +8,11 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePublica');
 $twig = new Twig_Environment($loader);
 if ($_SESSION['logeado'] == "Si") {
-    $persona = Persona::getPersonaByCodigo($_SESSION['codigo_persona']);
-    $perfilesUsuarios = Persona::getPerfiles_usuariosPersona();
-    $perfiles = Persona::getPerfilesPersona();
+    $persona = Persona::getPersonaByCodigo($_SESSION['codigo']);
+    //$perfilesUsuarios = Persona::getPerfiles_usuariosPersona();
+    $perfil = Persona::getPerfilByCodigo($_SESSION['codigo']);
     $sexo = Persona::getSexoPersona();
-    echo $twig->render('miPerfil.html.twig', ["persona" => $persona, "perfilesUsuarios" => $perfilesUsuarios, "perfiles" => $perfiles, "sexo" => $sexo, "email" => $_SESSION['email']]);
+    $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
+    echo $twig->render('miPerfil.html.twig', ["persona" => $persona, "perfil_usuario" => $perfil_usuario, "perfil" => $perfil, "sexo" => $sexo, "email" => $_SESSION['email']]);
 }
 
