@@ -1,0 +1,44 @@
+{% extends 'panelPrincipalBase.html.twig' %}
+{% block menuPrincipalPanel %}
+    <nav class="nav-wrapper">
+        <div class="nav-wrapper indigo lighten-3">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestión Actividades</a></li>
+                <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestión Participantes</a></li>
+                <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestión Personas</a></li>
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
+                <!-- Dropdown Structure -->
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="../../Controller/partePrivada/miPerfil.php">Mi perfil</a></li>
+                    <li><a href="../../Controller/partePrivada/misActividades.php">Mis actividades</a></li>
+                    <li><a href="../../Controller/partePrivada/salirPerfil.php">Salir del perfil</a></li>
+                </ul>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block contenidoPanel %}
+    <table class="bordered">
+        <tr>
+            <td>Persona</td>
+            <td>Actividades</td>
+            <td>Perfiles</td>
+        </tr>
+        {% for participante in participantes %}
+            <tr>
+                <td>{{ participante.codigo_persona }}</td>
+                <td>{{ participante.codigo_actividad }}</td>
+                <td>{{ participante.codigo_perfil }}</td>    
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="center-align">
+        <ul class="pagination">
+            {% for arrayNumero in arrayNumeros %}
+                <li class="active"><a href="../../Controller/partePrivada/misActividades.php?pagina={{ arrayNumero }}">{{ arrayNumero }}</a></li>
+                {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

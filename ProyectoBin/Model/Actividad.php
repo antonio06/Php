@@ -501,10 +501,15 @@ class Actividad {
      * @returm array 
      */
 
-    public static function getParticipantesByLimit($sesionPagina, $limite) {
+    public static function getParticipantesByLimit($sesionPagina, $limite, $codigo_persona) {
         $conexion = BinDb::connectDB();
-        $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
+        if($codigo_persona != NULL){
+            $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
+                . "WHERE codigo_persona=$codigo_persona ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
+        }else{
+            $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
                 . "ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
+        }
         $consulta = $conexion->query($seleccion);
         $participantes = [];
 
@@ -515,4 +520,15 @@ class Actividad {
         return $participantes;
     }
 
+    public static function getCodigoParticipante() {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo FROM perfil WHERE descripcion='participante'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        foreach ($registro as $key => $value) {
+            $codigo_perfil = $value;
+        }
+
+        return $codigo_perfil;
+    }
 }
