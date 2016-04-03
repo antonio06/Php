@@ -21,13 +21,13 @@
 
 {% block contenidoPanel %}
 
-    <form class="col s12" action="../../Controller/partePrivada/insertarParticipa.php" method="POST" enctype="multipart/form-data">
+    <form class="col s12" action="../../Controller/partePrivada/insertarParticipa.php" method="POST" enctype="multipart/form-data" id="formularioNuevoParticipante">
         <div class="row">
             <div class="file-field input-field col s3">
                 <select class="browser-default" name="nombre">
                     <option value="" disabled selected>Persona</option>
                     {% for nombre in nombres %}
-                        <option value="{{ nombre.nombre }}">{{ nombre.nombre }}</option>
+                        <option value="{{ nombre.nombre }}" id="nombre_persona">{{ nombre.nombre }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -35,7 +35,7 @@
                 <select class="browser-default" name="titulo">
                     <option value="" disabled selected>Actividad</option>
                     {% for titulo in titulos %}
-                        <option value="{{ titulo.titulo }}">{{ titulo.titulo }}</option>
+                        <option value="{{ titulo.titulo }}" id="titulo_actividad">{{ titulo.titulo }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -43,11 +43,11 @@
                 <select class="browser-default" name="perfil">
                     <option value="" disabled selected>Perfiles</option>
                     {% for perfil in perfiles %}
-                        <option value="{{ perfil }}">{{ perfil }}</option>
+                        <option value="{{ perfil }}" id="perfil_persona">{{ perfil }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-        <input class="waves-effect waves-light btn" type="submit" value="Ingresar">
+                <input class="waves-effect waves-light btn" type="submit" value="Ingresar" id="botonIngresar">
     </form>
 {% endblock %}

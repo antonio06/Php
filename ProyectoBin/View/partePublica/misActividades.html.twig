@@ -49,7 +49,7 @@
     <div class="center-align">
         <ul class="pagination">
             {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="../../Controller/partePublica/misActividades.php?pagina={{ arrayNumero }}">{{ arrayNumero }}</a></li>
+                <li class="active"><a href="../../Controller/partePublica/misActividades.php?pagina={{ arrayNumero }}" id="botonNum">{{ arrayNumero }}</a></li>
                 {% endfor %}
         </ul>
     </div>

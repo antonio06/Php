@@ -21,36 +21,36 @@
 
 {% block contenidoPanel %}
 
-    <form class="col s12" action="../../Controller/partePrivada/insertarPersona.php" method="POST" enctype="multipart/form-data">
+    <form class="col s12" action="../../Controller/partePrivada/insertarPersona.php" method="POST" enctype="multipart/form-data" id="formularioNuevaPersona">
         <div class="row">
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="DNI">
+                <input id="last_name" type="text" class="validate" name="DNI" id="dni_persona">
                 <label for="last_name">DNI</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="nombre">
+                <input id="last_name" type="text" class="validate" name="nombre" id="nombre_persona">
                 <label for="last_name">Nombre</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="apellido1">
+                <input id="last_name" type="text" class="validate" name="apellido1" id="apellido1_persona">
                 <label for="last_name">1º Apellido</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="apellido2">
+                <input id="last_name" type="text" class="validate" name="apellido2" id="apellido2_persona">
                 <label for="last_name">2º Apellido</label>
             </div>
             <div class="input-field col s3">
                 <select class="browser-default" name="perfil">
                     <option value="" disabled selected>Perfiles</option>
                     {% for perfil in perfiles %}
-                        <option value="{{ perfil }}">{{ perfil }}</option>
+                        <option value="{{ perfil }}" id="perfil_persona">{{ perfil }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="file-field input-field col s6">
                 <div class="btn">
                     <span>Foto/Logo</span>
-                    <input type="file" id="foto" name="foto">
+                    <input type="file" name="foto" id="foto_persona">
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
@@ -60,70 +60,70 @@
                 <select class="browser-default" name="sexo">
                     <option value="" disabled selected>Sexo</option>
                     {% for sexo in sexo %}
-                        <option value="{{ sexo }}">{{ sexo }}</option>
+                        <option value="{{ sexo }}" id="sexo_persona">{{ sexo }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="input-field col s4">
                 <label style="margin-top: -11%">Fecha Nacimiento</label>
-                <input id="last_name" type="date" class="validate" name="fecha_nac">
+                <input id="last_name" type="date" class="validate" name="fecha_nac" id="fecha_nac_persona">
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="direccion">
+                <input id="last_name" type="text" class="validate" name="direccion" id="direccion_persona">
                 <label for="last_name">Dirección</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="municipio">
+                <input id="last_name" type="text" class="validate" name="municipio" id="municipio_persona">
                 <label for="last_name">Municipio</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="provincia">
+                <input id="last_name" type="text" class="validate" name="provincia" id="provincia_persona">
                 <label for="last_name">Provincia</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="pais">
+                <input id="last_name" type="text" class="validate" name="pais" id="pais_persona">
                 <label for="last_name">Pais</label>
             </div>
             <div class="input-field col s3">
                 <label style="margin-top: -11%">Fecha Alta</label>
-                <input id="last_name" type="date" class="validate" name="fecha_alta">
+                <input id="last_name" type="date" class="validate" name="fecha_alta" id="fecha_alta_persona">
                 <label for="last_name"></label>
             </div>
             <div class="input-field col s3">
                 <label style="margin-top: -11%">Fecha Baja</label>
-                <input id="last_name" type="date" class="validate" name="fecha_baja">
+                <input id="last_name" type="date" class="validate" name="fecha_baja" id="fecha_baja_persona">
                 <label for="last_name"></label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="n_Seguridad_Social">
+                <input id="last_name" type="text" class="validate" name="n_Seguridad_Social" id="n_seguridad_social_persona">
                 <label for="last_name">Nº Seguridad Social</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="text" class="validate" name="n_Cuenta_Bancaria">
+                <input id="last_name" type="text" class="validate" name="n_Cuenta_Bancaria" id="n_cuenta_bancaria_persona">
                 <label for="last_name">Nº Cuenta Bancaria</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="email" class="validate" name="email">
+                <input id="last_name" type="email" class="validate" name="email" id="email_persona">
                 <label for="last_name">Email</label>
             </div>
             <div class="input-field col s3">
-                <input id="last_name" type="password" class="validate" name="password">
+                <input id="last_name" type="password" class="validate" name="password" id="password_persona">
                 <label for="last_name">Password</label>
             </div>
             <div class="input-field col s3">
                 <select class="browser-default" name="perfil_usuario">
                     <option value="" disabled selected>Perfiles Usuarios</option>
                     {% for perfilUsuario in perfilesUsuarios %}
-                        <option value="{{ perfilUsuario }}">{{ perfilUsuario }}</option>
+                        <option value="{{ perfilUsuario }}" id="perfil_usuario_persona">{{ perfilUsuario }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="input-field col s12">
-                <input id="last_name" type="text" class="validate" name="observaciones">
+                <input id="last_name" type="text" class="validate" name="observaciones" id="observaciones_persona">
                 <label for="last_name">Observaciones</label>
             </div>
         </div>
-        <input class="waves-effect waves-light btn" type="submit" value="Ingresar">
+                <input class="waves-effect waves-light btn" type="submit" value="Ingresar" id="botonIngresar">
     </form>
 
 {% endblock %}

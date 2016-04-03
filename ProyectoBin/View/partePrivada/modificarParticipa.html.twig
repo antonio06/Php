@@ -21,13 +21,13 @@
 
 {% block contenidoPanel %}
 
-    <form class="col s12" action="../../Controller/partePrivada/modificadoParticipa.php" method="POST" enctype="multipart/form-data">
+    <form class="col s12" action="../../Controller/partePrivada/modificadoParticipa.php" method="POST" enctype="multipart/form-data" id="formularioModificarParticipa">
         <div class="row">
             <div class="file-field input-field col s3">
                 <select class="browser-default" name="nombre">
                     <option value="" disabled selected>Persona</option>
                     {% for nombre in nombres %}
-                        <option value="{{ nombre.nombre }}">{{ nombre.nombre }}</option>
+                        <option value="{{ nombre.nombre }}" id="nombre_persona">{{ nombre.nombre }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -35,7 +35,7 @@
                 <select class="browser-default" name="titulo">
                     <option value="" disabled selected>Actividad</option>
                     {% for titulo in titulos %}
-                        <option value="{{ titulo.titulo }}">{{ titulo.titulo }}</option>
+                        <option value="{{ titulo.titulo }}" id="titulo_actividad">{{ titulo.titulo }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -43,12 +43,12 @@
                 <select class="browser-default" name="perfil">
                     <option value="" disabled selected>Perfiles</option>
                     {% for perfil in perfiles %}
-                        <option value="{{ perfil }}">{{ perfil }}</option>
+                        <option value="{{ perfil }}" id="perfil_persona">{{ perfil }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-        <input class="waves-effect waves-light btn yellow accent-2" type="submit" value="modificar" name="opcion">
-        <input class="waves-effect waves-light btn" type="submit" value="cancelar" name="opcion">
+                <input class="waves-effect waves-light btn yellow accent-2" type="submit" value="modificar" name="opcion" id="botonModificar">
+                <input class="waves-effect waves-light btn" type="submit" value="cancelar" name="opcion" id="botonCancelar">
     </form>
 {% endblock %}

@@ -69,14 +69,14 @@
                 <td>{{ actividad.fecha_inicio }}</td>
                 <td>{{ actividad.fecha_fin }}</td>
                 <td>{{ actividad.descriptor }}</td>
-                <td><a href="../../Controller/partePublica/detalles.php?codigo={{ actividad.codigo_actividad }}"><i class="fa fa-search-plus"></i></a></td>
+                <td><a href="../../Controller/partePublica/detalles.php?codigo={{ actividad.codigo_actividad }}" id="detalleActividad"><i class="fa fa-search-plus"></i></a></td>
             </tr>
         {% endfor %}
     </table>
     <div class="center-align">
         <ul class="pagination">
             {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="../../Controller/partePublica/actividades.php?pagina={{ arrayNumero }}">{{ arrayNumero }}</a></li>
+                <li class="active"><a href="../../Controller/partePublica/actividades.php?pagina={{ arrayNumero }}" id="botonNum">{{ arrayNumero }}</a></li>
                 {% endfor %}
         </ul>
     </div>
