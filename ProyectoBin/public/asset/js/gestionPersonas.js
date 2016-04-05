@@ -1,7 +1,32 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Funciones con peticiones AJAX y jquery.
  */
+
+$(function () {
+    $("#paginacion > li").each(function (indice, elemento) {
+        $(elemento).click(function (e) {
+            e.preventDefault();
+            $("#divMensaje").hide();
+            $.ajax({
+                url: '../../Controller/partePrivada/gestionPersonas.php',
+                method: 'GET',
+                data: {
+                    pagina: indice + 1
+                }, success: function (tabla, textStatus, jqXHR) {
+                    // Petición con éxito
+                    if (textStatus === "success") {
+                        $("#tablaPersonas").remove();
+                        $(tabla).insertAfter($("#divMensaje"));
+                    }
+
+                }, error: function (jqXHR, textStatus, errorThrown) {
+                    // La petición por algún motivo ha fallado
+                    $("#divMensaje").show().html("Ha habido un error al solicitar los datos, inténtalo más tarde.");
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+    });
+});
 
 

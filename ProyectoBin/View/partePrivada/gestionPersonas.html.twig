@@ -20,38 +20,14 @@
 {% endblock %}
 
 {% block contenidoPanel %}
-    <table class="bordered">
-        <tr>
-            <td>Codigo</td>
-            <td>DNI</td>
-            <td>Nombre</td>
-            <td>1 Apellido</td>
-            <td>2 Apellido</td>
-            <td>Sexo</td>
-            <td><a href="../../Controller/partePrivada/nuevaPersona.php" id="anadirPersona"><i class="fa fa-plus"></i></a></td>
-        </tr>
-        {% for persona in personas %}
-            <tr>
-                <td>{{ persona.codigo }}</td>
-                <td>{{ persona.DNI }}</td>
-                <td>{{ persona.nombre }}</td>
-                <td>{{ persona.apellido1 }}</td>
-                <td>{{ persona.apellido2 }}</td>
-                <td>{{ persona.sexo }}</td>
-                {% if esAdministrador != null %}
-                    <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}" id="detallePersona"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarPersona.php?codigo_persona={{ persona.codigo }}" id="modificarPersona"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarPersona.php?codigo_persona={{ persona.codigo }}" id="borrarPersona"><i class="fa fa-times"></i></a></td>
-                        {% else %}
-                    <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}" id="detallePersona"><i class="fa fa-search-plus"></i></a></td>
-                        {% endif %}
-
-            </tr>
-        {% endfor %}
-    </table>
+    <div id="divMensaje"></div>
+    {% include "tablaPersonas.html.twig" %}
     <div class="center-align">
-        <ul class="pagination">
+        <ul class="pagination" id="paginacion">
             {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="../../Controller/partePrivada/gestionPersonas.php?pagina={{ arrayNumero }}" id="botonNum">{{ arrayNumero }}</a></li>
+                <li class="active"><a href="#">{{ arrayNumero }}</a></li>
                 {% endfor %}
         </ul>
     </div>
+    <script type="text/javascript" src="../../public/asset/js/gestionPersonas.js"></script>
 {% endblock %}

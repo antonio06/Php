@@ -38,9 +38,9 @@ if ($_SESSION['logeado'] == "Si") {
         $personas = Persona::getPersonasByLimit($_SESSION['pagina'], $limite);
         if ($perfil_usuario == "Administrador") {
         $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+            echo $twig->render('tablaPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
         }else{
-            echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+            echo $twig->render('tablaPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
         }
     }
 }

@@ -6,12 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../public/asset/css/materialize.min.css" >
         <link rel="stylesheet" href="../../public/asset/css/font-awesome.min.css" >
+        <link rel="stylesheet" href="../../public/asset/css/style.css" >
         <script type="text/javascript" src="../../public/asset/js/jquery-1.12.0.min.js"></script>
-        <script type="text/javascript" src="../../public/asset/js/jquery-ui-1.10.3.custom.js"></script>
-        <script type="text/javascript" src="../../public/asset/js/materialize.min.js"></script>
-        <script type="text/javascript" scr="../../public/asset/js/gestionActividades.js"></script>
-        <script type="text/javascript" scr="../../public/asset/js/gestionParticipantes.js"></script>
-        <script type="text/javascript" scr="../../public/asset/js/gestionPersonas.js"></script>
     </head>
     <body>
         <div class="row">
@@ -21,17 +17,19 @@
                 </section>
             </header>
         {% block menuPrincipalPanel %}{% endblock %}
-        <div class="container">
-            {% block contenidoPanel %}{% endblock %}
-        </div>
+        <div id="contenedorPrincipal" class="container">
+        {% block contenidoPanel %}{% endblock %}
+    </div>
 </div>
 <footer class="page-footer indigo lighten-4">
     <div class="footer-copyright">
         <div class="container">
             Asociacion BIN 
-            <a class="grey-text text-lighten-4 right" href="#!">Realizado por Antonio</a>
+            <a class="grey-text text-lighten-4 right" href="#">Realizado por Antonio</a>
         </div>
     </div>
 </footer>
+    <script type="text/javascript" src="../../public/asset/js/jquery-ui-1.10.3.custom.js"></script>
+    <script type="text/javascript" src="../../public/asset/js/materialize.min.js"></script>
 </body>
 </html>

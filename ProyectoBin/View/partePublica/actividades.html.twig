@@ -49,35 +49,14 @@
 
         <input class="waves-effect waves-light btn" type="submit" value="Buscar">
     </form>-->
-    <table class="bordered">
-        <tr>
-            <td>Codigo</td>
-            <td>Título</td>
-            <td>Estado</td>
-            <td>Ubicación</td>
-            <td>Fecha Inicio</td>
-            <td>Fecha Fin</td>
-            <td>Descriptor</td>
-            <td></td>
-        </tr>
-        {% for actividad in actividades %}
-            <tr>
-                <td>{{ actividad.codigo_actividad }}</td>
-                <td>{{ actividad.titulo }}</td>
-                <td>{{ actividad.estado }}</td>
-                <td>{{ actividad.ubicacion }}</td>
-                <td>{{ actividad.fecha_inicio }}</td>
-                <td>{{ actividad.fecha_fin }}</td>
-                <td>{{ actividad.descriptor }}</td>
-                <td><a href="../../Controller/partePublica/detalles.php?codigo={{ actividad.codigo_actividad }}" id="detalleActividad"><i class="fa fa-search-plus"></i></a></td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div id="divMensaje"></div>
+    {% include "tablaActividades.html.twig" %}
     <div class="center-align">
-        <ul class="pagination">
+        <ul class="pagination" id="paginacion">
             {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="../../Controller/partePublica/actividades.php?pagina={{ arrayNumero }}" id="botonNum">{{ arrayNumero }}</a></li>
+                <li class="active"><a href="#" >{{ arrayNumero }}</a></li>
                 {% endfor %}
         </ul>
     </div>
+    <script type="text/javascript" src="../../public/asset/js/actividades.js"></script>
 {% endblock %}  

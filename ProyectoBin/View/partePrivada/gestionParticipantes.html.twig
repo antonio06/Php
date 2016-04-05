@@ -20,29 +20,14 @@
 {% endblock %}
 
 {% block contenidoPanel %}
-    <table class="bordered">
-        <tr>
-            <td>Persona</td>
-            <td>Actividades</td>
-            <td>Perfiles</td>
-            <td><a href="../../Controller/partePrivada/nuevoParticipante.php" id="anadirParticipante"><i class="fa fa-plus"></i></a></td>
-        </tr>
-        {% for participante in participantes %}
-            <tr>
-                <td>{{ participante.codigo_persona }}</td>
-                <td>{{ participante.codigo_actividad }}</td>
-                <td>{{ participante.codigo_perfil }}</td>
-                {% if esAdministrador != null %}
-                    <td><a href="../../Controller/partePrivada/modificarParticipa.php?codigo_persona={{ participante.codigo_persona }}" id="modificarParticipante"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarParticipa.php?codigo_persona={{ participante.codigo_persona }}" id="borrarParticipante"><i class="fa fa-times"></i></a></td>
-                        {% endif %}    
-            </tr>
-        {% endfor %}
-    </table>
+    <div id="divMensaje"></div>
+    {% include "tablaParticipantes.html.twig" %}
     <div class="center-align">
-        <ul class="pagination">
+        <ul class="pagination" id="paginacion">
             {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="../../Controller/partePrivada/gestionParticipantes.php?pagina={{ arrayNumero }}" id="botonNum">{{ arrayNumero }}</a></li>
+                <li class="active"><a href='#'>{{ arrayNumero }}</a></li>
                 {% endfor %}
         </ul>
     </div>
+    <script type="text/javascript" src="../../public/asset/js/gestionParticipantes.js"></script>
 {% endblock %}

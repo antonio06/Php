@@ -39,9 +39,9 @@ if ($_SESSION['logeado'] == "Si") {
         $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
         if ($perfil_usuario == "Administrador") {
         $_SESSION['esAdministrador'] = "Si";
-        echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+        echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
         }else{
-            echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email']]);
+            echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email']]);
         }   
     }
 }

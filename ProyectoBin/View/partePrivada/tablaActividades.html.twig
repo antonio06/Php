@@ -1,0 +1,28 @@
+<table id="tablaActividades" class="bordered">
+    <tr>
+        <td>Codigo</td>
+        <td>Título</td>
+        <td>Estado</td>
+        <td>Ubicación</td>
+        <td>Fecha Inicio</td>
+        <td>Fecha Fin</td>
+        <td>Descriptor</td>
+        <td><a href="../../Controller/partePrivada/nuevaActividad.php"><i class="fa fa-plus" id="anadirActividad"></i></a></td>
+    </tr>
+    {% for actividad in actividades %}
+        <tr>
+            <td>{{ actividad.codigo_actividad }}</td>
+            <td>{{ actividad.titulo }}</td>
+            <td>{{ actividad.estado }}</td>
+            <td>{{ actividad.ubicacion }}</td>
+            <td>{{ actividad.fecha_inicio }}</td>
+            <td>{{ actividad.fecha_fin }}</td>
+            <td>{{ actividad.descriptor }}</td>
+            {% if esAdministrador != null %}
+                <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="detalleActividad"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="modificarActividad"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="borrarActividad"><i class="fa fa-times"></i></a></td>
+                    {% else %}
+                <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="detalleActividad"><i class="fa fa-search-plus"></i></a></td>
+                    {% endif %}
+        </tr>
+    {% endfor %}
+</table>
