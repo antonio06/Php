@@ -20,5 +20,7 @@ if ($_SESSION['logeado'] == "Si") {
             break;
         default :
     }
+}else {
+    header("Location: ../partePublica/actividades.php");
 }
  

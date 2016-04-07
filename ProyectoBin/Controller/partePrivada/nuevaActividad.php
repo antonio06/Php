@@ -12,4 +12,6 @@ if ($_SESSION['logeado'] == "Si") {
     $IVA = Actividad::getIvaActividad();
 
     echo $twig->render('nuevaActividad.html.twig', ["descriptores" => $descriptores, "estados" => $estados, "IVA" => $IVA, "email" => $_SESSION['email']]);
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

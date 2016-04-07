@@ -44,5 +44,7 @@ if ($_SESSION['logeado'] == "Si") {
             echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email']]);
         }   
     }
+}else {
+    header("Location: ../partePublica/actividades.php");
 }
 

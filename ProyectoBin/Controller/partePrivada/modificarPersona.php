@@ -15,4 +15,6 @@ if ($_SESSION['logeado'] == "Si") {
 
     $_SESSION['codigo_persona'] = $_GET['codigo_persona'];
     echo $twig->render('modificarPersona.html.twig', ["persona" => $persona, "perfilesUsuarios" => $perfilesUsuarios, "perfiles" => $perfiles, "sexo" => $sexo, "email" => $_SESSION['email']]);
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

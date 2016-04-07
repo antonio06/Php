@@ -15,4 +15,6 @@ if ($_SESSION['logeado'] == "Si") {
 
     $_SESSION['codigo_actividad'] = $_GET['codigo_actividad'];
     echo $twig->render('modificarActividad.html.twig', ["actividad" => $actividad, "descriptores" => $descriptores, "estados" => $estados, "IVA" => $IVA, "email" => $_SESSION['email']]);
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

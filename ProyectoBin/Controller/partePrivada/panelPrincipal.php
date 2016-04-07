@@ -9,4 +9,6 @@ $twig = new Twig_Environment($loader);
 if ($_SESSION['logeado'] == "Si"){
     //$_SESSION['codigo_persona'] = Persona::getCodigoByEmail($_SESSION['email']);
    echo $twig->render('panelPrincipal.html.twig', ["email" => $_SESSION['email']]);
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

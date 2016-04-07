@@ -13,4 +13,6 @@ if ($_SESSION['logeado'] == "Si") {
     Actividad::insertParticipantes($codigo_persona, $codigo_actividad, $codigo_perfil);
     
     header("Location: misActividades.php");
+}else{
+    header("Location: actividades.php");
 }

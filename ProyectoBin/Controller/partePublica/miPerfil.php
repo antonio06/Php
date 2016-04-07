@@ -14,5 +14,7 @@ if ($_SESSION['logeado'] == "Si") {
     $sexo = Persona::getSexoPersona();
     $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
     echo $twig->render('miPerfil.html.twig', ["persona" => $persona, "perfil_usuario" => $perfil_usuario, "perfil" => $perfil, "sexo" => $sexo, "email" => $_SESSION['email']]);
+}else{
+    header("Location: actividades.php");
 }
 

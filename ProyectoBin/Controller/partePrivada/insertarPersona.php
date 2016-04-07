@@ -15,4 +15,6 @@ if ($_SESSION['logeado'] == "Si") {
     $persona->insert();
 
     header("Location: gestionPersonas.php");
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

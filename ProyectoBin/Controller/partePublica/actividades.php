@@ -33,7 +33,7 @@ if (isset($_SESSION['logeado'])) {
     } else {
         $_SESSION['pagina'] = Actividad::getSesionPagina($_GET['pagina'], $limite, $_SESSION['pagina']);
         $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
-        echo $twig->render('actividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+        echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
     }
 }else{
     if (!isset($_GET['pagina'])) {
@@ -45,7 +45,7 @@ if (isset($_SESSION['logeado'])) {
     } else {
         $_SESSION['pagina'] = Actividad::getSesionPagina($_GET['pagina'], $limite, $_SESSION['pagina']);
         $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
-        echo $twig->render('actividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros]);
+        echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros]);
     }
 }
 

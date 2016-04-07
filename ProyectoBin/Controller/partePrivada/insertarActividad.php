@@ -12,4 +12,6 @@ if ($_SESSION['logeado'] == "Si") {
     $actividad->insert();
 
     header("Location: gestionActividades.php");
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

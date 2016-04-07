@@ -10,4 +10,6 @@ if ($_SESSION['logeado'] == "Si") {
     $_SESSION['codigo_persona'] = $_GET['codigo_persona'];
 
     echo $twig->render('borrarParticipa.html.twig', ["email" => $_SESSION['email']]);
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

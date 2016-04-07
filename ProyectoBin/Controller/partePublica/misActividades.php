@@ -32,5 +32,7 @@ if ($_SESSION['logeado'] == "Si") {
         $participantes = Actividad::getParticipantesByLimit($_SESSION['pagina'], $limite, $_SESSION['codigo']);
         echo $twig->render('misActividades.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
     }
+}else{
+    header("Location: actividades.php");
 }
 

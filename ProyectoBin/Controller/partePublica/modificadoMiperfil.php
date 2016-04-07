@@ -23,4 +23,6 @@ if ($_SESSION['logeado'] == "Si") {
             break;
         default :
     }
+}else{
+    header("Location: actividades.php");
 }

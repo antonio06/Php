@@ -10,4 +10,6 @@ if ($_SESSION['logeado'] == "Si") {
     $actividad = Actividad::getActividadByCodigo($_GET['codigo_actividad']);
 
     echo $twig->render('detallesActividad.html.twig', ["actividad" => $actividad, "email" => $_SESSION['email']]);
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

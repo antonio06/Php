@@ -45,4 +45,6 @@ if ($_SESSION['logeado'] == "Si") {
         }
         
     }
+}else {
+    header("Location: ../partePublica/actividades.php");
 }

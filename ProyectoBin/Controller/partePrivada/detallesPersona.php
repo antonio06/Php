@@ -11,4 +11,6 @@ if ($_SESSION['logeado'] == "Si") {
     $persona = Persona::getPersonaByCodigo($_GET['codigo_persona']);
 
     echo $twig->render('detallesPersona.html.twig', ["persona" => $persona, "email" => $_SESSION['email']]);
+}else {
+    header("Location: ../partePublica/actividades.php");
 }
