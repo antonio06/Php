@@ -7,4 +7,41 @@
     cursor: pointer;
 }
 
-.div{}
+.oculto{
+    display: none;
+}
+
+.error{
+    background-color: #f2dede;
+    color: red;
+    border-color: #e04988;
+}
+
+.correcto{
+    background-color: #dff0d8;
+    color: #5f885f;
+    border-color: #52aaae;
+}
+
+.centrado{
+    text-align: center
+}
+#divMensaje{
+    max-width: 600px;
+    margin: 15px auto;
+    padding: 7px;
+    display: inline-block;
+    text-align: left;
+}
+
+.lista{
+    list-style-type: none;
+}
+
+.lista li{
+    text-indent: 10px;
+}
+
+.lista li:before{
+    content: "- ";
+}

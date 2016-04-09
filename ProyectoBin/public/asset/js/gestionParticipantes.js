@@ -3,7 +3,11 @@
  */
 
 $(function () {
-    $("#paginacion > li").each(function (indice, elemento) {
+    $("#paginacion > li").each(paginar);
+});
+
+
+function paginar (indice, elemento) {
         $(elemento).click(function (e) {
             e.preventDefault();
             $("#divMensaje").hide();
@@ -26,7 +30,4 @@ $(function () {
                 }
             });
         });
-    });
-});
-
-
+    }

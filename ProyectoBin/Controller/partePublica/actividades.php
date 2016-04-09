@@ -10,9 +10,9 @@ require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePublica');
 $twig = new Twig_Environment($loader);
-$descriptores = Actividad::getDescriptoresActividad();
+$listaDescriptores = Actividad::getDescriptoresActividad();
 
-$estados = Actividad::getEstadosActividad();
+$listaEstados = Actividad::getEstadosActividad();
 $limite = 2;
 $numeroPaginas = Actividad::getNumeroPaginas($limite);
 $arrayNumeros = [];

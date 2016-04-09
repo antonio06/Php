@@ -12,8 +12,8 @@ $twig = new Twig_Environment($loader);
 if ($_SESSION['logeado'] == "Si") {
     $limite = 2;
     $numeroPaginas = Actividad::getNumeroPaginas($limite);
-    $descriptores = Actividad::getDescriptoresActividad();
-    $estados = Actividad::getEstadosActividad();
+    $listaDescriptores = Actividad::getDescriptoresActividad();
+    $listaEstados = Actividad::getEstadosActividad();
     $arrayNumeros = [];
     $auxi = 0;
     for ($i = 1; $i <= $numeroPaginas; $i++) {
@@ -29,9 +29,9 @@ if ($_SESSION['logeado'] == "Si") {
         $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+            echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $listaDescriptores, "estados" => $listaEstados, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
         }else{
-            echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email']]);
+            echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $listaDescriptores, "estados" => $listaEstados, "email" => $_SESSION['email']]);
         }   
     } else {
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
@@ -39,9 +39,9 @@ if ($_SESSION['logeado'] == "Si") {
         $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
         if ($perfil_usuario == "Administrador") {
         $_SESSION['esAdministrador'] = "Si";
-        echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+        echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $listaDescriptores, "estados" => $listaEstados, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
         }else{
-            echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $descriptores, "estados" => $estados, "email" => $_SESSION['email']]);
+            echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "descriptores" => $listaDescriptores, "estados" => $listaEstados, "email" => $_SESSION['email']]);
         }   
     }
 }else {
