@@ -1,4 +1,4 @@
-<table id="tablaActividades" class="bordered">
+<table id="tablaActividades" class="bordered table-centered">
     <tr>
         <td>Codigo</td>
         <td>Título</td>
@@ -7,7 +7,7 @@
         <td>Fecha Inicio</td>
         <td>Fecha Fin</td>
         <td>Descriptor</td>
-        <td><a href="../../Controller/partePrivada/nuevaActividad.php"><i class="fa fa-plus" id="anadirActividad"></i></a></td>
+        <td><a href="#" data-action="nuevo" data-id="{{ actividad.codigo_actividad }}"><i class="fa fa-plus"></i></a></td>
     </tr>
     {% for actividad in actividades %}
         <tr>
@@ -18,11 +18,15 @@
             <td>{{ actividad.fecha_inicio }}</td>
             <td>{{ actividad.fecha_fin }}</td>
             <td>{{ actividad.descriptor }}</td>
-            {% if esAdministrador != null %}
-                <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="detalleActividad"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="modificarActividad"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="borrarActividad"><i class="fa fa-times"></i></a></td>
-                    {% else %}
-                <td><a href="../../Controller/partePrivada/detallesActividad.php?codigo_actividad={{ actividad.codigo_actividad }}" id="detalleActividad"><i class="fa fa-search-plus"></i></a></td>
+            <td>
+                <div class="icons-container">
+                    <a href="#" data-action="detalles" data-id="{{ actividad.codigo_actividad }}" class="icons"><i class="fa fa-search-plus"></i></a>
+                    {% if esAdministrador != null %}
+                        <a href="#" data-action="editar" data-id="{{ actividad.codigo_actividad }}" class="icons"><i class="fa fa-pencil"></i></a>
+                        <a href="#" data-action="borrar" data-id="{{ actividad.codigo_actividad }}" class="icons"><i class="fa fa-times"></i></a>
                     {% endif %}
+                </div>
+            </td>
         </tr>
     {% endfor %}
 </table>

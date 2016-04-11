@@ -45,3 +45,19 @@
 .lista li:before{
     content: "- ";
 }
+
+.icons-container{
+    width: 60px;
+}
+
+.icons{
+    margin: 0px 2px;
+}
+
+.table-centered{
+    text-align: center;
+}
+
+.modal-footer > i{
+    margin: 0px 10px !important;
+}

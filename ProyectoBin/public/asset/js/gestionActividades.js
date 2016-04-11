@@ -7,7 +7,34 @@ $(function () {
     $("#paginacion > li").each(paginar);
     $("#formularioNuevaActividad").submit(enviarFormulario);
     $('.datepicker').pickadate({
-        selectMonths:true
+        selectMonths: true
+    });
+
+    $("a[data-action='nuevo']").click(function (event) {
+        event.preventDefault();
+        mostrarDetallesActividad({
+            accion: "crear",
+            id: $(this).attr("data-id")
+        });
+    });
+
+    $("a[data-action='detalles']").click(function (event) {
+        event.preventDefault();
+        mostrarDetallesActividad({
+            id: $(this).attr("data-id")
+        });
+    });
+
+    $("a[data-action='editar']").click(function (event) {
+        event.preventDefault();
+        mostrarDetallesActividad({
+            accion: "modificar",
+            id: $(this).attr("data-id")
+        });
+    });
+
+    $("a[data-action='borrar']").click(function (event) {
+        event.preventDefault();
     });
 });
 
@@ -36,12 +63,12 @@ function paginar(indice, elemento) {
     });
 }
 
-function enviarFormulario(event){
+function enviarFormulario(event) {
     event.preventDefault();
     var datos = $(this).serialize();
     console.log(datos);
     var mensaje = $("#divMensaje");
-    
+
     $.ajax({
         url: "../../Controller/partePrivada/insertarActividad.php",
         method: 'POST',
@@ -49,13 +76,13 @@ function enviarFormulario(event){
         dataType: "json",
         success: function (respuesta, textStatus, jqXHR) {
             console.log(respuesta);
-            if (respuesta.estado === "success"){
+            if (respuesta.estado === "success") {
                 mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
-//                window.location.href = "../../Controller/partePrivada/gestionActividades.php";
-            }else{
+                window.location.href = "../../Controller/partePrivada/gestionActividades.php";
+            } else {
                 var errores = "<span>Ocurrieron los siguientes fallos:</span>";
                 errores += "<ul class='lista'>";
-                for (var i = 0; i<respuesta.errores.length; i++){
+                for (var i = 0; i < respuesta.errores.length; i++) {
                     errores += "<li>" + respuesta.errores[i] + "</li>";
                 }
                 errores += "</ul>";
@@ -69,3 +96,14 @@ function enviarFormulario(event){
 }
 
 
+function mostrarDetallesActividad(opciones) {
+    //console.log(opciones.id);
+    $("#nuevaActividad").parent().hide();
+    $("#modificarActividad").parent().hide();
+    if (opciones.accion === "crear") {
+        $("#nuevaActividad").parent().show();
+    } else if (opciones.accion === "modificar") {
+        $("#modificarActividad").parent().show();
+    }
+    $("#modalActividad").openModal(); //.leanModal();
+}
