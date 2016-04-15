@@ -384,7 +384,7 @@ class Actividad {
         $seleccion = "SELECT * FROM actividad";
         $consulta = $conexion->query($seleccion);
         $totalRegistros = $consulta->rowCount();
-        return $numeroPaginas = $totalRegistros / $limite;
+        return ceil($totalRegistros / $limite);
     }
 
     /*

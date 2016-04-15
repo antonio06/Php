@@ -28,10 +28,12 @@
 }
 #divMensaje{
     max-width: 600px;
-    margin: 15px auto;
     padding: 7px;
     display: inline-block;
     text-align: left;
+}
+.text-center{
+    text-align: center;
 }
 
 .lista{
@@ -54,10 +56,13 @@
     margin: 0px 2px;
 }
 
-.table-centered{
+.table-centered tr td, .table-centered tr th{
     text-align: center;
 }
 
 .modal-footer > i{
     margin: 0px 10px !important;
+}
+#contenedorPrincipal{
+    padding-top: 25px;
 }
