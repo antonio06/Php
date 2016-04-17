@@ -19,7 +19,9 @@ $(function () {
     $("#nuevaActividad").click(function () {
         $("#formularioActividad").trigger("submit", {url: "../../Controller/partePrivada/insertarActividad.php"});
     });
-    $("#modificarActividad").click();
+    $("#modificarActividad").click(function () {
+        $("#formularioActividad").trigger("submit", {url: "../../Controller/partePrivada/modificarActividad.php"});
+    });
     $("#suscribirseActividad").click();
 
     $(document).on("click", "a[data-action='nuevo']", function (event) {
@@ -40,10 +42,48 @@ $(function () {
 
     $(document).on("click", "a[data-action='editar']", function (event) {
         event.preventDefault();
-        mostrarModal({
-            accion: "modificar",
-            id: $(this).attr("data-id")
+        $.ajax({
+            url: '../../Controller/partePrivada/modificarActividad.php',
+            method: 'GET',
+            dataType: "json",
+            data: {
+                codigo_actividad: $(event.currentTarget).attr("data-id")
+            },
+            success: function (actividad, textStatus, jqXHR) {
+
+                // Almacenar la id de la actividad que se ha seleccionado en el formulario
+                // Esto se hace para no usar input hidden
+                $("#formularioActividad").data("idActividad", actividad["codigo_actividad"]);
+
+                // Recogemos los elementos del formulario
+                var controlesFormulario = $("#formularioActividad")[0].elements;
+                mostrarModal({
+                    accion: "modificar",
+                    id: $(event.currentTarget).attr("data-id")
+                });
+
+                // Iteramos por cada elemento del formulario de fin a inicio
+                $.each(controlesFormulario, function (index) {
+                    var elemento = controlesFormulario[controlesFormulario.length - 1 - index];
+                    var nombre = $(elemento).attr("name");
+
+                    // Si el elemento tiene atributo name lo modificamos
+                    // Esto lo hacemos para filtrar los elementos que no tengan name como los botones
+                    // de submit
+                    if (nombre) {
+                        $(elemento).val(actividad[nombre]);
+
+                        // Martillazo para que Materialize ponga los labels encima del input
+                        $(elemento).trigger("focus");
+                    }
+                });
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
         });
+
     });
 
     $(document).on("click", "a[data-action='borrar']", function (event) {
@@ -68,7 +108,7 @@ function paginar(pagina) {
         }, error: function (jqXHR, textStatus, errorThrown) {
             // La petición por algún motivo ha fallado
             $("#divMensaje").show().html("Ha habido un error al solicitar los datos, inténtalo más tarde.");
-            console.log(textStatus, errorThrown);
+//            console.log(textStatus, errorThrown);
         }
     });
 }
@@ -76,6 +116,7 @@ function paginar(pagina) {
 function enviarFormulario(event, opciones) {
     event.preventDefault();
     var url;
+    var mensaje = $("#divMensaje");
 
     // Comprobamos que se pase el parámetro opciones siendo un objeto.
     if ($.isPlainObject(opciones) && opciones.url) {
@@ -87,12 +128,16 @@ function enviarFormulario(event, opciones) {
         return false;
     }
 //    console.log("URL:", url);
-    var datos = $("#formularioActividad").serialize();
-    var mensaje = $("#divMensaje");
 
-    var formulario = $("#formularioActividad").get()[0];
+
+
+    var formulario = $("#formularioActividad")[0];
     if (formulario.checkValidity()) {
-        console.log("Enviando formulario al servidor...");
+        var datos = $("#formularioActividad").serialize();
+        var id = $("#formularioActividad").data("idActividad");
+        if (id) {
+            datos += "&" + decodeURIComponent($.param({codigo_actividad: id}));
+        }
         $.ajax({
             url: opciones.url,
             method: 'POST',
@@ -103,9 +148,9 @@ function enviarFormulario(event, opciones) {
                     mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
                     limpiarFormulario();
                     $("#modalActividad").closeModal();
-                    paginar($("#paginaActual").val());
 
                     // Refrescar la tabla
+                    paginar($("#paginaActual").val());
 
                 } else {
                     var errores = "<span>Ocurrieron los siguientes fallos:</span>";
@@ -124,9 +169,7 @@ function enviarFormulario(event, opciones) {
     }
 }
 
-
 function mostrarModal(opciones) {
-    //console.log(opciones.id);
     $("#nuevaActividad").parent().hide();
     $("#modificarActividad").parent().hide();
     $("#suscribirseActividad").parent().hide();

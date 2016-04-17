@@ -238,10 +238,13 @@ class Actividad {
                 . $this->precio . "\", IVA=\"" . $this->IVA . "\", descriptor=\""
                 . $this->descriptor . "\", observaciones=\"" . $this->observaciones .
                 "\" WHERE codigo_actividad=" . $this->codigo_actividad;
-        return $conexion->exec($modificar);
+//        return $conexion->exec($modificar);
+        $conexion->exec($modificar);
+        return $modificar;
     }
 
     /**
+     * Se le pasa como parámetro el código de la catividad
      * Selecciona el código de la actividad y devuelve FALSE si encuentra más 
      * de un registro de esa actividad y TRUE si no encuentra nada.
      * este método se aplicará siempre que se quiera comprobar si existe un objeto 
@@ -260,6 +263,11 @@ class Actividad {
         }
     }
 
+    /**
+     * No se le pasan parámetros
+     * Selecciona todos los datos de las actividades 
+     * @return array de con las actividades
+     */
     public function getActividades() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM actividad";
@@ -273,14 +281,14 @@ class Actividad {
                     , $registro->fecha_inicio, $registro->fecha_fin, $registro->horario_inicio
                     , $registro->horario_fin, $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
         }
-
         return $actividades;
     }
 
     /**
+     * se le pasa como parámetro el codigo de la actividad
      * Selecciona los campos de la tabla según el codigo.
      * @param string $codigo codigo correspondiente a la actividad.
-     * @return array devuelve un objetos que cumple la consulta.
+     * @return array de la actividad
      */
     public static function getActividadByCodigo($codigo_actividad) {
         $conexion = BinDb::connectDB();
@@ -300,8 +308,9 @@ class Actividad {
     }
 
     /**
+     * No se le pasan parámetros
      * Selecciona todos los descriptores de las actividades.
-     * @return array.
+     * @return array con los descriptores de la actividad.
      */
     public static function getDescriptoresActividad() {
         $conexion = BinDb::connectDB();
@@ -325,8 +334,9 @@ class Actividad {
     }
 
     /**
+     * No se le pasan parámetros
      * Selecciona todos los estados de las actividades.
-     * @return array.
+     * @return array de los estados de la actividad.
      */
     public static function getEstadosActividad() {
         $conexion = BinDb::connectDB();
@@ -350,8 +360,9 @@ class Actividad {
     }
 
     /**
+     * No se le pasan parámetros
      * Selecciona todos los IVA de las actividades.
-     * @return array.
+     * @return array de los ivas de las actividades.
      */
     public static function getIvaActividad() {
         $conexion = BinDb::connectDB();
@@ -374,7 +385,7 @@ class Actividad {
         return $IVA;
     }
 
-    /*
+    /* Se le pasa como parámetro el limite (la cantidad de registros que queremos mostrar) 
      * Devuelve el número total de páginas 
      * @returm numeroPaginas
      */
@@ -384,10 +395,12 @@ class Actividad {
         $seleccion = "SELECT * FROM actividad";
         $consulta = $conexion->query($seleccion);
         $totalRegistros = $consulta->rowCount();
+        // ceil redondea por arriba la división
         return ceil($totalRegistros / $limite);
     }
 
-    /*
+    /* Se le pasa como parámetros la página en la que nos encontramos el límite 
+     * y la página que será una sesión 
      * Devuelve la sesion de la página
      */
 
@@ -399,9 +412,8 @@ class Actividad {
         }
     }
 
-    /*
-     * Devuelve los objetos que cumplen la sentencia
-     * @returm array 
+    /* Se le pasa como parámetro la sesión de la página y el limite 
+     * @returm array de los objetos actividades.
      */
 
     public static function getActividadesByLimit($sesionPagina, $limite) {
@@ -422,6 +434,10 @@ class Actividad {
         return $actividades;
     }
 
+    /**
+     * Selecciona el título de la actividad
+     * @return array con los titulos  de las actividades
+     */
     public static function getTituloActividad() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT titulo FROM actividad";
@@ -431,10 +447,15 @@ class Actividad {
         while ($registro = $consulta->fetchObject()) {
             $titulos[] = new Actividad("", $registro->titulo, "", "", "", "", "", "", "", "", "", "", "", "", "");
         }
-
         return $titulos;
     }
 
+    /**
+     * Acepta como parámetro el titulo de la actividad
+     * Selecciona el código pasándole como parámetro el titulo de la actividad
+     * @param String $titulo 
+     * @return array con el codigo de la actividad
+     */
     public static function getCodigoActividadByTitulo($titulo) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo_actividad FROM `actividad` WHERE titulo='$titulo'";
@@ -448,6 +469,13 @@ class Actividad {
         }
     }
 
+    /**
+     * Inserta dentro de participa los datos enviados como parámetros
+     * @param Integer $perfil con el codigo de la persona 
+     * @param Integer $nombre con el codigo de la actividad 
+     * @param Integer $codigo con el codigo del perfil con el que ingresa en la actividad
+     * @return objeto de la actividad
+     */
     public function insertParticipantes($perfil, $nombre, $codigo) {
         $conexion = BinDb::connectDB();
         $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) "
@@ -455,6 +483,10 @@ class Actividad {
         return $conexion->exec($inserta);
     }
 
+    /**
+     * Selecciona todos los participantes no acepta parámetros
+     * @return array con todos los objetos de participa
+     */
     public static function getParticipantes() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM participa";
@@ -464,10 +496,17 @@ class Actividad {
         foreach ($consulta as $key => $value) {
             $participantes[$key] = $value;
         }
-
         return $participantes;
     }
 
+    /**
+     * Modifica un objeto participa con los datos que se envian como parámetros
+     * @param Integer $perfil codigo de la persona.
+     * @param Integer $nombre codigo de la actividad.
+     * @param Integer $codigo codigo del perfil de la persona
+     * @param Integer $sesionCodigo codigo de participa que está guardada como sesión
+     * @return devuelve un objeto participa
+     */
     public static function updateParticipa($perfil, $nombre, $codigo, $sesionCodigo) {
         $conexion = BinDb::connectDB();
         $modificar = "UPDATE participa  SET codigo_persona=\"" . $perfil . "\", codigo_actividad=\"" .
@@ -477,38 +516,48 @@ class Actividad {
         return $conexion->exec($modificar);
     }
 
+    /**
+     * Borra un objeto participa pasándole como parámetro el codigo de participa que está 
+     * almacenado como una sesión
+     * @param Integer $sesionCodigo
+     * @return Objeto participa
+     */
     public static function deleteParticipa($sesionCodigo) {
         $conexion = BinDb::connectDB();
         $borrar = "DELETE FROM participa WHERE codigo_persona=\"" . $sesionCodigo . "\"";
         return $conexion->exec($borrar);
     }
 
-    /*
-     * Devuelve el número total de páginas 
-     * @returm numeroPaginas
+    /**
+     *  Devuelve el numero de páginas que hay en la tabla de participa
+     * Se le pasa como parámetro el limite (la cantidad de registros que queremos mostrar)
+     * @returm numeroPaginas 
      */
-
     public static function getNumeroPaginasParticipa($limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM participa";
         $consulta = $conexion->query($seleccion);
         $totalRegistros = $consulta->rowCount();
-        return $numeroPaginas = $totalRegistros / $limite;
+        return ceil($totalRegistros / $limite);
     }
 
-    /*
-     * Devuelve los objetos que cumplen la sentencia
-     * @returm array 
+    /**
+     * Se le pueden pasar parámetros 
+     * la sesión de la página el límite y el código de la persona
+     * @param  type Integer $sesionPagina página que está almacenada como sesión
+     * @param  type Integer $limite cantidad de registros que queremos mostrar
+     * @param  type Integer $codigo_persona codigo de la persona si su valor es null mostrará todos los 
+     * registros  de la tabla si no mostrará los registros pertenecientes a dicho código 
+     * @returm array de objetos 
      */
-
     public static function getParticipantesByLimit($sesionPagina, $limite, $codigo_persona) {
         $conexion = BinDb::connectDB();
-        if($codigo_persona != NULL){
+        if ($codigo_persona != NULL) {
             $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
-                . "WHERE codigo_persona=$codigo_persona ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
-        }else{
+                    . "WHERE codigo_persona=$codigo_persona ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
+        } else {
             $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
-                . "ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
+                    . "ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
         }
         $consulta = $conexion->query($seleccion);
         $participantes = [];
@@ -516,10 +565,13 @@ class Actividad {
         foreach ($consulta as $key => $value) {
             $participantes[$key] = $value;
         }
-
         return $participantes;
     }
 
+    /**
+     * Selecciona el código del perfil perteneciente a la descripción de participante 
+     * @return type Integer codigo del perfil  
+     */
     public static function getCodigoParticipante() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo FROM perfil WHERE descripcion='participante'";
@@ -528,7 +580,32 @@ class Actividad {
         foreach ($registro as $key => $value) {
             $codigo_perfil = $value;
         }
-
         return $codigo_perfil;
     }
+
+    /**
+     * Devuelve una representación del objeto en formato JSON.
+     * @return type String El objeto en formato JSON. 
+     */
+    public function toJSON() {
+        $actividad = [
+            "codigo_actividad" => $this->codigo_actividad,
+            "titulo" => $this->titulo,
+            "estado" => $this->estado,
+            "coordinador" => $this->coordinador,
+            "ponente" => $this->ponente,
+            "ubicacion" => $this->ubicacion,
+            "fecha_inicio" => $this->fecha_inicio,
+            "fecha_fin" => $this->fecha_fin,
+            "horario_inicio" => $this->horario_inicio,
+            "horario_fin" => $this->horario_fin,
+            "n_Total_Horas" => $this->n_Total_Horas,
+            "precio" => $this->precio,
+            "IVA" => $this->IVA,
+            "descriptor" => $this->descriptor,
+            "observaciones" => $this->observaciones
+        ];
+        return json_encode($actividad);
+    }
+
 }

@@ -66,3 +66,8 @@
 #contenedorPrincipal{
     padding-top: 25px;
 }
+
+span{
+    float: left;
+    clear: left;
+}

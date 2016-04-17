@@ -345,7 +345,8 @@ class Persona {
 
     /**
      * Selecciona todas las personas.
-     * @return array.
+     * No admite parámetros
+     * @return array de objeto con todas las personas.
      */
     public function getPersonas() {
         $conexion = BinDb::connectDB();
@@ -367,7 +368,8 @@ class Persona {
 
     /**
      * Selecciona todos los códigos de las personas.
-     * @return array.
+     * No admite parámetros
+     * @return array de los objetos con el código.
      */
     public static function getCodigosPersona() {
         $conexion = BinDb::connectDB();
@@ -383,8 +385,9 @@ class Persona {
     }
 
     /**
-     * Selecciona todos los perfiles de las personas.
-     * @return array.
+     * Selecciona todos los perfiles de usuarios de las personas.
+     * No permite parámetros.
+     * @return array con los perfiles de usuarios de persona.
      */
     public static function getPerfiles_usuariosPersona() {
         $conexion = BinDb::connectDB();
@@ -407,6 +410,11 @@ class Persona {
         return $perfiles;
     }
 
+    /**
+     * Selecciona todos los perfiles de las personas.
+     * No permite parámetros.
+     * @return array con los perfiles.
+     */
     public static function getPerfilesPersona() {
         $conexion = BinDb::connectDB();
         $seleccion = "SHOW COLUMNS FROM perfil WHERE field='descripcion'";
@@ -429,6 +437,12 @@ class Persona {
         return $perfiles;
     }
 
+    /**
+     * Selecciona el código del perfil dado una descripción 
+     * admite parámetros
+     * @param type $descripcion descripción de la persona
+     * @return array con el código de la persona
+     */
     public static function getCodigoPerfilbyDescripcion($descripcion) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo FROM perfil WHERE descripcion='$descripcion'";
@@ -442,6 +456,11 @@ class Persona {
         }
     }
 
+    /**
+     * Selecciona los sexos de las personas.
+     * No permite parámetros.
+     * @return array con los sexos.
+     */
     public static function getSexoPersona() {
         $conexion = BinDb::connectDB();
         $seleccion = "SHOW COLUMNS FROM persona WHERE field='sexo'";
@@ -465,8 +484,9 @@ class Persona {
 
     /**
      * Selecciona los campos de la tabla según el codigo.
+     * admite parámetros
      * @param string $codigo codigo correspondiente a la persona.
-     * @return array devuelve un objetos que cumple la consulta.
+     * @return array devuelve objetos de las personas
      */
     public static function getPersonaByCodigo($codigo_persona) {
         $conexion = BinDb::connectDB();
@@ -490,23 +510,28 @@ class Persona {
         return $persona;
     }
 
-    /*
-     * Devuelve el número total de páginas 
-     * @returm numeroPaginas
+    /**
+     * Devuelve el número total de páginas dado el limite 
+     * admite parámetros
+     * @param Integer $limite número de registros que queremos mostrar
+     * @returm numero de paginas
      */
-
     public static function getNumeroPaginas($limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM persona";
         $consulta = $conexion->query($seleccion);
         $totalRegistros = $consulta->rowCount();
-        return $numeroPaginas = $totalRegistros / $limite;
+        return ceil($totalRegistros / $limite);
     }
 
-    /*
+    /**
+     * Devuelve la página en la que estamos.
+     * admite parámetros
+     * @param Integer $pagina pagina en la que estamos.
+     * @param Integer $limite total de registros que queremos mostrar.
+     * @param Integer $sesionPagina si la variable no existe la calcula si existe la inicia a 1.
      * Devuelve la sesion de la página
      */
-
     public static function getSesionPagina($pagina, $limite, $sesionPagina) {
         if (isset($sesionPagina)) {
             return $sesionPagina = ($pagina - 1) * $limite;
@@ -515,11 +540,12 @@ class Persona {
         }
     }
 
-    /*
-     * Devuelve los objetos que cumplen la sentencia
-     * @returm array 
+    /**
+     * Devuelve un array con objetos de tipo persona.
+     * @param Integer $sesionPagina página en la que estamos que está almacenada como sesión
+     * @param Integer $limite limite que será la cantidad de registros que queremos mostrar
+     * @returm array de objetos de tipo persona
      */
-
     public static function getPersonasByLimit($sesionPagina, $limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo, DNI, nombre, apellido1, apellido2,"
@@ -545,6 +571,11 @@ class Persona {
         return $personas;
     }
 
+    /**
+     * Selecciona los nombres de las personas
+     * No admite parámetros 
+     * @return array con los nombres de las personas
+     */
     public static function getNombrePersona() {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT nombre FROM persona";
@@ -558,6 +589,12 @@ class Persona {
         return $nombres;
     }
 
+    /**
+     * Selecciona los códigos de las personas
+     * admite parámetros 
+     * @param String $nombre nombre de la persona
+     * @return array con el  nombre de la persona
+     */
     public static function getCodigoPersonabyNombre($nombre) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo FROM persona WHERE nombre='$nombre'";
@@ -571,6 +608,12 @@ class Persona {
         }
     }
 
+    /**
+     * Selecciona la password de la persona
+     * admite parámetros 
+     * @param String $email email de la persona
+     * @return array con el email de la persona
+     */
     public static function getPasswordByEmail($email) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT password FROM persona WHERE email='$email'";
@@ -584,6 +627,12 @@ class Persona {
         return $password;
     }
     
+    /**
+     * Selecciona el perfil de usuario de la persona
+     * admite parámetros 
+     * @param String $email email de la persona
+     * @return array con el perfil de uusario
+     */
     public static function getPerfil_usuarioByEmail($email) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT perfil_usuario FROM persona WHERE email='$email'";
@@ -599,6 +648,12 @@ class Persona {
        return $perfil_usuario;
     }
     
+    /**
+     * Selecciona el código de la persona
+     * admite parámetros 
+     * @param String $email email de la persona
+     * @return código de la personas dado el email
+     */
     public static function getCodigoByEmail($email) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo FROM persona WHERE email='$email'";
@@ -612,6 +667,12 @@ class Persona {
         return $codigo;
     }
     
+    /**
+     * Selecciona el perfil de la persona
+     * admite parámetros 
+     * @param String $codigo email de la persona
+     * @return del perfil dado el código
+     */
     public static function getPerfilByCodigo($codigo) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT perfil FROM persona WHERE codigo=$codigo";
