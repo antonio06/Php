@@ -22,28 +22,33 @@ if ($_SESSION['logeado'] == "Si") {
 
     if (!isset($_GET['pagina'])) {
         $pagina = 1;
-        $_SESSION['pagina'] = Persona::getSesionPagina($pagina, $limite, $_SESSION['pagina']);
-        $personas = Persona::getPersonasByLimit($_SESSION['pagina'], $limite);
+        if (isset($_SESSION['paginaPersonas'])) {
+            $pagina = $_SESSION['paginaPersonas'];
+        } else {
+            $_SESSION['paginaPersonas'] = $pagina;
+        }
+        $personas = Persona::getPersonasByLimit($pagina - 1, $limite);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
 
         if ($perfil_usuario == "Administrador") {
-        $_SESSION['esAdministrador'] = "Si";
+            $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
-        }else{
+        } else {
             echo $twig->render('gestionPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
         }
     } else {
+        $pagina = $_GET['pagina'];
+        $_SESSION['paginaPersonas'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $_SESSION['pagina'] = Persona::getSesionPagina($_GET['pagina'], $limite, $_SESSION['pagina']);
-        $personas = Persona::getPersonasByLimit($_SESSION['pagina'], $limite);
+        $personas = Persona::getPersonasByLimit($pagina, $limite);
         if ($perfil_usuario == "Administrador") {
-        $_SESSION['esAdministrador'] = "Si";
+            $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('tablaPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
-        }else{
+        } else {
             echo $twig->render('tablaPersonas.html.twig', ["personas" => $personas, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
         }
     }
-}else {
+} else {
     header("Location: ../partePublica/actividades.php");
 }
 

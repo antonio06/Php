@@ -4,12 +4,15 @@
 
 // Función principal
 $(function () {
-    $("#paginacion > li").each(function (indice, elemento) {
-        $(elemento).click(function (e) {
-            e.preventDefault();
-            $("#divMensaje").removeClass("correcto error").addClass("oculto").html("");
-            paginar(indice + 1);
-        });
+    $(document).on("click", "#paginacion > li", function (event) {
+        event.preventDefault();
+        $("#divMensaje").removeClass("correcto error").addClass("oculto").html("");
+
+        // Si estoy en la misma página que el número del botón que no haga nada.
+        if (parseInt($("#paginaActual").val()) !== $(event.currentTarget).index() + 1) {
+            paginar($(event.currentTarget).index() + 1);
+        }
+
     });
     $("#formularioActividad").submit(enviarFormulario);
     $('.datepicker').pickadate({
@@ -34,16 +37,36 @@ $(function () {
 
     $(document).on("click", "a[data-action='detalles']", function (event) {
         event.preventDefault();
-        mostrarModal({
-            accion: "ver",
-            id: $(this).attr("data-id")
-        });
+
+        $.ajax({
+            url: '../../Controller/partePrivada/detallesActividad.php',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                codigo_actividad: $(event.currentTarget).attr("data-id")
+            },
+            success: function (actividad, textStatus, jqXHR) {
+                if (actividad) {
+                    $("#contenedorDetallesActividad").find("span[data-actividad]").each(function (indice, elemento) {
+                        var dato = $(elemento).attr("data-actividad");
+                        $(elemento).text(actividad[dato]);
+                    });
+                }
+                mostrarModal({
+                    accion: "ver",
+                    id: $(this).attr("data-id")
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error(textStatus, errorThrown);
+            },
+        })
     });
 
     $(document).on("click", "a[data-action='editar']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '../../Controller/partePrivada/modificarActividad.php',
+            url: '../../Controller/partePrivada/detallesActividad.php',
             method: 'GET',
             dataType: "json",
             data: {
@@ -88,6 +111,32 @@ $(function () {
 
     $(document).on("click", "a[data-action='borrar']", function (event) {
         event.preventDefault();
+        $.ajax({
+            url: '../../Controller/partePrivada/eliminarActividad.php',
+            method: 'POST',
+            dataType: "json",
+            data: {
+                codigo_actividad: $(event.currentTarget).attr("data-id")
+            },
+            success: function (respuesta, textStatus, jqXHR) {
+                if (respuesta.estado) {
+                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("La actividad ha sido eliminada con exito");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                    // Refrescar la tabla
+                    paginar($("#paginaActual").val());
+                } else {
+                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un problema al borrar la actividad. Por favor inténtelo más tarde");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
     });
 });
 
@@ -100,9 +149,7 @@ function paginar(pagina) {
         }, success: function (tabla, textStatus, jqXHR) {
             // Petición con éxito
             if (textStatus === "success") {
-                $("#tablaActividades").remove();
-                $("#paginaActual").remove();
-                $(tabla).insertAfter($("#divMensaje"));
+                $("#contenedorTabla").html(tabla);
             }
 
         }, error: function (jqXHR, textStatus, errorThrown) {

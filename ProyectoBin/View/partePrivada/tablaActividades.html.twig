@@ -21,14 +21,21 @@
             <td>
                 <div class="icons-container">
                     <a href="#" data-action="detalles" data-id="{{ actividad.codigo_actividad }}" class="icons"><i class="fa fa-search-plus"></i></a>
-                    {% if esAdministrador != null %}
+                        {% if esAdministrador != null %}
                         <a href="#" data-action="editar" data-id="{{ actividad.codigo_actividad }}" class="icons"><i class="fa fa-pencil"></i></a>
                         <a href="#" data-action="borrar" data-id="{{ actividad.codigo_actividad }}" class="icons"><i class="fa fa-times"></i></a>
-                    {% endif %}
+                        {% endif %}
                 </div>
             </td>
         </tr>
     {% endfor %}
 </table>
+<div class="center-align">
+    <ul class="pagination" id="paginacion">
+        {% for arrayNumero in arrayNumeros %}
+            <li class="active"><a href="#">{{arrayNumero}}</a></li>
+            {% endfor %}
+    </ul>
+</div>
 <input type="hidden" id="paginaActual" value="{{pagina}}">
 {#<script type="text/javascript" src="../../public/asset/js/gestionActividades.js"></script>#}

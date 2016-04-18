@@ -22,29 +22,33 @@ if ($_SESSION['logeado'] == "Si") {
 
     if (!isset($_GET['pagina'])) {
         $pagina = 1;
-        $_SESSION['pagina'] = Actividad::getSesionPagina($pagina, $limite, $_SESSION['pagina']);
+        if (isset($_SESSION['paginaParticipantes'])) {
+            $pagina = $_SESSION['paginaParticipantes'];
+        } else {
+            $_SESSION['paginaParticipantes'] = $pagina;
+        }
         $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit($_SESSION['pagina'], $limite, $codigo_persona);
+        $participantes = Actividad::getParticipantesByLimit($pagina - 1, $limite, $codigo_persona);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         if ($perfil_usuario == "Administrador") {
-        $_SESSION['esAdministrador'] = "Si";
+            $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('gestionParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
-        }else{
+        } else {
             echo $twig->render('gestionParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
         }
     } else {
+        $pagina = $_GET['pagina'];
+        $_SESSION['paginaParticipantes'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $_SESSION['pagina'] = Actividad::getSesionPagina($_GET['pagina'], $limite, $_SESSION['pagina']);
         $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit($_SESSION['pagina'], $limite, $codigo_persona);
+        $participantes = Actividad::getParticipantesByLimit($pagina - 1, $limite, $codigo_persona);
         if ($perfil_usuario == "Administrador") {
-        $_SESSION['esAdministrador'] = "Si";
+            $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('tablaParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
-        }else{
+        } else {
             echo $twig->render('tablaParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
         }
-        
     }
-}else {
+} else {
     header("Location: ../partePublica/actividades.php");
 }

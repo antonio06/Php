@@ -1,114 +1,48 @@
 
 <div class="row" id="contenedorDetallesActividad">
     <div>
-        <span date-actividad="codigo_actividad">Codigo:</span>
-        <span date-actividad="titulo">Titulo:</span>
-        <span date-actividad="estado">Estado:</span>
-        <span date-actividad="coordinador">Coordinador:</span>
-        <span date-actividad="ponente">Ponente:</span>
-        <span date-actividad="ubicacion">Ubicacion:</span>
-        <span date-actividad="fecha_inicio">Fecha inicio:</span>
-        <span date-actividad="fecha_fin">Fecha fin:</span>
-        <span date-actividad="horario_inicio">Horario inicio:</span>
-        <span date-actividad="horario_fin">Horario fin:</span>
-        <span date-actividad="n_Total_Horas">N total horas:</span>
-        <span date-actividad="precio">Precio:</span>
-        <span date-actividad="IVA">IVA:</span>
-        <span date-actividad="descriptor">Descriptor:</span>
-        <span date-actividad="observaciones">Observaciones:</span>
+        <span class="spanDetalles">Codigo:</span><span data-actividad="codigo_actividad"></span>
     </div>
-
-    {#    <form class="col s12" id="">
-            <div class="row">
-                <div class="input-field col s3">
-                    <label for="last_name" style="margin-top: -11%">Código</label>
-                    <input disabled type="text" class="validate" id="codigo_actividad">
-                    <label for="disabled">{{ actividad.codigo_actividad }}</label>
-                </div>
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -9%">Titulo</label>
-                    <input disabled type="text" class="validate" id="titulo_actividad">
-                    <label for="disabled">{{ actividad.titulo }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Estado</label>
-                    <input disabled type="text" class="validate" id="estado_actividad">
-                    <label for="disabled">{{ actividad.estado }}</label>
-                </div>
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Coordinador</label>
-                    <input disabled type="text" class="validate" id="coordinador_actividad">
-                    <label for="disabled">{{ actividad.coordinador }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Ponente</label>
-                    <input disabled type="text" class="validate" id="ponente_actividad">
-                    <label for="disabled">{{ actividad.ponente }}</label>
-                </div>
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Ubicación</label>
-                    <input disabled type="text" class="validate" id="ubicacion_actividad">
-                    <label for="disabled">{{ actividad.ubicacion }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Fecha Inicio</label>
-                    <input disabled type="text" class="validate" id="fecha_inicio_actividad">
-                    <label for="disabled">{{ actividad.fecha_inicio }}</label>
-                </div>
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Fecha Fin</label>
-                    <input disabled type="text" class="validate" id="fecha_fin_actividad">
-                    <label for="disabled">{{ actividad.fecha_fin }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Horario Inicio</label>
-                    <input disabled type="text" class="validate" id="horario_inicio_actividad">
-                    <label for="disabled">{{ actividad.horario_inicio }}</label>
-                </div>
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Horario Fin</label>
-                    <input disabled type="text" class="validate" id="horario_fin_actividad">
-                    <label for="disabled">{{ actividad.horario_fin }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Nº Total Horas</label>
-                    <input disabled type="text" class="validate" id="n_total_horas_actividad">
-                    <label for="disabled">{{ actividad.n_Total_Horas }}</label>
-                </div>
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Precio</label>
-                    <input disabled type="text" class="validate" id="precio_actividad">
-                    <label for="disabled">{{ actividad.precio }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">IVA</label>
-                    <input disabled type="text" class="validate" id="iva_actividad">
-                    <label for="disabled">{{ actividad.IVA }}</label>
-                </div>
-                <div class="input-field col s4">
-                    <label for="last_name" style="margin-top: -11%">Descriptor</label>
-                    <input disabled type="text" class="validate" id="descriptor_actividad">
-                    <label for="disabled">{{ actividad.descriptor }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <label for="last_name" style="margin-top: -8%">Observaciones</label>
-                    <input disabled type="text" class="validate" id="observaciones_actividad">
-                    <label for="disabled">{{ actividad.observaciones }}</label>
-                </div>
-            </div>
-        </form>#}
+    <div>
+        <span class="spanDetalles">Titulo:</span><span data-actividad="titulo"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Estado:</span><span data-actividad="estado"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Coordinador:</span><span data-actividad="coordinador"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Ponente:</span><span data-actividad="ponente"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Ubicacion:</span><span data-actividad="ubicacion"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Fecha inicio:</span><span data-actividad="fecha_inicio"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Fecha fin:</span><span data-actividad="fecha_fin"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Horario inicio:</span><span data-actividad="horario_inicio"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Horario fin:</span><span data-actividad="horario_fin"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">N total horas:</span><span data-actividad="n_Total_Horas"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Precio:</span><span data-actividad="precio"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">IVA:</span><span data-actividad="IVA"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Descriptor:</span><span data-actividad="descriptor"></span>
+    </div>
+    <div>
+        <span class="spanDetalles">Observaciones:</span><span data-actividad="observaciones"></span>
+    </div>
 </div>

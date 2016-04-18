@@ -525,22 +525,6 @@ class Persona {
     }
 
     /**
-     * Devuelve la página en la que estamos.
-     * admite parámetros
-     * @param Integer $pagina pagina en la que estamos.
-     * @param Integer $limite total de registros que queremos mostrar.
-     * @param Integer $sesionPagina si la variable no existe la calcula si existe la inicia a 1.
-     * Devuelve la sesion de la página
-     */
-    public static function getSesionPagina($pagina, $limite, $sesionPagina) {
-        if (isset($sesionPagina)) {
-            return $sesionPagina = ($pagina - 1) * $limite;
-        } else {
-            return $sesionPagina = 1;
-        }
-    }
-
-    /**
      * Devuelve un array con objetos de tipo persona.
      * @param Integer $sesionPagina página en la que estamos que está almacenada como sesión
      * @param Integer $limite limite que será la cantidad de registros que queremos mostrar

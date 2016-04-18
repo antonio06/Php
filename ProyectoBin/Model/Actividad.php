@@ -168,21 +168,22 @@ class Actividad {
 
     /**
      * Inserta una actividad en la base de datos.
-     * @param number $codigo código numérico que identifica a la actividad.
-     * @param string $titulo titulo de la actividad.
-     * @param estado $estado estado en el que se encuentra la actividad.
-     * @param string $coordinador nombre del coordinador de la actividad.
-     * @param string $ponente nombre del ponente de la actividad
-     * @param string $ubicacion dirección donde se realizará la actividad.
-     * @param date $fecha_inicio fecha de inicio en la que se realizará la actividad.
-     * @param date $fecha_fin fecha de fin en la que termina la actividad.
-     * @param time $horario_inicio hora de inicio a la que se realizará la actividad.
-     * @param time $horario_fin hora de fin a la que termina la actividad.
-     * @param numbre $n_Total_Horas nº total de horas de la actividad.
-     * @param numbre $precio precio de la actividad.
-     * @param string $IVA indica si la actividad tiene IVA o no.
-     * @param string $descriptor personas a la que va dirigida la actividad
-     * @param string $observaciones observaciones que puede tener una actividad
+     * 
+     * @param number $codigo Código numérico que identifica a la actividad.
+     * @param string $titulo Titulo de la actividad.
+     * @param estado $estado Estado en el que se encuentra la actividad.
+     * @param string $coordinador Nombre del coordinador de la actividad.
+     * @param string $ponente Nombre del ponente de la actividad
+     * @param string $ubicacion Dirección donde se realizará la actividad.
+     * @param date $fecha_inicio Fecha de inicio en la que se realizará la actividad.
+     * @param date $fecha_fin Fecha de fin en la que termina la actividad.
+     * @param time $horario_inicio Hora de inicio a la que se realizará la actividad.
+     * @param time $horario_fin hora De fin a la que termina la actividad.
+     * @param numbre $n_Total_Horas Nº total de horas de la actividad.
+     * @param numbre $precio Precio de la actividad.
+     * @param string $IVA Indica si la actividad tiene IVA o no.
+     * @param string $descriptor Personas a la que va dirigida la actividad.
+     * @param string $observaciones Observaciones que puede tener una actividad.
      */
     public function insert() {
         $conexion = BinDb::connectDB();
@@ -200,21 +201,23 @@ class Actividad {
 
     /**
      * Borra una actividad de la base de datos.
-     * @param numbre $codigo pasamos el código de la actividad.
+     * 
+     * @param numbre $codigo_actividad El código de la actividad.
      */
-    public function delete() {
+    public static function delete($codigo_actividad) {
         $conexion = BinDb::connectDB();
-        $borrar = "DELETE FROM actividad WHERE codigo_actividad=\"" . $this->codigo_actividad . "\"";
+        $borrar = "DELETE FROM actividad WHERE codigo_actividad=\"" . $codigo_actividad . "\"";
         return $conexion->exec($borrar);
     }
 
     /**
      * Modifica una actividad de la base de datos.
-     * @param number $codigo código numérico que identifica a la actividad.
+     * 
+     * @param number $codigo Código numérico que identifica a la actividad.
      * @param string $titulo titulo de la actividad.
      * @param string $estado estado en el que se encuentra la actividad.
      * @param string $coordinador nombre del coordinador de la actividad.
-     * @param string $ponente nombre del ponente de la actividad
+     * @param string $ponente nombre del ponente de la actividad.
      * @param string $ubicacion dirección donde se realizará la actividad.
      * @param date $fecha_inicio fecha de inicio en la que se realizará la actividad.
      * @param date $fecha_fin fecha de fin en la que termina la actividad.
@@ -292,19 +295,16 @@ class Actividad {
      */
     public static function getActividadByCodigo($codigo_actividad) {
         $conexion = BinDb::connectDB();
-        $selecciona = "SELECT codigo_actividad, titulo, estado, coordinador, ponente,"
-                . "ubicacion, fecha_inicio, fecha_fin, horario_inicio, horario_fin,"
-                . "n_Total_Horas, precio, IVA, descriptor, observaciones FROM actividad"
-                . " WHERE codigo_actividad=\"" . $codigo_actividad . "\"";
+        $selecciona = "SELECT codigo_actividad, titulo, estado, coordinador, ponente," .
+                "ubicacion, fecha_inicio, fecha_fin, horario_inicio, horario_fin," .
+                "n_Total_Horas, precio, IVA, descriptor, observaciones FROM actividad" .
+                " WHERE codigo_actividad=\"" . $codigo_actividad . "\"";
         $consulta = $conexion->query($selecciona);
         $registro = $consulta->fetchObject();
-        $actividad = new Actividad($registro->codigo_actividad, $registro->titulo
-                , $registro->estado, $registro->coordinador, $registro->ponente
-                , $registro->ubicacion, $registro->fecha_inicio, $registro->fecha_fin
-                , $registro->horario_inicio, $registro->horario_fin
-                , $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
-
-        return $actividad;
+        if ($registro) {
+            return new Actividad($registro->codigo_actividad, $registro->titulo, $registro->estado, $registro->coordinador, $registro->ponente, $registro->ubicacion, $registro->fecha_inicio, $registro->fecha_fin, $registro->horario_inicio, $registro->horario_fin, $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
+        }
+        return NULL;
     }
 
     /**
@@ -385,11 +385,11 @@ class Actividad {
         return $IVA;
     }
 
-    /* Se le pasa como parámetro el limite (la cantidad de registros que queremos mostrar) 
-     * Devuelve el número total de páginas 
-     * @returm numeroPaginas
+    /**
+     * Devuelve el número total de páginas.
+     * @param number $limite Cantidad de registros que queremos mostrar.
+     * @returm number El número de páginas totales.
      */
-
     public static function getNumeroPaginas($limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT * FROM actividad";
@@ -397,19 +397,6 @@ class Actividad {
         $totalRegistros = $consulta->rowCount();
         // ceil redondea por arriba la división
         return ceil($totalRegistros / $limite);
-    }
-
-    /* Se le pasa como parámetros la página en la que nos encontramos el límite 
-     * y la página que será una sesión 
-     * Devuelve la sesion de la página
-     */
-
-    public static function getSesionPagina($pagina, $limite, $sesionPagina) {
-        if (isset($sesionPagina)) {
-            return $sesionPagina = ($pagina - 1) * $limite;
-        } else {
-            return $sesionPagina = 1;
-        }
     }
 
     /* Se le pasa como parámetro la sesión de la página y el limite 

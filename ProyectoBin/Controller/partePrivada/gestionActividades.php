@@ -24,10 +24,15 @@ if ($_SESSION['logeado'] == "Si") {
     }
 
     if (!isset($_GET['pagina'])) {
-        $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         $pagina = 1;
-        $_SESSION['pagina'] = Actividad::getSesionPagina($pagina, $limite, $_SESSION['pagina']);
-        $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
+        if (isset($_SESSION['paginaActividades'])) {
+            $pagina = $_SESSION['paginaActividades'];
+        } else {
+            $_SESSION['paginaActividades'] = $pagina;
+        }
+        $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
+
+        $actividades = Actividad::getActividadesByLimit($pagina - 1, $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades,
@@ -50,9 +55,13 @@ if ($_SESSION['logeado'] == "Si") {
             ]);
         }
     } else {
+        $pagina = $_GET['pagina'];
+        if ($pagina > $numeroPaginas) {
+            $pagina = $numeroPaginas;
+        }
+        $_SESSION['paginaActividades'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $_SESSION['pagina'] = Actividad::getSesionPagina($_GET['pagina'], $limite, $_SESSION['pagina']);
-        $actividades = Actividad::getActividadesByLimit($_SESSION['pagina'], $limite);
+        $actividades = Actividad::getActividadesByLimit($pagina - 1, $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades,
@@ -62,7 +71,7 @@ if ($_SESSION['logeado'] == "Si") {
                 "email" => $_SESSION['email'],
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "IVA" => $listaIVA,
-                "pagina" => $_GET['pagina']
+                "pagina" => $pagina
             ]);
         } else {
             echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades,
@@ -71,7 +80,7 @@ if ($_SESSION['logeado'] == "Si") {
                 "estados" => $listaEstados,
                 "email" => $_SESSION['email'],
                 "IVA" => $listaIVA,
-                "pagina" => $_GET['pagina']
+                "pagina" => $pagina
             ]);
         }
     }

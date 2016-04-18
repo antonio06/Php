@@ -8,15 +8,7 @@ require_once '../../Model/Actividad.php';
 //$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 //$twig = new Twig_Environment($loader);
 if ($_SESSION['logeado'] == "Si") {
-    if (isset($_GET['codigo_actividad'])) {
-        $actividad = Actividad::getActividadByCodigo($_GET['codigo_actividad']);
-//        $listaDescriptores = Actividad::getDescriptoresActividad();
-//        $listaEstados = Actividad::getEstadosActividad();
-//        $IVA = Actividad::getIvaActividad();
-
-        $_SESSION['codigo_actividad'] = $_GET['codigo_actividad'];
-        echo $actividad->toJSON();
-    } elseif (isset($_POST['codigo_actividad'])) {
+    if (isset($_POST['codigo_actividad'])) {
         // Validar los datos que se envían desde JavaScript
         $respuesta = ["estado" => "error", "errores" => []]; //, "valorEstado" => $_POST["estado"]];
 

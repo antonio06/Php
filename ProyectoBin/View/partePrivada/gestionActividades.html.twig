@@ -40,15 +40,10 @@
     <div class="text-center">
         <div id="divMensaje"></div>
     </div>
-    {% include "tablaActividades.html.twig" %}
-
-    <div class="center-align">
-        <ul class="pagination" id="paginacion">
-            {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="#">{{arrayNumero}}</a></li>
-                {% endfor %}
-        </ul>
+    <div id="contenedorTabla">
+        {% include "tablaActividades.html.twig" %}
     </div>
+
     <!-- Modal Structure -->
     <div id="modalActividad" class="modal">
         <div class="modal-content">

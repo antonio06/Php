@@ -22,6 +22,9 @@
     color: #5f885f;
     border-color: #52aaae;
 }
+.correcto, .error{
+    display: inline-block;
+}
 
 .centrado{
     text-align: center
@@ -29,7 +32,6 @@
 #divMensaje{
     max-width: 600px;
     padding: 7px;
-    display: inline-block;
     text-align: left;
 }
 .text-center{
@@ -67,7 +69,12 @@
     padding-top: 25px;
 }
 
-span{
-    float: left;
-    clear: left;
+#contenedorDetallesActividad span{
+    display: inline-block;
+}
+
+#contenedorDetallesActividad .spanDetalles{
+    width: 140px;
+    text-align: right;
+    margin-right: 15px;
 }
