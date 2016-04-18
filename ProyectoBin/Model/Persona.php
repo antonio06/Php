@@ -612,6 +612,25 @@ class Persona {
     }
     
     /**
+     * Selecciona la password de la persona
+     * admite parámetros 
+     * @param String $email email de la persona
+     * @return array con el email de la persona
+     */
+    public static function getEmailByEmail($email) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT email FROM persona WHERE email='$email'";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        foreach ($registro as $key => $value) {
+            if ($key == "email") {
+                $email = $value;
+            }
+        }
+        return $email;
+    }
+    
+    /**
      * Selecciona el perfil de usuario de la persona
      * admite parámetros 
      * @param String $email email de la persona
