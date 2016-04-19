@@ -520,9 +520,14 @@ class Actividad {
      * Se le pasa como parámetro el limite (la cantidad de registros que queremos mostrar)
      * @returm numeroPaginas 
      */
-    public static function getNumeroPaginasParticipa($limite) {
+    public static function getNumeroPaginasParticipa($limite, $codigo_persona) {
         $conexion = BinDb::connectDB();
-        $seleccion = "SELECT * FROM participa";
+        if ($codigo_persona){
+            $seleccion = "SELECT * FROM participa WHERE codigo_persona=$codigo_persona";
+        }else{
+            $seleccion = "SELECT * FROM participa";
+        }
+        
         $consulta = $conexion->query($seleccion);
         $totalRegistros = $consulta->rowCount();
         return ceil($totalRegistros / $limite);

@@ -11,7 +11,8 @@ $twig = new Twig_Environment($loader);
 //$participantes = Actividad::getParticipantes();
 if ($_SESSION['logeado'] == "Si") {
     $limite = 2;
-    $numeroPaginas = Actividad::getNumeroPaginasParticipa($limite);
+    $codigo_persona = "";
+    $numeroPaginas = Actividad::getNumeroPaginasParticipa($limite, $codigo_persona);
     $arrayNumeros = [];
     $auxi = 0;
     for ($i = 1; $i <= $numeroPaginas; $i++) {
