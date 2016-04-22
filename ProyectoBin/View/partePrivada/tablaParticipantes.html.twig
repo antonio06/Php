@@ -3,7 +3,9 @@
             <td>Persona</td>
             <td>Actividades</td>
             <td>Perfiles</td>
+            {% if esAdministrador != null %}
             <td><a href="../../Controller/partePrivada/nuevoParticipante.php" id="anadirParticipante"><i class="fa fa-plus"></i></a></td>
+            {% endif %}
         </tr>
         {% for participante in participantes %}
             <tr>
@@ -13,6 +15,6 @@
                 {% if esAdministrador != null %}
                     <td><a href="../../Controller/partePrivada/modificarParticipa.php?codigo_persona={{ participante.codigo_persona }}" id="modificarParticipante"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarParticipa.php?codigo_persona={{ participante.codigo_persona }}" id="borrarParticipante"><i class="fa fa-times"></i></a></td>
                         {% endif %}    
-            </tr>
         {% endfor %}
-    </table>
+            </tr>
+</table>

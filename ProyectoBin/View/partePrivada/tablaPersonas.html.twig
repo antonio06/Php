@@ -6,7 +6,10 @@
             <td>1 Apellido</td>
             <td>2 Apellido</td>
             <td>Sexo</td>
-            <td><a href="../../Controller/partePrivada/nuevaPersona.php" id="anadirPersona"><i class="fa fa-plus"></i></a></td>
+            <td>
+                {% if esAdministrador != null %}
+                <a href="../../Controller/partePrivada/nuevaPersona.php" id="anadirPersona"><i class="fa fa-plus"></i></a></td>
+                {% endif %}
         </tr>
         {% for persona in personas %}
             <tr>
