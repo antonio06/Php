@@ -8,7 +8,7 @@ require_once '../../Model/Persona.php';
 if ($_SESSION['logeado'] == "Si") {
     $codigo_persona = $_SESSION['codigo'];
     $codigo_actividad = $_GET['codigo_actividad'];
-    $codigo_perfil = Actividad::getCodigoParticipante();
+    $codigo_perfil = Actividad::getCodigoPerfil();
     
     Actividad::insertParticipantes($codigo_persona, $codigo_actividad, $codigo_perfil);
     

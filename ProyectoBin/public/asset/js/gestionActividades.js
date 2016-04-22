@@ -25,7 +25,34 @@ $(function () {
     $("#modificarActividad").click(function () {
         $("#formularioActividad").trigger("submit", {url: "../../Controller/partePrivada/modificarActividad.php"});
     });
-    $("#suscribirseActividad").click();
+    $("#suscribirseActividad").click(function(){
+        $.ajax({
+            url: '../../Controller/partePrivada/miNuevaActividad.php',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                codigo_actividad: $("#modalActividad").data("codigo_actividad"),
+            },
+            success: function (respuesta, textStatus, jqXHR) {
+                if(respuesta.estado){
+                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("Suscripción realizada con éxito.");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                }else{
+                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un error al realizar la suscripción.");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                }
+                
+                $("#modalActividad").closeModal();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                
+            }
+        })
+    });
 
     $(document).on("click", "a[data-action='nuevo']", function (event) {
         event.preventDefault();
@@ -37,7 +64,6 @@ $(function () {
 
     $(document).on("click", "a[data-action='detalles']", function (event) {
         event.preventDefault();
-
         $.ajax({
             url: '../../Controller/partePrivada/detallesActividad.php',
             method: 'GET',
@@ -45,16 +71,20 @@ $(function () {
             data: {
                 codigo_actividad: $(event.currentTarget).attr("data-id")
             },
-            success: function (actividad, textStatus, jqXHR) {
-                if (actividad) {
+            success: function (respuesta, textStatus, jqXHR) {
+                $("#suscribirseActividad").parent().show();
+                if (respuesta) {
+                    var actividad = $.parseJSON(respuesta.actividad);
                     $("#contenedorDetallesActividad").find("span[data-actividad]").each(function (indice, elemento) {
                         var dato = $(elemento).attr("data-actividad");
                         $(elemento).text(actividad[dato]);
                     });
+                    $("#modalActividad").data("codigo_actividad", actividad.codigo_actividad);
                 }
                 mostrarModal({
                     accion: "ver",
-                    id: $(this).attr("data-id")
+                    id: $(this).attr("data-id"),
+                    participa: respuesta.participa
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -174,10 +204,7 @@ function enviarFormulario(event, opciones) {
     if (!url) {
         return false;
     }
-//    console.log("URL:", url);
-
-
-
+    
     var formulario = $("#formularioActividad")[0];
     if (formulario.checkValidity()) {
         var datos = $("#formularioActividad").serialize();
@@ -186,7 +213,7 @@ function enviarFormulario(event, opciones) {
             datos += "&" + decodeURIComponent($.param({codigo_actividad: id}));
         }
         $.ajax({
-            url: opciones.url,
+            url: url,
             method: 'POST',
             data: datos,
             dataType: "json",
@@ -230,7 +257,11 @@ function mostrarModal(opciones) {
         $("#modificarActividad").parent().show();
         $("#contenedorFormularioActividad").show();
     } else if (opciones.accion === "ver") {
-        $("#suscribirseActividad").parent().show();
+        if (opciones.participa) {
+            $("#suscribirseActividad").parent().hide();
+        } else {
+            $("#suscribirseActividad").parent().show();
+        }
         $("#contenedorDetallesActividad").show();
     }
     $("#modalActividad").openModal(); //.leanModal();

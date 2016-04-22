@@ -32,7 +32,7 @@ if ($_SESSION['logeado'] == "Si") {
         }
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
 
-        $actividades = Actividad::getActividadesByLimit($pagina - 1, $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1)*$limite , $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades,
@@ -61,7 +61,7 @@ if ($_SESSION['logeado'] == "Si") {
         }
         $_SESSION['paginaActividades'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $actividades = Actividad::getActividadesByLimit($pagina - 1, $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1)* $limite, $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades,

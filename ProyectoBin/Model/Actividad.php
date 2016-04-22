@@ -247,7 +247,8 @@ class Actividad {
     }
 
     /**
-     * Se le pasa como parámetro el código de la catividad
+     * TODO: Arreglar documentación de este método
+     * Se le pasa como parámetro el código de la atividad, y de la persona
      * Selecciona el código de la actividad y devuelve FALSE si encuentra más 
      * de un registro de esa actividad y TRUE si no encuentra nada.
      * este método se aplicará siempre que se quiera comprobar si existe un objeto 
@@ -255,15 +256,17 @@ class Actividad {
      * @param number $codigo.
      * @return boolean.
      */
-    public static function existeCodigo($codigo_actividad) {
-        $conexion = ActividadesDB::connectDB();
-        $consulta = "SELECT codigo FROM actividad WHERE codigo_actividad=\"" . $codigo_actividad . "\"";
-        $registro = $consulta->fetchObject();
+    public function comprobarEnActividad($codigo_persona) {
+        $conexion = BinDb::connectDB();
+        $consulta = "SELECT codigo_persona, codigo_actividad 
+                    FROM participa 
+                    WHERE codigo_actividad=\"" . $this->codigo_actividad . "\" and codigo_persona=\"" .
+                $codigo_persona . "\"";
+        $registro = $conexion->query($consulta);
         if ($registro->rowCount() > 0) {
-            return FALSE;
-        } else {
             return TRUE;
         }
+        return FALSE;
     }
 
     /**
@@ -463,7 +466,7 @@ class Actividad {
      * @param Integer $codigo con el codigo del perfil con el que ingresa en la actividad
      * @return objeto de la actividad
      */
-    public function insertParticipantes($perfil, $nombre, $codigo) {
+    public function insertParticipante($perfil, $nombre, $codigo) {
         $conexion = BinDb::connectDB();
         $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) "
                 . "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
@@ -522,12 +525,12 @@ class Actividad {
      */
     public static function getNumeroPaginasParticipa($limite, $codigo_persona) {
         $conexion = BinDb::connectDB();
-        if ($codigo_persona){
+        if ($codigo_persona) {
             $seleccion = "SELECT * FROM participa WHERE codigo_persona=$codigo_persona";
-        }else{
+        } else {
             $seleccion = "SELECT * FROM participa";
         }
-        
+
         $consulta = $conexion->query($seleccion);
         $totalRegistros = $consulta->rowCount();
         return ceil($totalRegistros / $limite);
@@ -561,12 +564,13 @@ class Actividad {
     }
 
     /**
+     * TODO Modificar la documentación
      * Selecciona el código del perfil perteneciente a la descripción de participante 
      * @return type Integer codigo del perfil  
      */
-    public static function getCodigoParticipante() {
+    public static function getCodigoPerfil($descripcion) {
         $conexion = BinDb::connectDB();
-        $seleccion = "SELECT codigo FROM perfil WHERE descripcion='participante'";
+        $seleccion = "SELECT codigo FROM perfil WHERE descripcion='$descripcion'";
         $consulta = $conexion->query($seleccion);
         $registro = $consulta->fetchObject();
         foreach ($registro as $key => $value) {

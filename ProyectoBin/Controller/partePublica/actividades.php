@@ -31,12 +31,12 @@ if (isset($_SESSION['logeado'])) {
         } else {
             $_SESSION['paginaActividades'] = $pagina;
         }
-        $actividades = Actividad::getActividadesByLimit($pagina - 1, $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1)*$limite, $limite);
         echo $twig->render('actividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
     } else {
         $pagina = $_GET['pagina'];
         $_SESSION['paginaActividades'] = $pagina;
-        $actividades = Actividad::getActividadesByLimit($pagina, $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1)*$limite, $limite);
         echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "pagina" => $pagina]);
     }
 } else {
@@ -47,12 +47,12 @@ if (isset($_SESSION['logeado'])) {
         } else {
             $_SESSION['paginaActividades'] = $pagina;
         }
-        $actividades = Actividad::getActividadesByLimit($pagina - 1, $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1)*$limite, $limite);
         echo $twig->render('actividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros]);
     } else {
         $pagina = $_GET['pagina'];
         $_SESSION['paginaActividades'] = $pagina;
-        $actividades = Actividad::getActividadesByLimit($pagina - 1, $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1)*$limite, $limite);
         echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades, "arrayNumeros" => $arrayNumeros]);
     }
 }

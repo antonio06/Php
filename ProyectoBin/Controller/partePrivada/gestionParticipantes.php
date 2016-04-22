@@ -29,7 +29,7 @@ if ($_SESSION['logeado'] == "Si") {
             $_SESSION['paginaParticipantes'] = $pagina;
         }
         $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit($pagina - 1, $limite, $codigo_persona);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $codigo_persona);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
@@ -42,7 +42,7 @@ if ($_SESSION['logeado'] == "Si") {
         $_SESSION['paginaParticipantes'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit($pagina - 1, $limite, $codigo_persona);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $codigo_persona);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('tablaParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);

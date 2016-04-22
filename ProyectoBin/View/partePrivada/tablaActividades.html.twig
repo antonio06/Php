@@ -7,7 +7,11 @@
         <td>Fecha Inicio</td>
         <td>Fecha Fin</td>
         <td>Descriptor</td>
-        <td><a href="#" data-action="nuevo" data-id="{{ actividad.codigo_actividad }}"><i class="fa fa-plus"></i></a></td>
+        <td>
+            {% if esAdministrador != null %}
+                <a href="#" data-action="nuevo" data-id="{{ actividad.codigo_actividad }}"><i class="fa fa-plus"></i></a>
+            {% endif %}
+        </td>
     </tr>
     {% for actividad in actividades %}
         <tr>

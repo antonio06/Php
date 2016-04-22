@@ -27,14 +27,14 @@ if ($_SESSION['logeado'] == "Si") {
         } else {
             $_SESSION['paginaMisActividades'] = $pagina;
         }
-        $participantes = Actividad::getParticipantesByLimit($pagina - 1, $limite, $_SESSION['codigo']);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $_SESSION['codigo']);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         echo $twig->render('misActividades.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
     } else {
         $pagina = $_GET['pagina'];
         $_SESSION['paginaMisActividades'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $participantes = Actividad::getParticipantesByLimit($pagina - 1, $limite, $_SESSION['codigo']);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $_SESSION['codigo']);
         echo $twig->render('misActividades.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
     }
 }else {
