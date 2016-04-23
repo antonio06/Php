@@ -344,8 +344,8 @@ class Persona {
     }
 
     /**
+     * 
      * Selecciona todas las personas.
-     * No admite parámetros
      * @return array de objeto con todas las personas.
      */
     public function getPersonas() {
@@ -367,8 +367,8 @@ class Persona {
     }
 
     /**
+     * 
      * Selecciona todos los códigos de las personas.
-     * No admite parámetros
      * @return array de los objetos con el código.
      */
     public static function getCodigosPersona() {
@@ -385,8 +385,8 @@ class Persona {
     }
 
     /**
+     * 
      * Selecciona todos los perfiles de usuarios de las personas.
-     * No permite parámetros.
      * @return array con los perfiles de usuarios de persona.
      */
     public static function getPerfiles_usuariosPersona() {
@@ -411,8 +411,8 @@ class Persona {
     }
 
     /**
+     * 
      * Selecciona todos los perfiles de las personas.
-     * No permite parámetros.
      * @return array con los perfiles.
      */
     public static function getPerfilesPersona() {
@@ -438,8 +438,8 @@ class Persona {
     }
 
     /**
+     * 
      * Selecciona el código del perfil dado una descripción 
-     * admite parámetros
      * @param type $descripcion descripción de la persona
      * @return array con el código de la persona
      */
@@ -457,8 +457,8 @@ class Persona {
     }
 
     /**
+     * 
      * Selecciona los sexos de las personas.
-     * No permite parámetros.
      * @return array con los sexos.
      */
     public static function getSexoPersona() {
@@ -483,8 +483,8 @@ class Persona {
     }
 
     /**
+     * 
      * Selecciona los campos de la tabla según el codigo.
-     * admite parámetros
      * @param string $codigo codigo correspondiente a la persona.
      * @return array devuelve objetos de las personas
      */
@@ -511,8 +511,8 @@ class Persona {
     }
 
     /**
+     * 
      * Devuelve el número total de páginas dado el limite 
-     * admite parámetros
      * @param Integer $limite número de registros que queremos mostrar
      * @returm numero de paginas
      */
@@ -525,6 +525,7 @@ class Persona {
     }
 
     /**
+     * 
      * Devuelve un array con objetos de tipo persona.
      * @param Integer $sesionPagina página en la que estamos que está almacenada como sesión
      * @param Integer $limite limite que será la cantidad de registros que queremos mostrar
@@ -556,8 +557,8 @@ class Persona {
     }
 
     /**
-     * Selecciona los nombres de las personas
-     * No admite parámetros 
+     * 
+     * Selecciona los nombres de las personas. 
      * @return array con los nombres de las personas
      */
     public static function getNombrePersona() {
@@ -574,8 +575,8 @@ class Persona {
     }
 
     /**
-     * Selecciona los códigos de las personas
-     * admite parámetros 
+     * 
+     * Selecciona los códigos de las personas. 
      * @param String $nombre nombre de la persona
      * @return array con el  nombre de la persona
      */
@@ -593,8 +594,8 @@ class Persona {
     }
 
     /**
-     * Selecciona la password de la persona
-     * admite parámetros 
+     * 
+     * Selecciona la password de la persona.
      * @param String $email email de la persona
      * @return array con el email de la persona
      */
@@ -612,8 +613,8 @@ class Persona {
     }
     
     /**
-     * Selecciona la password de la persona
-     * admite parámetros 
+     * 
+     * Selecciona la password de la persona.
      * @param String $email email de la persona
      * @return array con el email de la persona
      */
@@ -631,8 +632,8 @@ class Persona {
     }
     
     /**
-     * Selecciona el perfil de usuario de la persona
-     * admite parámetros 
+     * 
+     * Selecciona el perfil de usuario de la persona.
      * @param String $email email de la persona
      * @return array con el perfil de uusario
      */
@@ -652,8 +653,8 @@ class Persona {
     }
     
     /**
-     * Selecciona el código de la persona
-     * admite parámetros 
+     * 
+     * Selecciona el código de la persona. 
      * @param String $email email de la persona
      * @return código de la personas dado el email
      */
@@ -671,8 +672,8 @@ class Persona {
     }
     
     /**
-     * Selecciona el perfil de la persona
-     * admite parámetros 
+     * 
+     * Selecciona el perfil de la persona.
      * @param String $codigo email de la persona
      * @return del perfil dado el código
      */

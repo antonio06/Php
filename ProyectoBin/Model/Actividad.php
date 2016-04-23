@@ -247,13 +247,10 @@ class Actividad {
     }
 
     /**
-     * TODO: Arreglar documentación de este método
-     * Se le pasa como parámetro el código de la atividad, y de la persona
-     * Selecciona el código de la actividad y devuelve FALSE si encuentra más 
-     * de un registro de esa actividad y TRUE si no encuentra nada.
-     * este método se aplicará siempre que se quiera comprobar si existe un objeto 
-     * con ese código.
-     * @param number $codigo.
+     * 
+     * Selecciona el código de la persona y devuelve TRUE si encuentra más 
+     * de un registro de esa actividad y FALSE si no encuentra nada.
+     * @param number $codigo_persona codigo de la persona.
      * @return boolean.
      */
     public function comprobarEnActividad($codigo_persona) {
@@ -270,7 +267,7 @@ class Actividad {
     }
 
     /**
-     * No se le pasan parámetros
+     * 
      * Selecciona todos los datos de las actividades 
      * @return array de con las actividades
      */
@@ -291,7 +288,7 @@ class Actividad {
     }
 
     /**
-     * se le pasa como parámetro el codigo de la actividad
+     * 
      * Selecciona los campos de la tabla según el codigo.
      * @param string $codigo codigo correspondiente a la actividad.
      * @return array de la actividad
@@ -311,7 +308,7 @@ class Actividad {
     }
 
     /**
-     * No se le pasan parámetros
+     * 
      * Selecciona todos los descriptores de las actividades.
      * @return array con los descriptores de la actividad.
      */
@@ -337,7 +334,7 @@ class Actividad {
     }
 
     /**
-     * No se le pasan parámetros
+     *
      * Selecciona todos los estados de las actividades.
      * @return array de los estados de la actividad.
      */
@@ -363,7 +360,7 @@ class Actividad {
     }
 
     /**
-     * No se le pasan parámetros
+     *
      * Selecciona todos los IVA de las actividades.
      * @return array de los ivas de las actividades.
      */
@@ -402,10 +399,11 @@ class Actividad {
         return ceil($totalRegistros / $limite);
     }
 
-    /* Se le pasa como parámetro la sesión de la página y el limite 
+    /* Devuelve las actividades filtradas con el limit de mysql
+     * @param number $sesionPagina sesión de la página en la que nos encontramos ahora.
+     *  @param number $limite cantidad de filas que queremos mostrar.
      * @returm array de los objetos actividades.
      */
-
     public static function getActividadesByLimit($sesionPagina, $limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo_actividad, titulo, estado, coordinador, ponente,"
@@ -441,9 +439,9 @@ class Actividad {
     }
 
     /**
-     * Acepta como parámetro el titulo de la actividad
+     *
      * Selecciona el código pasándole como parámetro el titulo de la actividad
-     * @param String $titulo 
+     * @param String $titulo titulo de la actividad
      * @return array con el codigo de la actividad
      */
     public static function getCodigoActividadByTitulo($titulo) {
@@ -509,7 +507,7 @@ class Actividad {
     /**
      * Borra un objeto participa pasándole como parámetro el codigo de participa que está 
      * almacenado como una sesión
-     * @param Integer $sesionCodigo
+     * @param Integer $sesionCodigo codigo de la persona
      * @return Objeto participa
      */
     public static function deleteParticipa($sesionCodigo) {
@@ -520,7 +518,8 @@ class Actividad {
 
     /**
      *  Devuelve el numero de páginas que hay en la tabla de participa
-     * Se le pasa como parámetro el limite (la cantidad de registros que queremos mostrar)
+     * @param Integer $limite Cantidad de registros que queremos mostrar.
+     * @param Integer $codigo_persona codigo de la persona.
      * @returm numeroPaginas 
      */
     public static function getNumeroPaginasParticipa($limite, $codigo_persona) {
@@ -537,8 +536,8 @@ class Actividad {
     }
 
     /**
-     * Se le pueden pasar parámetros 
-     * la sesión de la página el límite y el código de la persona
+     * 
+     * Devuelve los participantes filtrados con el limit de mysql 
      * @param  type Integer $sesionPagina página que está almacenada como sesión
      * @param  type Integer $limite cantidad de registros que queremos mostrar
      * @param  type Integer $codigo_persona codigo de la persona si su valor es null mostrará todos los 
@@ -564,8 +563,11 @@ class Actividad {
     }
 
     /**
-     * TODO Modificar la documentación
-     * Selecciona el código del perfil perteneciente a la descripción de participante 
+     * 
+     * Selecciona el código del perfil perteneciente a la descripción que se pase 
+     * como parámetro.
+     * @param String $descripcion descripción del perfil (los valores que pueden ser son
+     * socio, ponente, monitor, participante, colaborador) 
      * @return type Integer codigo del perfil  
      */
     public static function getCodigoPerfil($descripcion) {
