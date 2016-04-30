@@ -35,11 +35,30 @@
     {% endfor %}
 </table>
 <div class="center-align">
-    <ul class="pagination" id="paginacion">
-        {% for arrayNumero in arrayNumeros %}
-            <li class="active"><a href="#">{{arrayNumero}}</a></li>
+    <ul class="pagination" id="paginacion" data-pagina="{{pagina}}">
+        {% if pagina > 3 %}
+            <li class="active" data-pagina="1"><a href="#">Primera</a></li>
+        {% endif %}
+
+        {% if pagina > 1 %}
+            <li class="active" data-pagina="{{(pagina - 1)}}"><a href="#">Anterior</a></li>
+        {% endif %}
+        
+        {% for numero in arrayNumeros %}
+            {% if numero == pagina %}
+                <li class="paginaActual" data-pagina="{{numero}}"><a href="#">{{numero}}</a></li>
+            {% else %}
+                <li class="active" data-pagina="{{numero}}"><a href="#">{{numero}}</a></li>
+            {% endif %}
         {% endfor %}
+
+        {% if pagina < totalPaginas %}
+            <li class="active" data-pagina="{{(pagina + 1)}}"><a href="#">Siguiente</a></li>
+        {% endif %}
+        
+        {% if pagina < (totalPaginas - 2) %}
+            <li class="active" data-pagina="{{totalPaginas}}"><a href="#">Última</a></li>
+        {% endif %}
     </ul>
 </div>
-<input type="hidden" id="paginaActual" value="{{pagina}}">
 {#<script type="text/javascript" src="../../public/asset/js/gestionActividades.js"></script>#}

@@ -23,7 +23,12 @@ if ($_SESSION['logeado'] == "Si") {
         }
     }
 
+
+    $totalPaginas = count($arrayNumeros);
+
+
     if (!isset($_GET['pagina'])) {
+
         $pagina = 1;
         if (isset($_SESSION['paginaActividades'])) {
             $pagina = $_SESSION['paginaActividades'];
@@ -32,26 +37,45 @@ if ($_SESSION['logeado'] == "Si") {
         }
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
 
-        $actividades = Actividad::getActividadesByLimit(($pagina - 1)*$limite , $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1) * $limite, $limite);
         if ($perfil_usuario == "Administrador") {
+
+
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades,
-                "arrayNumeros" => $arrayNumeros,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
                 "email" => $_SESSION['email'],
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "IVA" => $listaIVA,
-                "pagina" => $pagina
+                "pagina" => $pagina,
+                "totalPaginas" => $totalPaginas
             ]);
         } else {
+            if ($totalPaginas > 5) {
+                if ($pagina == 1) {
+                    for ($i = 1; $i <= $totalPaginas; $i++) {
+                        if ($auxi <= 5) {
+                            $arrayNumeros[$auxi++] = $i;
+                        }
+                    }
+                }
+            } else {
+                for ($i = 1; $i <= $totalPaginas; $i++) {
+                    if ($auxi <= $totalPaginas) {
+                        $arrayNumeros[$auxi++] = $i;
+                    }
+                }
+            }
             echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades,
-                "arrayNumeros" => $arrayNumeros,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
                 "email" => $_SESSION['email'],
                 "IVA" => $listaIVA,
-                "pagina" => $pagina
+                "pagina" => $pagina,
+                "totalPaginas" => $totalPaginas
             ]);
         }
     } else {
@@ -61,26 +85,28 @@ if ($_SESSION['logeado'] == "Si") {
         }
         $_SESSION['paginaActividades'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $actividades = Actividad::getActividadesByLimit(($pagina - 1)* $limite, $limite);
+        $actividades = Actividad::getActividadesByLimit(($pagina - 1) * $limite, $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades,
-                "arrayNumeros" => $arrayNumeros,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
                 "email" => $_SESSION['email'],
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "IVA" => $listaIVA,
-                "pagina" => $pagina
+                "pagina" => $pagina,
+                "totalPaginas" => $totalPaginas
             ]);
         } else {
             echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades,
-                "arrayNumeros" => $arrayNumeros,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
                 "email" => $_SESSION['email'],
                 "IVA" => $listaIVA,
-                "pagina" => $pagina
+                "pagina" => $pagina,
+                "totalPaginas" => $totalPaginas
             ]);
         }
     }
@@ -88,3 +114,38 @@ if ($_SESSION['logeado'] == "Si") {
     header("Location: ../partePublica/actividades.php");
 }
 
+function crearIndicesPaginacion($pagina, $totalPaginas) {
+    $arrayNumeros = [];
+    $inicio = NULL;
+    $fin = NULL;
+
+    if ($totalPaginas == 1) {
+        return [];
+    }
+
+    if ($totalPaginas <= 5) {
+        // Mostrar de 1 a $totalPaginas
+        $inicio = 1;
+        $fin = $totalPaginas;
+    } else {
+        if ($pagina <= 3) {
+            // Muestra los 5 primeros
+            $inicio = 1;
+            $fin = 5;
+        } else if ($pagina > 3 && $pagina < $totalPaginas - 2) {
+            // Rota los numeros dejando $pagina en el centro 
+            $inicio = $pagina - 2;
+            $fin = $pagina + 2;
+        } else {
+            // Muestra los 5 ultimos
+            $inicio = $totalPaginas - 5 + 1;
+            $fin = $totalPaginas;
+        }
+    }
+
+    for ($i = $inicio; $i <= $fin; $i++) {
+        $arrayNumeros[] = $i;
+    }
+
+    return $arrayNumeros;
+}

@@ -8,7 +8,7 @@ require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 $twig = new Twig_Environment($loader);
-//$participantes = Actividad::getParticipantes();
+
 if ($_SESSION['logeado'] == "Si") {
     $limite = 2;
     $codigo_persona = "";
@@ -21,6 +21,8 @@ if ($_SESSION['logeado'] == "Si") {
         }
     }
 
+    $totalPaginas = count($arrayNumeros);
+
     if (!isset($_GET['pagina'])) {
         $pagina = 1;
         if (isset($_SESSION['paginaParticipantes'])) {
@@ -29,27 +31,77 @@ if ($_SESSION['logeado'] == "Si") {
             $_SESSION['paginaParticipantes'] = $pagina;
         }
         $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $codigo_persona);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $codigo_persona);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('gestionParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+            echo $twig->render('gestionParticipantes.html.twig', [
+                "participantes" => $participantes,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
+                "email" => $_SESSION['email'],
+                "esAdministrador" => $_SESSION['esAdministrador']]);
         } else {
-            echo $twig->render('gestionParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+            echo $twig->render('gestionParticipantes.html.twig', [
+                "participantes" => $participantes,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
+                "email" => $_SESSION['email']]);
         }
     } else {
         $pagina = $_GET['pagina'];
         $_SESSION['paginaParticipantes'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $codigo_persona);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $codigo_persona);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('tablaParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email'], "esAdministrador" => $_SESSION['esAdministrador']]);
+            echo $twig->render('tablaParticipantes.html.twig', [
+                "participantes" => $participantes,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
+                "email" => $_SESSION['email'],
+                "esAdministrador" => $_SESSION['esAdministrador']]);
         } else {
-            echo $twig->render('tablaParticipantes.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+            echo $twig->render('tablaParticipantes.html.twig', [
+                "participantes" => $participantes,
+                "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
+                "email" => $_SESSION['email']]);
         }
     }
 } else {
     header("Location: ../partePublica/actividades.php");
+}
+
+function crearIndicesPaginacion($pagina, $totalPaginas) {
+    $arrayNumeros = [];
+    $inicio = NULL;
+    $fin = NULL;
+
+    if ($totalPaginas == 1) {
+        return [];
+    }
+
+    if ($totalPaginas <= 5) {
+        // Mostrar de 1 a $totalPaginas
+        $inicio = 1;
+        $fin = $totalPaginas;
+    } else {
+        if ($pagina <= 3) {
+            // Muestra los 5 primeros
+            $inicio = 1;
+            $fin = 5;
+        } else if ($pagina > 3 && $pagina < $totalPaginas - 2) {
+            // Rota los numeros dejando $pagina en el centro 
+            $inicio = $pagina - 2;
+            $fin = $pagina + 2;
+        } else {
+            // Muestra los 5 ultimos
+            $inicio = $totalPaginas - 5 + 1;
+            $fin = $totalPaginas;
+        }
+    }
+
+    for ($i = $inicio; $i <= $fin; $i++) {
+        $arrayNumeros[] = $i;
+    }
+
+    return $arrayNumeros;
 }

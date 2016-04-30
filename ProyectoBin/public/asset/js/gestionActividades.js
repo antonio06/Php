@@ -9,8 +9,9 @@ $(function () {
         $("#divMensaje").removeClass("correcto error").addClass("oculto").html("");
 
         // Si estoy en la misma página que el número del botón que no haga nada.
-        if (parseInt($("#paginaActual").val()) !== $(event.currentTarget).index() + 1) {
-            paginar($(event.currentTarget).index() + 1);
+        var paginaBoton = parseInt($(event.currentTarget).attr("data-pagina"));
+        if (parseInt($("#paginacion").attr("data-pagina")) !== paginaBoton) {
+            paginar(paginaBoton);
         }
 
     });
@@ -102,10 +103,11 @@ $(function () {
             data: {
                 codigo_actividad: $(event.currentTarget).attr("data-id")
             },
-            success: function (actividad, textStatus, jqXHR) {
+            success: function (respuesta, textStatus, jqXHR) {
 
                 // Almacenar la id de la actividad que se ha seleccionado en el formulario
                 // Esto se hace para no usar input hidden
+                var actividad = JSON.parse(respuesta.actividad);
                 $("#formularioActividad").data("idActividad", actividad["codigo_actividad"]);
 
                 // Recogemos los elementos del formulario
@@ -119,13 +121,11 @@ $(function () {
                 $.each(controlesFormulario, function (index) {
                     var elemento = controlesFormulario[controlesFormulario.length - 1 - index];
                     var nombre = $(elemento).attr("name");
-
                     // Si el elemento tiene atributo name lo modificamos
                     // Esto lo hacemos para filtrar los elementos que no tengan name como los botones
                     // de submit
                     if (nombre) {
                         $(elemento).val(actividad[nombre]);
-
                         // Martillazo para que Materialize ponga los labels encima del input
                         $(elemento).trigger("focus");
                     }
@@ -155,7 +155,7 @@ $(function () {
                         $("#divMensaje").removeClass("correcto error").addClass("oculto");
                     }, 3000);
                     // Refrescar la tabla
-                    paginar($("#paginaActual").val());
+                    paginar($("#paginacion").attr("data-pagina"));
                 } else {
                     $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un problema al borrar la actividad. Por favor inténtelo más tarde");
                     setTimeout(function () {
@@ -224,7 +224,7 @@ function enviarFormulario(event, opciones) {
                     $("#modalActividad").closeModal();
 
                     // Refrescar la tabla
-                    paginar($("#paginaActual").val());
+                    paginar($("#paginacion").attr("data-pagina"));
 
                 } else {
                     var errores = "<span>Ocurrieron los siguientes fallos:</span>";
