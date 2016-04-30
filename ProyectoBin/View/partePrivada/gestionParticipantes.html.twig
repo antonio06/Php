@@ -20,14 +20,22 @@
 {% endblock %}
 
 {% block contenidoPanel %}
-    <div id="divMensaje"></div>
-    {% include "tablaParticipantes.html.twig" %}
-    <div class="center-align">
-        <ul class="pagination" id="paginacion">
-            {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href='#'>{{ arrayNumero }}</a></li>
-                {% endfor %}
-        </ul>
+    <div class="text-center">
+        <div id="divMensaje"></div>
+    </div>
+    <div id="contenedorTabla">
+        {% include "tablaParticipantes.html.twig" %}
+    </div>
+    
+    <div id="modalParticipantes" class="modal">
+        <div class="modal-content">
+            {#{% include "formularioPaticipantes.html.twig" %}
+            {% include "detallesParticipantes.html.twig" %}#}
+        </div>
+        <div class="modal-footer no-overflow">
+            <input class="waves-effect waves-light btn modal-action modal-close" type="button" value="Cerrar">
+            <input class="waves-effect waves-light btn" id="modificarParticipantes" form="formularioParticipantes" type="button" value="Guardad cambios">
+        </div>
     </div>
     <script type="text/javascript" src="../../public/asset/js/gestionParticipantes.js"></script>
 {% endblock %}

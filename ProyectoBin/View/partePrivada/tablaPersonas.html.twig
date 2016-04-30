@@ -1,4 +1,4 @@
-<table id="tablaPersonas" class="bordered">
+<table id="tablaPersonas" class="bordered table-centered">
         <tr>
             <td>Codigo</td>
             <td>DNI</td>
@@ -8,7 +8,7 @@
             <td>Sexo</td>
             <td>
                 {% if esAdministrador != null %}
-                <a href="../../Controller/partePrivada/nuevaPersona.php" id="anadirPersona"><i class="fa fa-plus"></i></a></td>
+                <a href="#" data-action="nuevo" data-id="{{ persona.codigo }}"><i class="fa fa-plus"></i></a></td>
                 {% endif %}
         </tr>
         {% for persona in personas %}
@@ -20,11 +20,46 @@
                 <td>{{ persona.apellido2 }}</td>
                 <td>{{ persona.sexo }}</td>
                 {% if esAdministrador != null %}
-                    <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}" id="detallePersona"><i class="fa fa-search-plus"></i></a> <a href="../../Controller/partePrivada/modificarPersona.php?codigo_persona={{ persona.codigo }}" id="modificarPersona"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarPersona.php?codigo_persona={{ persona.codigo }}" id="borrarPersona"><i class="fa fa-times"></i></a></td>
+                    <td>
+                        <div class="icons-container">
+                            <a href="#" data-action="detalles" data-id="{{ persona.codigo }}" id="detallePersona"><i class="fa fa-search-plus"></i></a>
+                            <a href="#" data-action="editar" data-id="{{ persona.codigo }}" id="modificarPersona"><i class="fa fa-pencil"></i></a>
+                            <a href="#" data-action="borrar" data-id="{{ persona.codigo }}" id="borrarPersona"><i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
                         {% else %}
-                    <td><a href="../../Controller/partePrivada/detallesPersona.php?codigo_persona={{ persona.codigo }}" id="detallePersona"><i class="fa fa-search-plus"></i></a></td>
+                    <td>
+                        <a href="#" data-action="detalles" data-id="{{ persona.codigo }}" id="detallePersona"><i class="fa fa-search-plus"></i></a>
+                    </td>
                         {% endif %}
-
             </tr>
         {% endfor %}
     </table>
+
+<div class="center-align">
+    <ul class="pagination" id="paginacion" data-pagina="{{pagina}}">
+        {% if pagina > 3 %}
+            <li class="active" data-pagina="1"><a href="#">Primera</a></li>
+        {% endif %}
+
+        {% if pagina > 1 %}
+            <li class="active" data-pagina="{{(pagina - 1)}}"><a href="#">Anterior</a></li>
+        {% endif %}
+        
+        {% for numero in arrayNumeros %}
+            {% if numero == pagina %}
+                <li class="paginaActual" data-pagina="{{numero}}"><a href="#">{{numero}}</a></li>
+            {% else %}
+                <li class="active" data-pagina="{{numero}}"><a href="#">{{numero}}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if pagina < totalPaginas %}
+            <li class="active" data-pagina="{{(pagina + 1)}}"><a href="#">Siguiente</a></li>
+        {% endif %}
+        
+        {% if pagina < (totalPaginas - 2) %}
+            <li class="active" data-pagina="{{totalPaginas}}"><a href="#">Última</a></li>
+        {% endif %}
+    </ul>
+</div>

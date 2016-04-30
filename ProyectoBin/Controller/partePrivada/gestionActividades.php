@@ -9,6 +9,7 @@ require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 $twig = new Twig_Environment($loader);
+
 if ($_SESSION['logeado'] == "Si") {
     $limite = 2;
     $numeroPaginas = Actividad::getNumeroPaginas($limite);
@@ -53,21 +54,6 @@ if ($_SESSION['logeado'] == "Si") {
                 "totalPaginas" => $totalPaginas
             ]);
         } else {
-            if ($totalPaginas > 5) {
-                if ($pagina == 1) {
-                    for ($i = 1; $i <= $totalPaginas; $i++) {
-                        if ($auxi <= 5) {
-                            $arrayNumeros[$auxi++] = $i;
-                        }
-                    }
-                }
-            } else {
-                for ($i = 1; $i <= $totalPaginas; $i++) {
-                    if ($auxi <= $totalPaginas) {
-                        $arrayNumeros[$auxi++] = $i;
-                    }
-                }
-            }
             echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,

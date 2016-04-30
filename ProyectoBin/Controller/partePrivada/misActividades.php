@@ -20,6 +20,8 @@ if ($_SESSION['logeado'] == "Si") {
         }
     }
 
+    $totalPaginas = count($arrayNumeros);
+
     if (!isset($_GET['pagina'])) {
         $pagina = 1;
         if (isset($_SESSION['paginaMisActividades'])) {
@@ -27,17 +29,64 @@ if ($_SESSION['logeado'] == "Si") {
         } else {
             $_SESSION['paginaMisActividades'] = $pagina;
         }
-        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $_SESSION['codigo']);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $_SESSION['codigo']);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        echo $twig->render('misActividades.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+        echo $twig->render('misActividades.html.twig', [
+            "participantes" => $participantes,
+            "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
+            "email" => $_SESSION['email'],
+            "pagina" => $pagina,
+            "totalPaginas" => $totalPaginas
+            ]);
     } else {
         $pagina = $_GET['pagina'];
         $_SESSION['paginaMisActividades'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $_SESSION['codigo']);
-        echo $twig->render('misActividades.html.twig', ["participantes" => $participantes, "arrayNumeros" => $arrayNumeros, "email" => $_SESSION['email']]);
+        $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $_SESSION['codigo']);
+        echo $twig->render('misActividades.html.twig', [
+            "participantes" => $participantes,
+            "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
+            "email" => $_SESSION['email'],
+            "pagina" => $pagina,
+            "totalPaginas" => $totalPaginas
+        ]);
     }
-}else {
+} else {
     header("Location: ../partePublica/actividades.php");
 }
 
+function crearIndicesPaginacion($pagina, $totalPaginas) {
+    $arrayNumeros = [];
+    $inicio = NULL;
+    $fin = NULL;
+
+    if ($totalPaginas == 1) {
+        return [];
+    }
+
+    if ($totalPaginas <= 5) {
+        // Mostrar de 1 a $totalPaginas
+        $inicio = 1;
+        $fin = $totalPaginas;
+    } else {
+        if ($pagina <= 3) {
+            // Muestra los 5 primeros
+            $inicio = 1;
+            $fin = 5;
+        } else if ($pagina > 3 && $pagina < $totalPaginas - 2) {
+            // Rota los numeros dejando $pagina en el centro 
+            $inicio = $pagina - 2;
+            $fin = $pagina + 2;
+        } else {
+            // Muestra los 5 ultimos
+            $inicio = $totalPaginas - 5 + 1;
+            $fin = $totalPaginas;
+        }
+    }
+
+    for ($i = $inicio; $i <= $fin; $i++) {
+        $arrayNumeros[] = $i;
+    }
+
+    return $arrayNumeros;
+}

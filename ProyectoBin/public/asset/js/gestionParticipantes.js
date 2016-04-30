@@ -3,31 +3,36 @@
  */
 
 $(function () {
-    $("#paginacion > li").each(paginar);
+    $(document).on("click", "#paginacion > li", function (event) {
+        event.preventDefault();
+        $("#divMensaje").removeClass("correcto error").addClass("oculto").html("");
+
+        // Si estoy en la misma página que el número del botón que no haga nada.
+        var paginaBoton = parseInt($(event.currentTarget).attr("data-pagina"));
+        if (parseInt($("#paginacion").attr("data-pagina")) !== paginaBoton) {
+            paginar(paginaBoton);
+        }
+
+    });
 });
 
 
-function paginar (indice, elemento) {
-        $(elemento).click(function (e) {
-            e.preventDefault();
-            $("#divMensaje").hide();
-            $.ajax({
-                url: '../../Controller/partePrivada/gestionParticipantes.php',
-                method: 'GET',
-                data: {
-                    pagina: indice + 1
-                }, success: function (tabla, textStatus, jqXHR) {
-                    // Petición con éxito
-                    if (textStatus === "success") {
-                        $("#tablaParticipantes").remove();
-                        $(tabla).insertAfter($("#divMensaje"));
-                    }
+function paginar(pagina) {
+    $.ajax({
+        url: '../../Controller/partePrivada/gestionParticipantes.php',
+        method: 'GET',
+        data: {
+            pagina: pagina
+        }, success: function (tabla, textStatus, jqXHR) {
+            // Petición con éxito
+            if (textStatus === "success") {
+                $("#contenedorTabla").html(tabla);
+            }
 
-                }, error: function (jqXHR, textStatus, errorThrown) {
-                    // La petición por algún motivo ha fallado
-                    $("#divMensaje").show().html("Ha habido un error al solicitar los datos, inténtalo más tarde.");
-                    console.log(textStatus, errorThrown);
-                }
-            });
-        });
-    }
+        }, error: function (jqXHR, textStatus, errorThrown) {
+            // La petición por algún motivo ha fallado
+            $("#divMensaje").show().html("Ha habido un error al solicitar los datos, inténtalo más tarde.");
+//            console.log(textStatus, errorThrown);
+        }
+    });
+}

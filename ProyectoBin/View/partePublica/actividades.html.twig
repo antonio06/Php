@@ -7,7 +7,7 @@
                 <a href="#" class="brand-logo">Logo</a>
                 <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
                     <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
-                    {#<li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>#}
+                        {#<li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>#}
                     <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
                     <!-- Dropdown Structure -->
                     <ul id="dropdown1" class="dropdown-content">
@@ -32,31 +32,25 @@
 {% endblock %}
 
 {% block contenido %}
-    <!--<form class="col s12" action="../../Controller/partePublica/actividades.php" method="post">
-        <select class="browser-default col s3" name="estado">
-            <option value="" disabled selected>Estado</option>
-            {% for estado in estados %}
-                <option value="{{estado}}">{{estado}}</option>
-            {% endfor %}
-        </select>
-
-        <select class="browser-default col s3" name="descriptor">
-            <option value="" disabled selected>Descriptor</option>
-            {% for descriptor in descriptores %}
-                <option value="{{descriptor}}">{{descriptor}}</option>
-            {% endfor %}
-        </select>
-
-        <input class="waves-effect waves-light btn" type="submit" value="Buscar">
-    </form>-->
-    <div id="divMensaje"></div>
-    {% include "tablaActividades.html.twig" %}
-    <div class="center-align">
-        <ul class="pagination" id="paginacion">
-            {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="#" >{{ arrayNumero }}</a></li>
-                {% endfor %}
-        </ul>
+    <div class="text-center">
+        <div id="divMensaje"></div>
+    </div>
+    <div id="contenedorTabla">
+        {% include "tablaActividades.html.twig" %}
+    </div>
+    
+    <!-- Modal Structure -->
+    <div id="modalActividad" class="modal">
+        <div class="modal-content">
+            {#{% include "formularioActividad.html.twig" %}
+            {% include "detallesActividad.html.twig" %}#}
+        </div>
+        <div class="modal-footer no-overflow">
+            <input class="waves-effect waves-light btn modal-action modal-close" type="button" value="Cerrar">
+            <input class="waves-effect waves-light btn" id="nuevaActividad" type="submit" form="formularioActividad" value="Registrar actividad">
+            <input class="waves-effect waves-light btn" id="modificarActividad" form="formularioActividad" type="button" value="Guardad cambios">
+            <input class="waves-effect waves-light btn" id="suscribirseActividad" form="formularioActividad" type="button" value="Suscribirse a la actividad">
+        </div>
     </div>
     <script type="text/javascript" src="../../public/asset/js/actividades.js"></script>
 {% endblock %}  

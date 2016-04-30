@@ -1,20 +1,52 @@
-<table id="tablaParticipantes" class="bordered">
+<table id="tablaParticipantes" class="bordered table-centered">
+    <tr>
+        <td>Persona</td>
+        <td>Actividades</td>
+        <td>Perfiles</td>
+        {% if esAdministrador != null %}
+            <td><a href="#" data-action="nuevo" data-id="{{ participante.codigo_persona }}"><i class="fa fa-plus"></i></a></td>
+        {% endif %}
+    </tr>
+    {% for participante in participantes %}
         <tr>
-            <td>Persona</td>
-            <td>Actividades</td>
-            <td>Perfiles</td>
+            <td>{{ participante.codigo_persona }}</td>
+            <td>{{ participante.codigo_actividad }}</td>
+            <td>{{ participante.codigo_perfil }}</td>
             {% if esAdministrador != null %}
-            <td><a href="../../Controller/partePrivada/nuevoParticipante.php" id="anadirParticipante"><i class="fa fa-plus"></i></a></td>
-            {% endif %}
-        </tr>
-        {% for participante in participantes %}
-            <tr>
-                <td>{{ participante.codigo_persona }}</td>
-                <td>{{ participante.codigo_actividad }}</td>
-                <td>{{ participante.codigo_perfil }}</td>
-                {% if esAdministrador != null %}
-                    <td><a href="../../Controller/partePrivada/modificarParticipa.php?codigo_persona={{ participante.codigo_persona }}" id="modificarParticipante"><i class="fa fa-pencil"></i></a> <a href="../../Controller/partePrivada/borrarParticipa.php?codigo_persona={{ participante.codigo_persona }}" id="borrarParticipante"><i class="fa fa-times"></i></a></td>
-                        {% endif %}    
+                <td>
+                    <div class="icons-container">
+                        <a href="#" data-action="editar" data-id="{{ participante.codigo_persona }}" class="icons"><i class="fa fa-pencil"></i></a> 
+                        <a href="#" data-action="borrar" data-id="{{ participante.codigo_persona }}" class="icons"><i class="fa fa-times"></i></a>
+                    </div>
+                </td>
+            {% endif %}    
         {% endfor %}
-            </tr>
+    </tr>
 </table>
+<div class="center-align">
+    <ul class="pagination" id="paginacion" data-pagina="{{pagina}}">
+        {% if pagina > 3 %}
+            <li class="active" data-pagina="1"><a href="#">Primera</a></li>
+        {% endif %}
+
+        {% if pagina > 1 %}
+            <li class="active" data-pagina="{{(pagina - 1)}}"><a href="#">Anterior</a></li>
+        {% endif %}
+
+        {% for numero in arrayNumeros %}
+            {% if numero == pagina %}
+                <li class="paginaActual" data-pagina="{{numero}}"><a href="#">{{numero}}</a></li>
+                {% else %}
+                <li class="active" data-pagina="{{numero}}"><a href="#">{{numero}}</a></li>
+                {% endif %}
+        {% endfor %}
+
+        {% if pagina < totalPaginas %}
+            <li class="active" data-pagina="{{(pagina + 1)}}"><a href="#">Siguiente</a></li>
+        {% endif %}
+
+        {% if pagina < (totalPaginas - 2) %}
+            <li class="active" data-pagina="{{totalPaginas}}"><a href="#">Última</a></li>
+        {% endif %}
+    </ul>
+</div>
