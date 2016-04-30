@@ -404,6 +404,7 @@ class Actividad {
      *  @param number $limite cantidad de filas que queremos mostrar.
      * @returm array de los objetos actividades.
      */
+
     public static function getActividadesByLimit($sesionPagina, $limite) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo_actividad, titulo, estado, coordinador, ponente,"
@@ -428,14 +429,17 @@ class Actividad {
      */
     public static function getTituloActividad() {
         $conexion = BinDb::connectDB();
-        $seleccion = "SELECT titulo FROM actividad";
+        $seleccion = "SELECT codigo_actividad, titulo FROM actividad";
         $consulta = $conexion->query($seleccion);
-        $titulos = [];
+        $actividades = [];
 
         while ($registro = $consulta->fetchObject()) {
-            $titulos[] = new Actividad("", $registro->titulo, "", "", "", "", "", "", "", "", "", "", "", "", "");
+            $actividades[] = [
+                "codigo_actividad" => $registro->codigo_actividad,
+                "titulo" => $registro->titulo
+            ];
         }
-        return $titulos;
+        return $actividades;
     }
 
     /**
@@ -547,11 +551,36 @@ class Actividad {
     public static function getParticipantesByLimit($sesionPagina, $limite, $codigo_persona) {
         $conexion = BinDb::connectDB();
         if ($codigo_persona != NULL) {
-            $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
-                    . "WHERE codigo_persona=$codigo_persona ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
+            $seleccion = "SELECT 
+                            participa.codigo_persona, 
+                            persona.nombre, 
+                            participa.codigo_actividad, 
+                            actividad.titulo, 
+                            perfil.descripcion, 
+                            participa.codigo_perfil 
+                          FROM participa 
+                            INNER JOIN persona ON persona.codigo = participa.codigo_persona 
+                            INNER JOIN actividad ON actividad.codigo_actividad = participa.codigo_actividad 
+                            INNER JOIN perfil ON participa.codigo_perfil = perfil.codigo 
+                          WHERE codigo_persona=$codigo_persona ORDER BY titulo LIMIT $sesionPagina , $limite";
         } else {
-            $seleccion = "SELECT codigo_persona, codigo_actividad, codigo_perfil FROM participa "
-                    . "ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
+            $seleccion = "SELECT 
+                            participa.codigo_persona, 
+                            persona.nombre, 
+                            participa.codigo_actividad, 
+                            actividad.titulo, 
+                            perfil.descripcion, 
+                            participa.codigo_perfil 
+                          FROM participa 
+                            INNER JOIN persona ON persona.codigo = participa.codigo_persona 
+                            INNER JOIN actividad ON actividad.codigo_actividad = participa.codigo_actividad 
+                            INNER JOIN perfil ON participa.codigo_perfil = perfil.codigo 
+                          ORDER BY nombre LIMIT $sesionPagina , $limite";
+//            $seleccion = "SELECT persona.nombre, actividad.titulo, "
+//                    . "persona.perfil_usuario FROM persona INNER JOIN participa "
+//                    . "ON persona.codigo = participa.codigo_persona INNER JOIN "
+//                    . "actividad ON actividad.codigo_actividad = participa.codigo_actividad "
+//                    . "ORDER BY codigo_persona LIMIT $sesionPagina , $limite";
         }
         $consulta = $conexion->query($seleccion);
         $participantes = [];

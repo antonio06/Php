@@ -1,13 +1,12 @@
 <?php
 
 session_start();
-
-require_once '../twig/lib/Twig/Autoloader.php';
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Actividad.php';
-require_once '../../Model/Persona.php';
+require_once '../../twig/lib/Twig/Autoloader.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Actividad.php';
+require_once '../../../Model/Persona.php';
 Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
+$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../../View/partePrivada/');
 $twig = new Twig_Environment($loader);
 
 if ($_SESSION['logeado'] == "Si") {
@@ -43,7 +42,7 @@ if ($_SESSION['logeado'] == "Si") {
 
 
             $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades,
+            echo $twig->render('actividades/gestionActividades.html.twig', ["actividades" => $actividades,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
@@ -54,7 +53,7 @@ if ($_SESSION['logeado'] == "Si") {
                 "totalPaginas" => $totalPaginas
             ]);
         } else {
-            echo $twig->render('gestionActividades.html.twig', ["actividades" => $actividades,
+            echo $twig->render('actividades/gestionActividades.html.twig', ["actividades" => $actividades,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
@@ -74,7 +73,7 @@ if ($_SESSION['logeado'] == "Si") {
         $actividades = Actividad::getActividadesByLimit(($pagina - 1) * $limite, $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades,
+            echo $twig->render('actividades/tablaActividades.html.twig', ["actividades" => $actividades,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
@@ -85,7 +84,7 @@ if ($_SESSION['logeado'] == "Si") {
                 "totalPaginas" => $totalPaginas
             ]);
         } else {
-            echo $twig->render('tablaActividades.html.twig', ["actividades" => $actividades,
+            echo $twig->render('actividades/tablaActividades.html.twig', ["actividades" => $actividades,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "descriptores" => $listaDescriptores,
                 "estados" => $listaEstados,
@@ -97,7 +96,7 @@ if ($_SESSION['logeado'] == "Si") {
         }
     }
 } else {
-    header("Location: ../partePublica/actividades.php");
+    header("Location: /Controller/partePublica/actividades.php");
 }
 
 function crearIndicesPaginacion($pagina, $totalPaginas) {

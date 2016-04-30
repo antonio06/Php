@@ -1,27 +1,30 @@
 <table id="tablaParticipantes" class="bordered table-centered">
     <tr>
-        <td>Persona</td>
+        <td>Participante</td>
         <td>Actividades</td>
         <td>Perfiles</td>
+        <td>
         {% if esAdministrador != null %}
-            <td><a href="#" data-action="nuevo" data-id="{{ participante.codigo_persona }}"><i class="fa fa-plus"></i></a></td>
+            <a href="#" data-action="nuevo"><i class="fa fa-plus"></i></a>
         {% endif %}
+        </td>
     </tr>
     {% for participante in participantes %}
         <tr>
-            <td>{{ participante.codigo_persona }}</td>
-            <td>{{ participante.codigo_actividad }}</td>
-            <td>{{ participante.codigo_perfil }}</td>
+            <td>{{ participante.nombre }}</td>
+            <td>{{ participante.titulo }}</td>
+            <td>{{ participante.perfil_usuario }}</td>
             {% if esAdministrador != null %}
                 <td>
-                    <div class="icons-container">
+                    <div class="icons-container ">
                         <a href="#" data-action="editar" data-id="{{ participante.codigo_persona }}" class="icons"><i class="fa fa-pencil"></i></a> 
                         <a href="#" data-action="borrar" data-id="{{ participante.codigo_persona }}" class="icons"><i class="fa fa-times"></i></a>
                     </div>
                 </td>
-            {% endif %}    
+            {% endif %} 
+        </tr>
         {% endfor %}
-    </tr>
+    
 </table>
 <div class="center-align">
     <ul class="pagination" id="paginacion" data-pagina="{{pagina}}">

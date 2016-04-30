@@ -320,7 +320,7 @@ class Persona {
                 . "\", perfil_usuario=\"" . $this->perfil_usuario . "\", observaciones=\""
                 . $this->observaciones .
                 "\" WHERE codigo=" . $this->codigo;
-        
+
         return $conexion->exec($modificar);
     }
 
@@ -417,23 +417,16 @@ class Persona {
      */
     public static function getPerfilesPersona() {
         $conexion = BinDb::connectDB();
-        $seleccion = "SHOW COLUMNS FROM perfil WHERE field='descripcion'";
+        $seleccion = "SELECT codigo, descripcion FROM perfil";
         $consulta = $conexion->query($seleccion);
+
         $perfiles = [];
-
-        $registro = $consulta->fetchObject();
-
-        $cadena = "";
-        foreach ($registro as $key => $value) {
-            if ($key == "Type") {
-                $cadena = $cadena . $value;
-            }
+        while ($registro = $consulta->fetchObject()) {
+            $perfiles[] = [
+                "codigo" => $registro->codigo,
+                "descripcion" => $registro->descripcion
+            ];
         }
-        substr($cadena, 4, -1);
-        $cadena = str_replace("'", "", $cadena);
-        $cadena = substr($cadena, 4, -1);
-        $perfiles = explode(",", $cadena);
-
         return $perfiles;
     }
 
@@ -563,15 +556,18 @@ class Persona {
      */
     public static function getNombrePersona() {
         $conexion = BinDb::connectDB();
-        $seleccion = "SELECT nombre FROM persona";
+        $seleccion = "SELECT codigo, nombre FROM persona";
         $consulta = $conexion->query($seleccion);
-        $nombres = [];
+        $personas = [];
 
         while ($registro = $consulta->fetchObject()) {
-            $nombres[] = new Persona("", "", $registro->nombre, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+            $personas[] = [
+                "codigo_persona" => $registro->codigo,
+                "nombre" => $registro->nombre
+            ];
         }
 
-        return $nombres;
+        return $personas;
     }
 
     /**
@@ -611,7 +607,7 @@ class Persona {
         }
         return $password;
     }
-    
+
     /**
      * 
      * Selecciona la password de la persona.
@@ -630,7 +626,7 @@ class Persona {
         }
         return $email;
     }
-    
+
     /**
      * 
      * Selecciona el perfil de usuario de la persona.
@@ -646,12 +642,12 @@ class Persona {
         $perfil_usuario = [];
         foreach ($registro as $key => $value) {
             if ($key == "perfil_usuario") {
-                return $perfil_usuario [$key]= $value;
+                return $perfil_usuario [$key] = $value;
             }
         }
-       return $perfil_usuario;
+        return $perfil_usuario;
     }
-    
+
     /**
      * 
      * Selecciona el código de la persona. 
@@ -670,7 +666,7 @@ class Persona {
         }
         return $codigo;
     }
-    
+
     /**
      * 
      * Selecciona el perfil de la persona.

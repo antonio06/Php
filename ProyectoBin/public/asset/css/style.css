@@ -52,6 +52,7 @@
 
 .icons-container{
     width: 60px;
+    margin: 0px auto;
 }
 
 .icons{
@@ -67,16 +68,6 @@
 }
 #contenedorPrincipal{
     padding-top: 25px;
-}
-
-#contenedorDetallesActividad span{
-    display: inline-block;
-}
-
-#contenedorDetallesActividad .spanDetalles{
-    /*width: 140px;*/
-    text-align: right;
-    margin-right: 15px;
 }
 
 .no-overflow{

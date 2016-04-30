@@ -21,36 +21,46 @@ $(function () {
     });
 
     $("#nuevaActividad").click(function () {
-        $("#formularioActividad").trigger("submit", {url: "../../Controller/partePrivada/insertarActividad.php"});
+        $("#formularioActividad").trigger("submit", {
+            url: "/Controller/partePrivada/actividades/insertarActividad.php"
+        });
     });
     $("#modificarActividad").click(function () {
-        $("#formularioActividad").trigger("submit", {url: "../../Controller/partePrivada/modificarActividad.php"});
+        $("#formularioActividad").trigger("submit", {
+            url: "/Controller/partePrivada/actividades/modificarActividad.php"
+        });
     });
-    $("#suscribirseActividad").click(function(){
+
+    $("#cerrarModal").click(function () {
+        $("#modalActividad").closeModal();
+        $("#formularioActividad").data("idActividad", null);
+    });
+
+    $("#suscribirseActividad").click(function () {
         $.ajax({
-            url: '../../Controller/partePrivada/miNuevaActividad.php',
+            url: '/Controller/partePrivada/actividades/miNuevaActividad.php',
             method: 'POST',
             dataType: 'json',
             data: {
                 codigo_actividad: $("#modalActividad").data("codigo_actividad"),
             },
             success: function (respuesta, textStatus, jqXHR) {
-                if(respuesta.estado){
+                if (respuesta.estado) {
                     $("#divMensaje").removeClass("oculto error").addClass("correcto").html("Suscripción realizada con éxito.");
                     setTimeout(function () {
                         $("#divMensaje").removeClass("correcto error").addClass("oculto");
                     }, 3000);
-                }else{
+                } else {
                     $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un error al realizar la suscripción.");
                     setTimeout(function () {
                         $("#divMensaje").removeClass("correcto error").addClass("oculto");
                     }, 3000);
                 }
-                
+
                 $("#modalActividad").closeModal();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                
+
             }
         })
     });
@@ -58,15 +68,14 @@ $(function () {
     $(document).on("click", "a[data-action='nuevo']", function (event) {
         event.preventDefault();
         mostrarModal({
-            accion: "crear",
-            id: $(this).attr("data-id")
+            accion: "crear"
         });
     });
 
     $(document).on("click", "a[data-action='detalles']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '../../Controller/partePrivada/detallesActividad.php',
+            url: '/Controller/partePrivada/actividades/detallesActividad.php',
             method: 'GET',
             dataType: 'json',
             data: {
@@ -76,15 +85,19 @@ $(function () {
                 $("#suscribirseActividad").parent().show();
                 if (respuesta) {
                     var actividad = $.parseJSON(respuesta.actividad);
-                    $("#contenedorDetallesActividad").find("span[data-actividad]").each(function (indice, elemento) {
+                    console.log(actividad);
+                    $("#contenedorDetallesActividad").find("div[data-actividad]").each(function (indice, elemento) {
                         var dato = $(elemento).attr("data-actividad");
-                        $(elemento).text(actividad[dato]);
+                        if (actividad[dato] !== "") {
+                            $(elemento).text(actividad[dato]);
+                        } else {
+                            $(elemento).text("-");
+                        }
                     });
                     $("#modalActividad").data("codigo_actividad", actividad.codigo_actividad);
                 }
                 mostrarModal({
                     accion: "ver",
-                    id: $(this).attr("data-id"),
                     participa: respuesta.participa
                 });
             },
@@ -97,7 +110,7 @@ $(function () {
     $(document).on("click", "a[data-action='editar']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '../../Controller/partePrivada/detallesActividad.php',
+            url: '/Controller/partePrivada/actividades/detallesActividad.php',
             method: 'GET',
             dataType: "json",
             data: {
@@ -113,8 +126,7 @@ $(function () {
                 // Recogemos los elementos del formulario
                 var controlesFormulario = $("#formularioActividad")[0].elements;
                 mostrarModal({
-                    accion: "modificar",
-                    id: $(event.currentTarget).attr("data-id")
+                    accion: "modificar"
                 });
 
                 // Iteramos por cada elemento del formulario de fin a inicio
@@ -142,7 +154,7 @@ $(function () {
     $(document).on("click", "a[data-action='borrar']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '../../Controller/partePrivada/eliminarActividad.php',
+            url: '/Controller/partePrivada/actividades/eliminarActividad.php',
             method: 'POST',
             dataType: "json",
             data: {
@@ -172,7 +184,7 @@ $(function () {
 
 function paginar(pagina) {
     $.ajax({
-        url: '../../Controller/partePrivada/gestionActividades.php',
+        url: '/Controller/partePrivada/actividades/gestionActividades.php',
         method: 'GET',
         data: {
             pagina: pagina
@@ -185,7 +197,6 @@ function paginar(pagina) {
         }, error: function (jqXHR, textStatus, errorThrown) {
             // La petición por algún motivo ha fallado
             $("#divMensaje").show().html("Ha habido un error al solicitar los datos, inténtalo más tarde.");
-//            console.log(textStatus, errorThrown);
         }
     });
 }
@@ -204,7 +215,7 @@ function enviarFormulario(event, opciones) {
     if (!url) {
         return false;
     }
-    
+
     var formulario = $("#formularioActividad")[0];
     if (formulario.checkValidity()) {
         var datos = $("#formularioActividad").serialize();
@@ -220,8 +231,12 @@ function enviarFormulario(event, opciones) {
             success: function (respuesta, textStatus, jqXHR) {
                 if (respuesta.estado === "success") {
                     mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
                     limpiarFormulario();
-                    $("#modalActividad").closeModal();
+
+                    $("#cerrarModal").trigger("click");
 
                     // Refrescar la tabla
                     paginar($("#paginacion").attr("data-pagina"));
@@ -264,7 +279,7 @@ function mostrarModal(opciones) {
         }
         $("#contenedorDetallesActividad").show();
     }
-    $("#modalActividad").openModal(); //.leanModal();
+    $("#modalActividad").openModal();
 }
 
 function limpiarFormulario() {

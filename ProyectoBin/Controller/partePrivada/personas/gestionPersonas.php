@@ -1,9 +1,9 @@
 <?php
 
 session_start();
+
 require_once '../twig/lib/Twig/Autoloader.php';
 require_once '../../Model/BinDb.php';
-require_once '../../Model/Actividad.php';
 require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
@@ -11,8 +11,8 @@ $twig = new Twig_Environment($loader);
 
 if ($_SESSION['logeado'] == "Si") {
     $limite = 2;
-    $codigo_persona = "";
-    $numeroPaginas = Actividad::getNumeroPaginasParticipa($limite, $codigo_persona);
+    $numeroPaginas = Persona::getNumeroPaginas($limite);
+
     $arrayNumeros = [];
     $auxi = 0;
     for ($i = 1; $i <= $numeroPaginas; $i++) {
@@ -22,52 +22,53 @@ if ($_SESSION['logeado'] == "Si") {
     }
 
     $totalPaginas = count($arrayNumeros);
-
+    
     if (!isset($_GET['pagina'])) {
         $pagina = 1;
-        if (isset($_SESSION['paginaParticipantes'])) {
-            $pagina = $_SESSION['paginaParticipantes'];
+        if (isset($_SESSION['paginaPersonas'])) {
+            $pagina = $_SESSION['paginaPersonas'];
         } else {
-            $_SESSION['paginaParticipantes'] = $pagina;
+            $_SESSION['paginaPersonas'] = $pagina;
         }
-        $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $codigo_persona);
+        $personas = Persona::getPersonasByLimit(($pagina - 1)* $limite, $limite);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
+
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('gestionParticipantes.html.twig', [
-                "participantes" => $participantes,
+            echo $twig->render('personas/gestionPersonas.html.twig', [
+                "personas" => $personas,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "email" => $_SESSION['email'],
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "pagina" => $pagina,
-                "totalPaginas" => $totalPaginas]);
+                "totalPaginas" => $totalPaginas
+                ]);
         } else {
-            echo $twig->render('gestionParticipantes.html.twig', [
-                "participantes" => $participantes,
+            echo $twig->render('personas/gestionPersonas.html.twig', [
+                "personas" => $personas,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "email" => $_SESSION['email'],
                 "pagina" => $pagina,
-                "totalPaginas" => $totalPaginas]);
+                "totalPaginas" => $totalPaginas
+            ]);
         }
     } else {
         $pagina = $_GET['pagina'];
-        $_SESSION['paginaParticipantes'] = $pagina;
+        $_SESSION['paginaPersonas'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $codigo_persona = "";
-        $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $codigo_persona);
+        $personas = Persona::getPersonasByLimit(($pagina - 1)* $limite, $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
-            echo $twig->render('tablaParticipantes.html.twig', [
-                "participantes" => $participantes,
+            echo $twig->render('personas/tablaPersonas.html.twig', [
+                "personas" => $personas,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "email" => $_SESSION['email'],
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "pagina" => $pagina,
                 "totalPaginas" => $totalPaginas]);
         } else {
-            echo $twig->render('tablaParticipantes.html.twig', [
-                "participantes" => $participantes,
+            echo $twig->render('personas/tablaPersonas.html.twig', [
+                "personas" => $personas,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "email" => $_SESSION['email'],
                 "pagina" => $pagina,

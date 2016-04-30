@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Actividad.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Actividad.php';
 if ($_SESSION['logeado'] == "Si") {
     if (isset($_GET['codigo_actividad'])) {
         $aRespuesta = NULL;
@@ -14,5 +14,5 @@ if ($_SESSION['logeado'] == "Si") {
         echo json_encode($aRespuesta);
     }
 } else {
-    header("Location: ../partePublica/actividades.php");
+    header("Location: /Controller/partePublica/actividades.php");
 }

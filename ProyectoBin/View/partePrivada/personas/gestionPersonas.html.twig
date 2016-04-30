@@ -2,7 +2,7 @@
 {% block menuPrincipalPanel %}
     <nav class="nav-wrapper">
         <div class="nav-wrapper indigo lighten-3">
-            <a href="#" class="brand-logo">Logo</a>
+                <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
                 <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestión Actividades</a></li>
                 <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestión Participantes</a></li>
@@ -20,27 +20,23 @@
 {% endblock %}
 
 {% block contenidoPanel %}
-    <table class="bordered">
-        <tr>
-            <td>Persona</td>
-            <td>Actividades</td>
-            <td>Perfiles</td>
-        </tr>
-        {% for participante in participantes %}
-            <tr>
-                <td>{{ participante.codigo_persona }}</td>
-                <td>{{ participante.codigo_actividad }}</td>
-                <td>{{ participante.codigo_perfil }}</td> 
-                <td><a><i class="fa fa-times"></i></a></td>
-            </tr>
-            
-        {% endfor %}
-    </table>
-    <div class="center-align">
-        <ul class="pagination">
-            {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="../../Controller/partePrivada/misActividades.php?pagina={{ arrayNumero }}" id="botonNum">{{ arrayNumero }}</a></li>
-                {% endfor %}
-        </ul>
+    <div class="text-center">
+        <div id="divMensaje"></div>
     </div>
+    <div id="contenedorTabla">
+    {% include "personas/tablaPersonas.html.twig" %}
+    </div>
+    
+    <div id="modalPersona" class="modal">
+        <div class="modal-content">
+            {#{% include "personas/formularioPersona.html.twig" %}
+            {% include "personas/detallesPersona.html.twig" %}#}
+        </div>
+        <div class="modal-footer no-overflow">
+            <input class="waves-effect waves-light btn modal-action modal-close" type="button" value="Cerrar">
+            <input class="waves-effect waves-light btn" id="nuevaActividad" type="submit" form="formularioPersona" value="Registrar persona">
+            <input class="waves-effect waves-light btn" id="modificarActividad" form="formularioPersona" type="button" value="Guardad cambios">
+        </div>
+    </div>
+    <script type="text/javascript" src="../../public/asset/js/gestionPersonas.js"></script>
 {% endblock %}
