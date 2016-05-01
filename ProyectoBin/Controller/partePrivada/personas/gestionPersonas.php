@@ -2,11 +2,11 @@
 
 session_start();
 
-require_once '../twig/lib/Twig/Autoloader.php';
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Persona.php';
+require_once '../../twig/lib/Twig/Autoloader.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Persona.php';
 Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
+$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../../View/partePrivada/');
 $twig = new Twig_Environment($loader);
 
 if ($_SESSION['logeado'] == "Si") {
@@ -22,7 +22,7 @@ if ($_SESSION['logeado'] == "Si") {
     }
 
     $totalPaginas = count($arrayNumeros);
-    
+
     if (!isset($_GET['pagina'])) {
         $pagina = 1;
         if (isset($_SESSION['paginaPersonas'])) {
@@ -30,7 +30,7 @@ if ($_SESSION['logeado'] == "Si") {
         } else {
             $_SESSION['paginaPersonas'] = $pagina;
         }
-        $personas = Persona::getPersonasByLimit(($pagina - 1)* $limite, $limite);
+        $personas = Persona::getPersonasByLimit(($pagina - 1) * $limite, $limite);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
 
         if ($perfil_usuario == "Administrador") {
@@ -42,7 +42,7 @@ if ($_SESSION['logeado'] == "Si") {
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "pagina" => $pagina,
                 "totalPaginas" => $totalPaginas
-                ]);
+            ]);
         } else {
             echo $twig->render('personas/gestionPersonas.html.twig', [
                 "personas" => $personas,
@@ -56,7 +56,7 @@ if ($_SESSION['logeado'] == "Si") {
         $pagina = $_GET['pagina'];
         $_SESSION['paginaPersonas'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        $personas = Persona::getPersonasByLimit(($pagina - 1)* $limite, $limite);
+        $personas = Persona::getPersonasByLimit(($pagina - 1) * $limite, $limite);
         if ($perfil_usuario == "Administrador") {
             $_SESSION['esAdministrador'] = "Si";
             echo $twig->render('personas/tablaPersonas.html.twig', [
@@ -76,7 +76,7 @@ if ($_SESSION['logeado'] == "Si") {
         }
     }
 } else {
-    header("Location: ../partePublica/actividades.php");
+    header("Location: /partePublica/actividades.php");
 }
 
 function crearIndicesPaginacion($pagina, $totalPaginas) {

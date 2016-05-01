@@ -483,24 +483,27 @@ class Persona {
      */
     public static function getPersonaByCodigo($codigo_persona) {
         $conexion = BinDb::connectDB();
-        $selecciona = "SELECT codigo, DNI, nombre, apellido1, apellido2,"
-                . "perfil, foto, sexo, fecha_nac, direccion,"
-                . "municipio, provincia, pais, fecha_alta, fecha_baja,"
-                . "n_Seguridad_Social, n_Cuenta_Bancaria, email, password,"
-                . "perfil_usuario, observaciones FROM persona"
-                . " WHERE codigo=\"" . $codigo_persona . "\"";
+        $selecciona = "SELECT persona.codigo, DNI, nombre, apellido1, apellido2,"
+                . " perfil.descripcion, foto, sexo, fecha_nac, direccion, "
+                . "municipio, provincia, pais, fecha_alta, fecha_baja, "
+                . "n_Seguridad_Social, n_Cuenta_Bancaria, email, password, "
+                . "perfil_usuario, observaciones FROM persona INNER JOIN perfil "
+                . "ON persona.perfil = perfil.codigo"
+                . " WHERE persona.codigo=\"" . $codigo_persona . "\"";
         $consulta = $conexion->query($selecciona);
         $registro = $consulta->fetchObject();
-        $persona = new Persona($registro->codigo, $registro->DNI
+        
+        if ($registro){
+            return new Persona($registro->codigo, $registro->DNI
                 , $registro->nombre, $registro->apellido1, $registro->apellido2
-                , $registro->perfil, $registro->foto, $registro->sexo
+                , $registro->descripcion, $registro->foto, $registro->sexo
                 , $registro->fecha_nac, $registro->direccion
                 , $registro->municipio, $registro->provincia, $registro->pais
                 , $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social
                 , $registro->n_Cuenta_Bancaria, $registro->email, $registro->password
                 , $registro->perfil_usuario, $registro->observaciones);
-
-        return $persona;
+        }
+        return NULL;
     }
 
     /**

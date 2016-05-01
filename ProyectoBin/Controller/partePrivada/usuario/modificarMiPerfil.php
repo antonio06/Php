@@ -1,5 +1,5 @@
 <?php
-
+/* Esto va en usuario es donde recogemos los datos del formulario de  mi perfil para poder modificarlo */
 session_start();
 require_once '../twig/lib/Twig/Autoloader.php';
 require_once '../../Model/BinDb.php';
@@ -12,11 +12,10 @@ if ($_SESSION['logeado'] == "Si") {
     switch ($_POST['opcion']) {
         case "modificar":
             move_uploaded_file($_FILES['foto']['tmp_name'], "../../public/asset/img/" . $_FILES['foto']['name']);
-            $perfil = Persona::getCodigoPerfilbyDescripcion($_POST['perfil']);
-            $persona = new Persona($_SESSION['codigo_persona'], $_POST['DNI'], $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'], $perfil, $_FILES['foto']['name'], $_POST['sexo'], $_POST['fecha_nac'], $_POST['direccion'], $_POST['municipio'], $_POST['provincia'], $_POST['pais'], $_POST['fecha_alta'], $_POST['fecha_baja'], $_POST['n_Seguridad_Social'], $_POST['n_Cuenta_Bancaria'], $_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['perfil_usuario'], $_POST['observaciones']);
-            print_r($persona);
+            //$perfil = Persona::getCodigoPerfilbyDescripcion($_POST['perfil']);
+            $persona = new Persona($_SESSION['codigo'], $_POST['DNI'], $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'], $_POST['perfil'], $_FILES['foto']['name'], $_POST['sexo'], $_POST['fecha_nac'], $_POST['direccion'], $_POST['municipio'], $_POST['provincia'], $_POST['pais'], $_POST['fecha_alta'], $_POST['fecha_baja'], $_POST['n_Seguridad_Social'], $_POST['n_Cuenta_Bancaria'], $_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['perfil_usuario'], $_POST['observaciones']);
             $persona->update();
-
+            print_r($persona);
             header('Location: gestionPersonas.php');
             break;
         case "cancelar":

@@ -9,7 +9,10 @@ if ($_SESSION['logeado'] == "Si") {
         $actividad = Actividad::getActividadByCodigo($_GET['codigo_actividad']);
         $_SESSION['codigo_actividad'] = $_GET['codigo_actividad'];
         if ($actividad) {
-            $aRespuesta = ["actividad" => $actividad->toJSON(), "participa" => $actividad->comprobarEnActividad($_SESSION['codigo'])];
+            $aRespuesta = [
+                "actividad" => $actividad->toJSON(),
+                "participa" => $actividad->comprobarEnActividad($_SESSION['codigo'])
+            ];
         }
         echo json_encode($aRespuesta);
     }

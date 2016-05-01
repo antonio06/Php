@@ -9,11 +9,26 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 $twig = new Twig_Environment($loader);
 if ($_SESSION['logeado'] == "Si") {
-    $perfiles = Persona::getPerfilesPersona();
-    $titulos = Actividad::getTituloActividad();
-    $nombres = Persona::getNombrePersona();
-    $_SESSION['codigo_persona'] = $_GET['codigo_persona'];
-    echo $twig->render('modificarParticipa.html.twig', ["perfiles" => $perfiles, "nombres" => $nombres, "titulos" => $titulos, "email" => $_SESSION['email']]);
+    switch ($_POST['opcion']) {
+        case "modificar":
+            if (!isset($_POST['nombre']) || ($_POST['titulo']) || ($_POST['perfil'])) {
+                
+            }
+            $nombre = Persona::getCodigoPersonabyNombre($_POST['nombre']);
+
+            $codigo = Actividad::getCodigoActividadByTitulo($_POST['titulo']);
+
+            $perfil = Persona::getCodigoPerfilbyDescripcion($_POST['perfil']);
+
+            Actividad::updateParticipa($nombre, $codigo, $perfil, $_SESSION['codigo_persona']);
+            header('Location: gestionParticipantes.php');
+            break;
+        case "cancelar":
+            header('Location: gestionParticipantes.php');
+            break;
+        default :
+    }
 }else {
     header("Location: ../partePublica/actividades.php");
 }
+

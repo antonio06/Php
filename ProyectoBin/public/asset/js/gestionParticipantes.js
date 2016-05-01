@@ -29,7 +29,7 @@ $(function () {
     });
 
     $("#cerrarModal").click(function () {
-        $("#modalParticipante").closeModal();
+        $("#modalParticipantes").closeModal();
         $("#formularioParticipantes").data("idParticipante", null);
     });
 

@@ -7,14 +7,23 @@ require_once '../../Model/Persona.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
 $twig = new Twig_Environment($loader);
-if ($_SESSION['logeado'] == "Si") {
-    $persona = Persona::getPersonaByCodigo($_GET['codigo_persona']);
-    $perfilesUsuarios = Persona::getPerfiles_usuariosPersona();
-    $perfiles = Persona::getPerfilesPersona();
-    $sexo = Persona::getSexoPersona();
 
-    $_SESSION['codigo_persona'] = $_GET['codigo_persona'];
-    echo $twig->render('modificarPersona.html.twig', ["persona" => $persona, "perfilesUsuarios" => $perfilesUsuarios, "perfiles" => $perfiles, "sexo" => $sexo, "email" => $_SESSION['email']]);
+if ($_SESSION['logeado'] == "Si") {
+    switch ($_POST['opcion']) {
+        case "modificar":
+            move_uploaded_file($_FILES['foto']['tmp_name'], "../../public/asset/img/" . $_FILES['foto']['name']);
+            $perfil = Persona::getCodigoPerfilbyDescripcion($_POST['perfil']);
+            $persona = new Persona($_SESSION['codigo_persona'], $_POST['DNI'], $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'], $perfil, $_FILES['foto']['name'], $_POST['sexo'], $_POST['fecha_nac'], $_POST['direccion'], $_POST['municipio'], $_POST['provincia'], $_POST['pais'], $_POST['fecha_alta'], $_POST['fecha_baja'], $_POST['n_Seguridad_Social'], $_POST['n_Cuenta_Bancaria'], $_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT), $_POST['perfil_usuario'], $_POST['observaciones']);
+            print_r($persona);
+            $persona->update();
+
+            header('Location: gestionPersonas.php');
+            break;
+        case "cancelar":
+            header('Location: gestionPersonas.php');
+            break;
+        default :
+    }
 }else {
     header("Location: ../partePublica/actividades.php");
 }

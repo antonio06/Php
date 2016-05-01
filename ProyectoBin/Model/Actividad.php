@@ -302,7 +302,13 @@ class Actividad {
         $consulta = $conexion->query($selecciona);
         $registro = $consulta->fetchObject();
         if ($registro) {
-            return new Actividad($registro->codigo_actividad, $registro->titulo, $registro->estado, $registro->coordinador, $registro->ponente, $registro->ubicacion, $registro->fecha_inicio, $registro->fecha_fin, $registro->horario_inicio, $registro->horario_fin, $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
+            return new Actividad($registro->codigo_actividad, $registro->titulo,
+                $registro->estado, $registro->coordinador, 
+                $registro->ponente, $registro->ubicacion, 
+                $registro->fecha_inicio, $registro->fecha_fin, 
+                $registro->horario_inicio, $registro->horario_fin,
+                $registro->n_Total_Horas, $registro->precio, 
+                $registro->IVA, $registro->descriptor, $registro->observaciones);
         }
         return NULL;
     }
