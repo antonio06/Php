@@ -1,25 +1,18 @@
 <?php
 
 session_start();
-require_once '../twig/lib/Twig/Autoloader.php';
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Persona.php';
-Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
-$twig = new Twig_Environment($loader);
-if ($_SESSION['logeado'] == "Si") {
-    switch ($_POST['opcion']) {
-        case "borrar":
-            $persona = new Persona($_SESSION['codigo_persona'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
-            $persona->delete();
+require_once '../../twig/lib/Twig/Autoloader.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Persona.php';
 
-            header('Location: gestionPersonas.php');
-            break;
-        case "cancelar":
-            header('Location: gestionPersonas.php');
-            break;
-        default :
+if ($_SESSION['logeado'] == "Si") {
+    if (isset($_POST['codigo_persona'])) {
+        $codigo_persona = $_POST['codigo_persona'];
+        if (!empty($codigo_persona)) {
+            $aRespuesta = ['estado' => Persona::delete($codigo_persona)];
+            echo json_encode($aRespuesta);
+        }
     }
 }else {
-    header("Location: ../partePublica/actividades.php");
+    header("Location: /Controller/partePublica/actividades.php");
 }

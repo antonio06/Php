@@ -92,18 +92,18 @@ $(function () {
             method: 'POST',
             dataType: "json",
             data: {
-                codigo_actividad: $(event.currentTarget).attr("data-id")
+                codigo_persona: $(event.currentTarget).attr("data-id")
             },
             success: function (respuesta, textStatus, jqXHR) {
                 if (respuesta.estado) {
-                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("La actividad ha sido eliminada con exito");
+                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("El participante ha sido eliminado con exito");
                     setTimeout(function () {
                         $("#divMensaje").removeClass("correcto error").addClass("oculto");
                     }, 3000);
                     // Refrescar la tabla
                     paginar($("#paginacion").attr("data-pagina"));
                 } else {
-                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un problema al borrar la actividad. Por favor inténtelo más tarde");
+                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un problema al borrar al participante. Por favor inténtelo más tarde");
                     setTimeout(function () {
                         $("#divMensaje").removeClass("correcto error").addClass("oculto");
                     }, 3000);

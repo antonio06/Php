@@ -17,5 +17,5 @@ if ($_SESSION['logeado'] == "Si") {
         echo json_encode($aRespuesta);
     }
 } else {
-    header("Location: ../partePublica/actividades.php");
+    header("Location: /partePublica/actividades.php");
 }

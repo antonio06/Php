@@ -98,7 +98,6 @@ $(function () {
                 }
                 mostrarModal({
                     accion: "ver",
-                    participa: respuesta.participa
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {

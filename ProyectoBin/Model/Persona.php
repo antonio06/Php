@@ -273,9 +273,9 @@ class Persona {
      * Borra una persona de la base de datos.
      * @param numbre $codigo pasamos el código de la persona.
      */
-    public function delete() {
+    public static function delete($codigo_persona) {
         $conexion = BinDb::connectDB();
-        $borrar = "DELETE FROM persona WHERE codigo=\"" . $this->codigo . "\"";
+        $borrar = "DELETE FROM persona WHERE codigo=\"" . $codigo_persona . "\"";
         return $conexion->exec($borrar);
     }
 
@@ -689,4 +689,35 @@ class Persona {
         return $perfil;
     }
 
+    
+    /**
+     * Devuelve una representación del objeto en formato JSON.
+     * @return type String El objeto en formato JSON. 
+     */
+    public function toJSON() {
+        $persona = [
+            "codigo" => $this->codigo,
+            "DNI" => $this->DNI,
+            "nombre" => $this->nombre,
+            "apellido1" => $this->apellido1,
+            "apellido2" => $this->apellido2,
+            "perfil" => $this->perfil,
+            "foto" => $this->foto,
+            "sexo" => $this->sexo,
+            "fecha_nac" => $this->fecha_nac,
+            "direccion" => $this->direccion,
+            "municipio" => $this->municipio,
+            "provincia" => $this->provincia,
+            "pais" => $this->pais,
+            "fecha_alta" => $this->fecha_alta,
+            "fecha_baja" => $this->fecha_baja,
+            "n_Seguridad_Social" => $this->n_Seguridad_Social,
+            "n_Cuenta_Bancaria" => $this->n_Cuenta_Bancaria,
+            "email" => $this->email,
+            "password" => $this->password,
+            "perfil_usuario" => $this->perfil_usuario,
+            "observaciones" => $this->observaciones,
+        ];
+        return json_encode($persona);
+    }
 }

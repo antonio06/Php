@@ -1,12 +1,10 @@
 <?php
 
 session_start();
-require_once '../twig/lib/Twig/Autoloader.php';
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Persona.php';
-Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
-$twig = new Twig_Environment($loader);
+require_once '../../twig/lib/Twig/Autoloader.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Persona.php';
+
 if ($_SESSION['logeado'] == "Si") {
     move_uploaded_file($_FILES['foto']['tmp_name'], "../../public/asset/img/" . $_FILES['foto']['name']);
     $perfil = Persona::getCodigoPerfilbyDescripcion($_POST['perfil']);

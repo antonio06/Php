@@ -17,20 +17,20 @@ $(function () {
     });
     $("#formularioPersonas").submit(enviarFormulario);
 
-    $("#nuevoPersona").click(function () {
-        $("#formularioParticipantes").trigger("submit", {
-            url: "/Controller/partePrivada/participantes/insertarParticipante.php"
+    $("#nuevaPersona").click(function () {
+        $("#formularioPersonas").trigger("submit", {
+            url: "/Controller/partePrivada/personas/insertarPersona.php"
         });
     });
-    $("#modificarParticipante").click(function () {
-        $("#formularioParticipantes").trigger("submit", {
-            url: "/Controller/partePrivada/participantes/modificarParticipante.php"
+    $("#modificarPersona").click(function () {
+        $("#formularioPersonas").trigger("submit", {
+            url: "/Controller/partePrivada/personas/modificarPersona.php"
         });
     });
 
     $("#cerrarModal").click(function () {
-        $("#modalParticipantes").closeModal();
-        $("#formularioParticipantes").data("idParticipante", null);
+        $("#modalPersona").closeModal();
+        $("#formularioPersonas").data("idPersona", null);
     });
 
     $(document).on("click", "a[data-action='nuevo']", function (event) {
@@ -66,7 +66,7 @@ $(function () {
                 }
                 mostrarModal({
                     accion: "ver",
-                    //participa: respuesta.participa
+                    ///participa: respuesta.persona
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -78,21 +78,21 @@ $(function () {
     $(document).on("click", "a[data-action='editar']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '/Controller/partePrivada/participantes/detallesParticipante.php',
+            url: '/Controller/partePrivada/personas/detallespersona.php',
             method: 'GET',
             dataType: "json",
             data: {
-                codigo_actividad: $(event.currentTarget).attr("data-id")
+                codigo_persona: $(event.currentTarget).attr("data-id")
             },
             success: function (respuesta, textStatus, jqXHR) {
 
                 // Almacenar la id de la actividad que se ha seleccionado en el formulario
                 // Esto se hace para no usar input hidden
-                var actividad = JSON.parse(respuesta.actividad);
-                $("#formularioParticipantes").data("idParticipante", actividad["codigo_actividad"]);
+                var persona = JSON.parse(respuesta.actividad);
+                $("#formularioPersonas").data("idPersona", persona["codigo_persona"]);
 
                 // Recogemos los elementos del formulario
-                var controlesFormulario = $("#formularioParticipantes")[0].elements;
+                var controlesFormulario = $("#formularioPersonas")[0].elements;
                 mostrarModal({
                     accion: "modificar",
                     id: $(event.currentTarget).attr("data-id")
@@ -106,7 +106,7 @@ $(function () {
                     // Esto lo hacemos para filtrar los elementos que no tengan name como los botones
                     // de submit
                     if (nombre) {
-                        $(elemento).val(actividad[nombre]);
+                        $(elemento).val(persona[nombre]);
                         // Martillazo para que Materialize ponga los labels encima del input
                         $(elemento).trigger("focus");
                     }
@@ -123,22 +123,22 @@ $(function () {
     $(document).on("click", "a[data-action='borrar']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '/Controller/partePrivada/participantes/eliminarParticipante.php',
+            url: '/Controller/partePrivada/personas/eliminarPersona.php',
             method: 'POST',
             dataType: "json",
             data: {
-                codigo_actividad: $(event.currentTarget).attr("data-id")
+                codigo_persona: $(event.currentTarget).attr("data-id")
             },
             success: function (respuesta, textStatus, jqXHR) {
                 if (respuesta.estado) {
-                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("La actividad ha sido eliminada con exito");
+                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("La Persona ha sido eliminada con exito");
                     setTimeout(function () {
                         $("#divMensaje").removeClass("correcto error").addClass("oculto");
                     }, 3000);
                     // Refrescar la tabla
                     paginar($("#paginacion").attr("data-pagina"));
                 } else {
-                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un problema al borrar la actividad. Por favor inténtelo más tarde");
+                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un problema al borrar a la persona. Por favor inténtelo más tarde");
                     setTimeout(function () {
                         $("#divMensaje").removeClass("correcto error").addClass("oculto");
                     }, 3000);
@@ -185,12 +185,12 @@ function enviarFormulario(event, opciones) {
         return false;
     }
 
-    var formulario = $("#formularioParticipantes")[0];
+    var formulario = $("#formularioPersonas")[0];
     if (formulario.checkValidity()) {
-        var datos = $("#formularioParticipantes").serialize();
-        var id = $("#formularioParticipantes").data("idParticipante");
+        var datos = $("#formularioPersonas").serialize();
+        var id = $("#formularioPersonas").data("idPersona");
         if (id) {
-            datos += "&" + decodeURIComponent($.param({codigo_actividad: id}));
+            datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
         }
         $.ajax({
             url: url,
@@ -224,18 +224,21 @@ function enviarFormulario(event, opciones) {
 }
 
 function mostrarModal(opciones) {
-    $("#nuevoPersona").parent().hide();
+    $("#nuevaPersona").parent().hide();
     $("#modificarPersona").parent().hide();
-
+    $("#contenedorDetallesPersona").hide();
     if (opciones.accion === "crear") {
         limpiarFormulario();
         $("#nuevaPersona").parent().show();
     } else if (opciones.accion === "modificar") {
         $("#modificarPersona").parent().show();
+    }else if (opciones.accion === "ver") {
+        
+        $("#contenedorDetallesPersona").show();
     }
     $("#modalPersona").openModal();
 }
 
 function limpiarFormulario() {
-    $("#formularioParticipante").trigger("reset");
+    $("#formularioPersonas").trigger("reset");
 }

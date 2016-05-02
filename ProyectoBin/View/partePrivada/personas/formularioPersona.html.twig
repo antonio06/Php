@@ -1,45 +1,28 @@
-{% extends 'panelPrincipalBase.html.twig' %}
-{% block menuPrincipalPanel %}
-    <nav class="nav-wrapper">
-        <div class="nav-wrapper indigo lighten-3">
-            <a href="#" class="brand-logo">Logo</a>
-            <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
-                <li><a href="../../Controller/partePrivada/gestionActividades.php">Gestion Actividades</a></li>
-                <li><a href="../../Controller/partePrivada/gestionParticipantes.php">Gestion Participanes</a></li>
-                <li><a href="../../Controller/partePrivada/gestionPersonas.php">Gestion Personas</a></li>
-                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
-                <!-- Dropdown Structure -->
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="../../Controller/partePrivada/miPerfil.php">Mi perfil</a></li>
-                    <li><a href="../../Controller/partePrivada/misActividades.php">Mis actividades</a></li>
-                    <li><a href="../../Controller/partePrivada/salirPerfil.php">Salir del perfil</a></li>
-                </ul>
-            </ul>
-        </div>
-    </nav>
-{% endblock %}
-
-{% block contenidoPanel %}
-
-    <form class="col s12" action="../../Controller/partePrivada/insertarPersona.php" method="POST" enctype="multipart/form-data" id="formularioNuevaPersona">
+<div id="contenedorFormularioPersona">
+    <form class="col s12 form-modal" action="#" method="POST" enctype="multipart/form-data" id="formularioPersonas">
         <div class="row">
-            <div class="input-field col s3">
+            
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="DNI" id="dni_persona">
                 <label for="last_name">DNI</label>
             </div>
-            <div class="input-field col s3">
+            
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="nombre" id="nombre_persona">
                 <label for="last_name">Nombre</label>
             </div>
-            <div class="input-field col s3">
+            
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="apellido1" id="apellido1_persona">
                 <label for="last_name">1º Apellido</label>
             </div>
-            <div class="input-field col s3">
+            
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="apellido2" id="apellido2_persona">
                 <label for="last_name">2º Apellido</label>
             </div>
-            <div class="input-field col s3">
+            
+            <div class="input-field col s4">
                 <select class="browser-default" name="perfil">
                     <option value="" disabled selected>Perfiles</option>
                     {% for perfil in perfiles %}
@@ -47,7 +30,8 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="file-field input-field col s6">
+                
+            <div class="file-field input-field col s4">
                 <div class="btn">
                     <span>Foto/Logo</span>
                     <input type="file" name="foto" id="foto_persona">
@@ -55,8 +39,9 @@
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
                 </div>
-            </div>   
-            <div class="input-field col s2">
+            </div> 
+                
+            <div class="input-field col s4">
                 <select class="browser-default" name="sexo">
                     <option value="" disabled selected>Sexo</option>
                     {% for sexo in sexo %}
@@ -64,53 +49,65 @@
                     {% endfor %}
                 </select>
             </div>
+                
             <div class="input-field col s4">
                 <label style="margin-top: -11%">Fecha Nacimiento</label>
                 <input id="last_name" type="date" class="validate" name="fecha_nac" id="fecha_nac_persona">
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="direccion" id="direccion_persona">
                 <label for="last_name">Dirección</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="municipio" id="municipio_persona">
                 <label for="last_name">Municipio</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="provincia" id="provincia_persona">
                 <label for="last_name">Provincia</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="pais" id="pais_persona">
                 <label for="last_name">Pais</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <label style="margin-top: -11%">Fecha Alta</label>
                 <input id="last_name" type="date" class="validate datepicker" name="fecha_alta" id="fecha_alta_persona">
                 <label for="last_name"></label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <label style="margin-top: -11%">Fecha Baja</label>
                 <input id="last_name" type="date" class="validate datepicker" name="fecha_baja" id="fecha_baja_persona">
                 <label for="last_name"></label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="n_Seguridad_Social" id="n_seguridad_social_persona">
                 <label for="last_name">Nº Seguridad Social</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="text" class="validate" name="n_Cuenta_Bancaria" id="n_cuenta_bancaria_persona">
                 <label for="last_name">Nº Cuenta Bancaria</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="email" class="validate" name="email" id="email_persona">
                 <label for="last_name">Email</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <input id="last_name" type="password" class="validate" name="password" id="password_persona">
                 <label for="last_name">Password</label>
             </div>
-            <div class="input-field col s3">
+                
+            <div class="input-field col s4">
                 <select class="browser-default" name="perfil_usuario">
                     <option value="" disabled selected>Perfiles Usuarios</option>
                     {% for perfilUsuario in perfilesUsuarios %}
@@ -118,12 +115,13 @@
                     {% endfor %}
                 </select>
             </div>
+                
             <div class="input-field col s12">
                 <input id="last_name" type="text" class="validate" name="observaciones" id="observaciones_persona">
                 <label for="last_name">Observaciones</label>
             </div>
+                
         </div>
-        <input class="waves-effect waves-light btn" type="submit" value="Ingresar" id="botonIngresar">
     </form>
-    <script type="text/javascript" src="../../public/asset/js/gestionPersonas.js"></script>
-{% endblock %}
+</div>
+
