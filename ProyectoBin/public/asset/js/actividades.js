@@ -16,6 +16,49 @@ $(function () {
     });
 });
 
+$(document).on("click", "a[data-action='editar']", function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/Controller/partePublica/actividades.php',
+            method: 'GET',
+            dataType: "json",
+            data: {
+                codigo_actividad: $(event.currentTarget).attr("data-id")
+            },
+            success: function (respuesta, textStatus, jqXHR) {
+
+                // Almacenar la id de la actividad que se ha seleccionado en el formulario
+                // Esto se hace para no usar input hidden
+                var actividad = JSON.parse(respuesta.actividad);
+                $("#formularioActividad").data("idActividad", actividad["codigo_actividad"]);
+
+                // Recogemos los elementos del formulario
+                var controlesFormulario = $("#formularioActividad")[0].elements;
+                mostrarModal({
+                    accion: "modificar"
+                });
+
+                // Iteramos por cada elemento del formulario de fin a inicio
+                $.each(controlesFormulario, function (index) {
+                    var elemento = controlesFormulario[controlesFormulario.length - 1 - index];
+                    var nombre = $(elemento).attr("name");
+                    // Si el elemento tiene atributo name lo modificamos
+                    // Esto lo hacemos para filtrar los elementos que no tengan name como los botones
+                    // de submit
+                    if (nombre) {
+                        $(elemento).val(actividad[nombre]);
+                        // Martillazo para que Materialize ponga los labels encima del input
+                        $(elemento).trigger("focus");
+                    }
+                });
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+
+    });
 
 function paginar(pagina) {
     $.ajax({
@@ -35,4 +78,28 @@ function paginar(pagina) {
 //            console.log(textStatus, errorThrown);
         }
     });
+}
+
+function mostrarModal(opciones) {
+    $("#nuevaActividad").parent().hide();
+    $("#modificarActividad").parent().hide();
+    $("#suscribirseActividad").parent().hide();
+    $("#contenedorDetallesActividad").hide();
+    $("#contenedorFormularioActividad").hide();
+    if (opciones.accion === "crear") {
+        limpiarFormulario();
+        $("#nuevaActividad").parent().show();
+        $("#contenedorFormularioActividad").show();
+    } else if (opciones.accion === "modificar") {
+        $("#modificarActividad").parent().show();
+        $("#contenedorFormularioActividad").show();
+    } else if (opciones.accion === "ver") {
+        if (opciones.participa) {
+            $("#suscribirseActividad").parent().hide();
+        } else {
+            $("#suscribirseActividad").parent().show();
+        }
+        $("#contenedorDetallesActividad").show();
+    }
+    $("#modalActividad").openModal();
 }

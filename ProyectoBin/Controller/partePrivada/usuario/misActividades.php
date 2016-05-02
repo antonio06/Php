@@ -1,12 +1,12 @@
 <?php
 
 session_start();
-require_once '../twig/lib/Twig/Autoloader.php';
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Actividad.php';
-require_once '../../Model/Persona.php';
+require_once '../../twig/lib/Twig/Autoloader.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Actividad.php';
+require_once '../../../Model/Persona.php';
 Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
+$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../../View/partePrivada');
 $twig = new Twig_Environment($loader);
 //$participantes = Actividad::getParticipantes();
 if ($_SESSION['logeado'] == "Si") {
@@ -31,7 +31,7 @@ if ($_SESSION['logeado'] == "Si") {
         }
         $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $_SESSION['codigo']);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
-        echo $twig->render('misActividades.html.twig', [
+        echo $twig->render('usuario/misActividades.html.twig', [
             "participantes" => $participantes,
             "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
             "email" => $_SESSION['email'],
@@ -43,7 +43,7 @@ if ($_SESSION['logeado'] == "Si") {
         $_SESSION['paginaMisActividades'] = $pagina;
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $_SESSION['codigo']);
-        echo $twig->render('misActividades.html.twig', [
+        echo $twig->render('usuario/misActividades.html.twig', [
             "participantes" => $participantes,
             "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
             "email" => $_SESSION['email'],
@@ -52,7 +52,7 @@ if ($_SESSION['logeado'] == "Si") {
         ]);
     }
 } else {
-    header("Location: ../partePublica/actividades.php");
+    header("Location: /Controller/partePublica/actividades.php");
 }
 
 function crearIndicesPaginacion($pagina, $totalPaginas) {
