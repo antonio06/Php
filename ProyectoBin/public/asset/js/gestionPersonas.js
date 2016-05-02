@@ -227,6 +227,7 @@ function mostrarModal(opciones) {
     $("#nuevaPersona").parent().hide();
     $("#modificarPersona").parent().hide();
     $("#contenedorDetallesPersona").hide();
+    $("#contenedorFormularioPersona").hide();
     if (opciones.accion === "crear") {
         limpiarFormulario();
         $("#nuevaPersona").parent().show();
