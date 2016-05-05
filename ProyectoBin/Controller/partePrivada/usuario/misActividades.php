@@ -6,7 +6,7 @@ require_once '../../../Model/BinDb.php';
 require_once '../../../Model/Actividad.php';
 require_once '../../../Model/Persona.php';
 Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../../View/partePrivada');
+$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../../View/partePrivada/');
 $twig = new Twig_Environment($loader);
 //$participantes = Actividad::getParticipantes();
 if ($_SESSION['logeado'] == "Si") {
@@ -29,6 +29,7 @@ if ($_SESSION['logeado'] == "Si") {
         } else {
             $_SESSION['paginaMisActividades'] = $pagina;
         }
+        
         $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $_SESSION['codigo']);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         echo $twig->render('usuario/misActividades.html.twig', [

@@ -14,9 +14,13 @@ $(function () {
         }
 
     });
-});
 
-$(document).on("click", "a[data-action='editar']", function (event) {
+    $("#cerrarModal").click(function () {
+        $("#modalActividad").closeModal();
+        $("#formularioActividad").data("idActividad", null);
+    });
+
+    $(document).on("click", "a[data-action='editar']", function (event) {
         event.preventDefault();
         $.ajax({
             url: '/Controller/partePublica/actividades.php',
@@ -59,6 +63,43 @@ $(document).on("click", "a[data-action='editar']", function (event) {
         });
 
     });
+
+    $(document).on("click", "a[data-action='detalles']", function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/Controller/partePublica/detalles.php',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                codigo_actividad: $(event.currentTarget).attr("data-id")
+            },
+            success: function (respuesta, textStatus, jqXHR) {
+                $("#suscribirseActividad").parent().show();
+                if (respuesta) {
+                    var actividad = $.parseJSON(respuesta.actividad);
+                    console.log(actividad);
+                    $("#contenedorDetallesActividad").find("div[data-actividad]").each(function (indice, elemento) {
+                        var dato = $(elemento).attr("data-actividad");
+                        if (actividad[dato] !== "") {
+                            $(elemento).text(actividad[dato]);
+                        } else {
+                            $(elemento).text("-");
+                        }
+                    });
+                    $("#modalActividad").data("codigo_actividad", actividad.codigo_actividad);
+                }
+                mostrarModal({
+                    accion: "ver",
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error(textStatus, errorThrown);
+            },
+        })
+    });
+});
+
+
 
 function paginar(pagina) {
     $.ajax({

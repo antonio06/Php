@@ -371,17 +371,15 @@ class Persona {
      * Selecciona todos los códigos de las personas.
      * @return array de los objetos con el código.
      */
-    public static function getCodigosPersona() {
-        $conexion = BinDb::connectDB();
-        $seleccion = "SELECT codigo FROM persona";
-        $consulta = $conexion->query($seleccion);
+    public static function findCodigoPersona($codigo_persona) {
+        $conexion = BinDb::connectDB($codigo_persona);
+        $seleccion = "SELECT codigo FROM persona WHERE codigo=$codigo_persona";
 
-        $codigos = [];
-
-        while ($registro = $consulta->fetchObject()) {
-            $codigos[] = new Persona($registro->codigo, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+         $registro = $conexion->query($seleccion);
+        if ($registro->rowCount() > 0) {
+            return TRUE;
         }
-        return $codigos;
+        return FALSE;
     }
 
     /**
@@ -689,6 +687,7 @@ class Persona {
         return $perfil;
     }
 
+    
     
     /**
      * Devuelve una representación del objeto en formato JSON.

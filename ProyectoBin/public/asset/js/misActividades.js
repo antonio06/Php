@@ -15,6 +15,37 @@ $(function () {
         }
 
     });
+    
+    $(document).on("click", "a[data-action='borrar']", function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/Controller/partePrivada/usuario/eliminarMisActividades.php',
+            method: 'POST',
+            dataType: "json",
+            
+            data: {
+                codigo_actividad: $(event.currentTarget).attr("data-id")
+            },
+            success: function (respuesta, textStatus, jqXHR) {
+                if (respuesta.estado) {
+                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("La actividad ha sido eliminada con exito");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                    // Refrescar la tabla
+                    paginar($("#paginacion").attr("data-pagina"));
+                } else {
+                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un problema al borrar la actividad. Por favor inténtelo más tarde");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    });
 });
 
 
@@ -22,6 +53,7 @@ function paginar(pagina) {
     $.ajax({
         url: '/Controller/partePrivada/usuario/misActividades.php',
         method: 'GET',
+        //async: true,
         data: {
             pagina: pagina
         }, success: function (tabla, textStatus, jqXHR) {

@@ -520,9 +520,11 @@ class Actividad {
      * @param Integer $sesionCodigo codigo de la persona
      * @return Objeto participa
      */
-    public static function deleteParticipa($sesionCodigo) {
+    public static function deleteParticipa($codigo_persona, $codigo_actividad) {
         $conexion = BinDb::connectDB();
-        $borrar = "DELETE FROM participa WHERE codigo_persona=\"" . $sesionCodigo . "\"";
+
+            $borrar = "DELETE FROM participa WHERE codigo_persona=$codigo_persona "
+                    . "and codigo_actividad=$codigo_actividad ";
         return $conexion->exec($borrar);
     }
 
@@ -615,7 +617,28 @@ class Actividad {
         }
         return $codigo_perfil;
     }
+    
+    public static function findCodigoActividad($codigo_actividad){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo_actividad FROM actividad WHERE codigo_actividad=$codigo_actividad";
 
+         $registro = $conexion->query($seleccion);
+        if ($registro->rowCount() > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
+    public static function findCodigoPerfil($codigo_perfil){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT codigo FROM perfil WHERE codigo=$codigo_perfil";
+
+         $registro = $conexion->query($seleccion);
+        if ($registro->rowCount() > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }      
     /**
      * Devuelve una representación del objeto en formato JSON.
      * @return type String El objeto en formato JSON. 
@@ -641,4 +664,5 @@ class Actividad {
         return json_encode($actividad);
     }
 
+    
 }

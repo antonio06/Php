@@ -92,7 +92,8 @@ $(function () {
             method: 'POST',
             dataType: "json",
             data: {
-                codigo_persona: $(event.currentTarget).attr("data-id")
+                codigo_actividad: $(event.currentTarget).attr("data-id"),
+                codigo_persona: $(event.currentTarget).attr("value")
             },
             success: function (respuesta, textStatus, jqXHR) {
                 if (respuesta.estado) {
@@ -155,7 +156,7 @@ function enviarFormulario(event, opciones) {
         var datos = $("#formularioParticipantes").serialize();
         var id = $("#formularioParticipantes").data("idParticipante");
         if (id) {
-            datos += "&" + decodeURIComponent($.param({codigo_actividad: id}));
+            datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
         }
         $.ajax({
             url: url,
@@ -165,6 +166,9 @@ function enviarFormulario(event, opciones) {
             success: function (respuesta, textStatus, jqXHR) {
                 if (respuesta.estado === "success") {
                     mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
                     limpiarFormulario();
                     $("#cerrarModal").trigger("click");
 
@@ -191,10 +195,11 @@ function enviarFormulario(event, opciones) {
 function mostrarModal(opciones) {
     $("#nuevoParticipante").parent().hide();
     $("#modificarParticipante").parent().hide();
-
+    $("#contenedorFormularioParticipante").hide();
     if (opciones.accion === "crear") {
         limpiarFormulario();
         $("#nuevoParticipante").parent().show();
+        $("#contenedorFormularioParticipante").show();
     } else if (opciones.accion === "modificar") {
         $("#modificarParticipante").parent().show();
     }
@@ -202,5 +207,5 @@ function mostrarModal(opciones) {
 }
 
 function limpiarFormulario() {
-    $("#formularioParticipante").trigger("reset");
+    $("#formularioParticipantes").trigger("reset");
 }
