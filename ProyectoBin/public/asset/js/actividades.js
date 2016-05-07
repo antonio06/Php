@@ -19,6 +19,35 @@ $(function () {
         $("#modalActividad").closeModal();
         $("#formularioActividad").data("idActividad", null);
     });
+    
+    $("#suscribirseActividad").click(function () {
+        $.ajax({
+            url: '/Controller/partePublica/miNuevaActividad.php',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                codigo_actividad: $("#modalActividad").data("codigo_actividad"),
+            },
+            success: function (respuesta, textStatus, jqXHR) {
+                if (respuesta.estado) {
+                    $("#divMensaje").removeClass("oculto error").addClass("correcto").html("Suscripción realizada con éxito.");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                } else {
+                    $("#divMensaje").removeClass("oculto correcto").addClass("error").html("Hubo un error al realizar la suscripción.");
+                    setTimeout(function () {
+                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                    }, 3000);
+                }
+
+                $("#modalActividad").closeModal();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        })
+    });
 
     $(document).on("click", "a[data-action='editar']", function (event) {
         event.preventDefault();

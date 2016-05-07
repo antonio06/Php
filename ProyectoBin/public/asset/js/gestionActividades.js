@@ -38,7 +38,7 @@ $(function () {
 
     $("#suscribirseActividad").click(function () {
         $.ajax({
-            url: '/Controller/partePrivada/actividades/miNuevaActividad.php',
+            url: '/Controller/partePrivada/usuario/miNuevaActividad.php',
             method: 'POST',
             dataType: 'json',
             data: {

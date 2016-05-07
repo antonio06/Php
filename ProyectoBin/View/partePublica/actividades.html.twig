@@ -46,9 +46,11 @@
         </div>
         <div class="modal-footer no-overflow">
             <input class="waves-effect waves-light btn modal-action modal-close" type="button" value="Cerrar">
-            <input class="waves-effect waves-light btn" id="nuevaActividad" type="submit" form="formularioActividad" value="Registrar actividad">
-            <input class="waves-effect waves-light btn" id="modificarActividad" form="formularioActividad" type="button" value="Guardad cambios">
-            <input class="waves-effect waves-light btn" id="suscribirseActividad" form="formularioActividad" type="button" value="Suscribirse a la actividad">
+{#            <input class="waves-effect waves-light btn" id="nuevaActividad" type="submit" form="formularioActividad" value="Registrar actividad">#}
+{#            <input class="waves-effect waves-light btn" id="modificarActividad" form="formularioActividad" type="button" value="Guardad cambios">#}
+            {% if email != null %}
+                <input class="waves-effect waves-light btn" id="suscribirseActividad" form="formularioActividad" type="button" value="Suscribirse a la actividad">
+            {% endif %}
         </div>
     </div>
     <script type="text/javascript" src="/public/asset/js/actividades.js"></script>

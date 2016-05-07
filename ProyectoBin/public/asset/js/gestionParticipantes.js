@@ -15,22 +15,22 @@ $(function () {
         }
 
     });
-    $("#formularioParticipantes").submit(enviarFormulario);
+    $("#formularioParticipante").submit(enviarFormulario);
 
     $("#nuevoParticipante").click(function () {
-        $("#formularioParticipantes").trigger("submit", {
+        $("#formularioParticipante").trigger("submit", {
             url: "/Controller/partePrivada/participantes/insertarParticipante.php"
         });
     });
     $("#modificarParticipante").click(function () {
-        $("#formularioParticipantes").trigger("submit", {
+        $("#formularioParticipante").trigger("submit", {
             url: "/Controller/partePrivada/participantes/modificarParticipante.php"
         });
     });
 
     $("#cerrarModal").click(function () {
-        $("#modalParticipantes").closeModal();
-        $("#formularioParticipantes").data("idParticipante", null);
+        $("#modalParticipante").closeModal();
+        $("#formularioParticipante").data("idParticipante", null);
     });
 
     $(document).on("click", "a[data-action='nuevo']", function (event) {
@@ -54,10 +54,10 @@ $(function () {
                 // Almacenar la id de la actividad que se ha seleccionado en el formulario
                 // Esto se hace para no usar input hidden
                 var actividad = JSON.parse(respuesta.actividad);
-                $("#formularioParticipantes").data("idParticipante", actividad["codigo_actividad"]);
+                $("#formularioParticipante").data("idParticipante", actividad["codigo_actividad"]);
 
                 // Recogemos los elementos del formulario
-                var controlesFormulario = $("#formularioParticipantes")[0].elements;
+                var controlesFormulario = $("#formularioParticipante")[0].elements;
                 mostrarModal({
                     accion: "modificar",
                     id: $(event.currentTarget).attr("data-id")
@@ -119,7 +119,7 @@ $(function () {
 
 function paginar(pagina) {
     $.ajax({
-        url: '/Controller/partePrivada/participantes/gestionParticipantes.php',
+        url: '/Controller/partePrivada/usuario/misActividades.php',
         method: 'GET',
         data: {
             pagina: pagina
@@ -151,10 +151,10 @@ function enviarFormulario(event, opciones) {
         return false;
     }
 
-    var formulario = $("#formularioParticipantes")[0];
+    var formulario = $("#formularioParticipante")[0];
     if (formulario.checkValidity()) {
-        var datos = $("#formularioParticipantes").serialize();
-        var id = $("#formularioParticipantes").data("idParticipante");
+        var datos = $("#formularioParticipante").serialize();
+        var id = $("#formularioParticipante").data("idParticipante");
         if (id) {
             datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
         }
@@ -203,9 +203,9 @@ function mostrarModal(opciones) {
     } else if (opciones.accion === "modificar") {
         $("#modificarParticipante").parent().show();
     }
-    $("#modalParticipantes").openModal();
+    $("#modalParticipante").openModal();
 }
 
 function limpiarFormulario() {
-    $("#formularioParticipantes").trigger("reset");
+    $("#formularioParticipante").trigger("reset");
 }

@@ -4,9 +4,9 @@
         <td>Actividades</td>
         <td>Perfiles</td>
         <td>
-        {% if esAdministrador != null %}
-            <a href="#" data-action="nuevo"><i class="fa fa-plus"></i></a>
-        {% endif %}
+            {% if esAdministrador != null %}
+                <a href="#" data-action="nuevo"><i class="fa fa-plus"></i></a>
+            {% endif %}
         </td>
     </tr>
     {% for participante in participantes %}

@@ -6,13 +6,18 @@ require_once '../../Model/Actividad.php';
 require_once '../../Model/Persona.php';
 
 if ($_SESSION['logeado'] == "Si") {
-    $codigo_persona = $_SESSION['codigo'];
-    $codigo_actividad = $_GET['codigo_actividad'];
-    $codigo_perfil = Actividad::getCodigoPerfil();
-    
-    Actividad::insertParticipantes($codigo_persona, $codigo_actividad, $codigo_perfil);
-    
-    header("Location: misActividades.php");
+    if (isset($_POST['codigo_actividad'])) {
+        $codigo_persona = $_SESSION['codigo'];
+        $codigo_actividad = $_POST['codigo_actividad'];
+        $codigo_perfil = Actividad::getCodigoPerfil('participante');
+
+        $miActividad = Actividad::insertParticipante($codigo_persona, $codigo_actividad, $codigo_perfil);
+        $aRespuesta = ["estado" => FALSE];
+        if ($miActividad) {
+            $aRespuesta["estado"] = TRUE;
+        }
+        echo json_encode($aRespuesta);
+    }
 }else{
     header("Location: actividades.php");
 }

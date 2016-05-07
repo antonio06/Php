@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block menuPrincipal %}
     {% if email != null %}
         <nav class="nav-wrapper">
@@ -32,25 +31,12 @@
 {% endblock %}
 
 {% block contenido %}
-    <table class="bordered">
-        <tr>
-            <td>Persona</td>
-            <td>Actividades</td>
-            <td>Perfiles</td>
-        </tr>
-        {% for participante in participantes %}
-            <tr>
-                <td>{{ participante.codigo_persona }}</td>
-                <td>{{ participante.codigo_actividad }}</td>
-                <td>{{ participante.codigo_perfil }}</td>    
-            </tr>
-        {% endfor %}
-    </table>
-    <div class="center-align">
-        <ul class="pagination">
-            {% for arrayNumero in arrayNumeros %}
-                <li class="active"><a href="../../Controller/partePublica/misActividades.php?pagina={{ arrayNumero }}" id="botonNum">{{ arrayNumero }}</a></li>
-                {% endfor %}
-        </ul>
+    <div class="text-center">
+        <div id="divMensaje"></div>
     </div>
+    <div id="contenedorTabla">
+        {% include "tablaMisActividades.html.twig" %}
+    </div>
+    
+    <script type="text/javascript" src="/public/asset/js/misActividadesPublica.js"></script>
 {% endblock %}

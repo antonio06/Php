@@ -2,9 +2,9 @@
 
 session_start();
 
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Actividad.php';
-require_once '../../Model/Persona.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Actividad.php';
+require_once '../../../Model/Persona.php';
 
 if ($_SESSION['logeado'] == "Si") {
     if (isset($_POST['codigo_actividad'])) {
