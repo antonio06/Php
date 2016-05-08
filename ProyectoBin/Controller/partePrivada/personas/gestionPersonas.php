@@ -12,7 +12,9 @@ $twig = new Twig_Environment($loader);
 if ($_SESSION['logeado'] == "Si") {
     $limite = 2;
     $numeroPaginas = Persona::getNumeroPaginas($limite);
-
+    $sexos = Persona::getSexoPersona();
+    $perfilesUsuario = Persona::getPerfiles_usuariosPersona();
+    $perfiles = Persona::getPerfilesPersona();
     $arrayNumeros = [];
     $auxi = 0;
     for ($i = 1; $i <= $numeroPaginas; $i++) {
@@ -41,15 +43,19 @@ if ($_SESSION['logeado'] == "Si") {
                 "email" => $_SESSION['email'],
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "pagina" => $pagina,
-                "totalPaginas" => $totalPaginas
-            ]);
+                "totalPaginas" => $totalPaginas,
+                "sexos" => $sexos,
+                "perfiles" => $perfiles,
+                "perfilesUsuarios" => $perfilesUsuario
+                ]);
         } else {
             echo $twig->render('personas/gestionPersonas.html.twig', [
                 "personas" => $personas,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "email" => $_SESSION['email'],
                 "pagina" => $pagina,
-                "totalPaginas" => $totalPaginas
+                "totalPaginas" => $totalPaginas,
+                
             ]);
         }
     } else {

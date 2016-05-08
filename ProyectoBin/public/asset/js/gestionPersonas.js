@@ -231,6 +231,7 @@ function mostrarModal(opciones) {
     if (opciones.accion === "crear") {
         limpiarFormulario();
         $("#nuevaPersona").parent().show();
+        $("#contenedorFormularioPersona").show()
     } else if (opciones.accion === "modificar") {
         $("#modificarPersona").parent().show();
     }else if (opciones.accion === "ver") {
