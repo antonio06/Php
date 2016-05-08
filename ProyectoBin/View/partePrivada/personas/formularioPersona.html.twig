@@ -3,27 +3,27 @@
         <div class="row">
             
             <div class="input-field col s4">
-                <input id="last_name" type="text" class="validate" name="DNI" id="dni_persona" required="required">
+                <input id="last_name" type="text" class="validate" name="DNI" id="dni_persona" required>
                 <label for="last_name">DNI</label>
             </div>
             
             <div class="input-field col s4">
-                <input id="last_name" type="text" class="validate" name="nombre" id="nombre_persona" required="required">
+                <input id="last_name" type="text" class="validate" name="nombre" id="nombre_persona" required>
                 <label for="last_name">Nombre</label>
             </div>
             
             <div class="input-field col s4">
-                <input id="last_name" type="text" class="validate" name="apellido1" id="apellido1_persona" required="required">
+                <input id="last_name" type="text" class="validate" name="apellido1" id="apellido1_persona" required>
                 <label for="last_name">1º Apellido</label>
             </div>
             
             <div class="input-field col s4">
-                <input id="last_name" type="text" class="validate" name="apellido2" id="apellido2_persona" required="required">
+                <input id="last_name" type="text" class="validate" name="apellido2" id="apellido2_persona" required>
                 <label for="last_name">2º Apellido</label>
             </div>
             
             <div class="input-field col s4">
-                <select class="browser-default" name="perfil" required="required">
+                <select class="browser-default" name="perfil" required>
                     <option value="" disabled selected >Perfiles</option>
                     {% for perfil in perfiles %}
                         <option value="{{ perfil.codigo }}" id="perfil_persona">{{ perfil.descripcion }}</option>
@@ -42,7 +42,7 @@
             </div> 
                 
             <div class="input-field col s4">
-                <select class="browser-default" name="sexo" required="required">
+                <select class="browser-default" name="sexo" required>
                     <option value="" disabled selected>Sexo</option>
                     {% for sexo in sexos %}
                         <option value="{{ sexo }}" id="sexo_persona">{{ sexo }}</option>
@@ -52,7 +52,7 @@
                 
             <div class="input-field col s4">
                 <label style="margin-top: -11%">Fecha Nacimiento</label>
-                <input id="last_name" type="date" class="validate" name="fecha_nac" id="fecha_nac_persona" required="required">
+                <input id="last_name" type="date" class="validate datepicker" name="fecha_nac" id="fecha_nac_persona" required>
             </div>
                 
             <div class="input-field col s4">
@@ -98,17 +98,17 @@
             </div>
                 
             <div class="input-field col s4">
-                <input id="last_name" type="email" class="validate" name="email" id="email_persona" required="required">
+                <input id="last_name" type="email" class="validate" name="email" id="email_persona" required>
                 <label for="last_name">Email</label>
             </div>
                 
             <div class="input-field col s4">
-                <input id="last_name" type="password" class="validate" name="password" id="password_persona" required="required">
+                <input id="last_name" type="password" class="validate" name="password" id="password_persona" required>
                 <label for="last_name">Password</label>
             </div>
                 
             <div class="input-field col s4">
-                <select class="browser-default" name="perfil_usuario" required="required">
+                <select class="browser-default" name="perfil_usuario" required>
                     <option value="" disabled selected>Perfiles Usuarios</option>
                     {% for perfilUsuario in perfilesUsuarios %}
                         <option value="{{ perfilUsuario }}" id="perfil_usuario_persona">{{ perfilUsuario }}</option>

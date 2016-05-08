@@ -638,7 +638,8 @@ class Actividad {
             return TRUE;
         }
         return FALSE;
-    }      
+    }
+    
     /**
      * Devuelve una representación del objeto en formato JSON.
      * @return type String El objeto en formato JSON. 

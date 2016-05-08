@@ -687,7 +687,27 @@ class Persona {
         return $perfil;
     }
 
+    public static function findSexoPersona($sexo){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT sexo FROM persona WHERE sexo='$sexo'";
+
+         $registro = $conexion->query($seleccion);
+        if ($registro->rowCount() > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
     
+    public static function findPerfil_usuario($perfil_usuario){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT perfil_usuario FROM persona WHERE perfil_usuario='$perfil_usuario'";
+
+         $registro = $conexion->query($seleccion);
+        if ($registro->rowCount() > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
     
     /**
      * Devuelve una representación del objeto en formato JSON.

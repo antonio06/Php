@@ -16,7 +16,11 @@ $(function () {
 
     });
     $("#formularioPersonas").submit(enviarFormulario);
-
+    
+    $('.datepicker').pickadate({
+        selectMonths: true
+    });
+    
     $("#nuevaPersona").click(function () {
         $("#formularioPersonas").trigger("submit", {
             url: "/Controller/partePrivada/personas/insertarPersona.php"
@@ -88,14 +92,14 @@ $(function () {
 
                 // Almacenar la id de la actividad que se ha seleccionado en el formulario
                 // Esto se hace para no usar input hidden
-                var persona = JSON.parse(respuesta.actividad);
+                var persona = JSON.parse(respuesta.persona);
                 $("#formularioPersonas").data("idPersona", persona["codigo_persona"]);
 
                 // Recogemos los elementos del formulario
                 var controlesFormulario = $("#formularioPersonas")[0].elements;
                 mostrarModal({
                     accion: "modificar",
-                    id: $(event.currentTarget).attr("data-id")
+                    //id: $(event.currentTarget).attr("data-id")
                 });
 
                 // Iteramos por cada elemento del formulario de fin a inicio
@@ -231,9 +235,10 @@ function mostrarModal(opciones) {
     if (opciones.accion === "crear") {
         limpiarFormulario();
         $("#nuevaPersona").parent().show();
-        $("#contenedorFormularioPersona").show()
+        $("#contenedorFormularioPersona").show();
     } else if (opciones.accion === "modificar") {
         $("#modificarPersona").parent().show();
+        $("#contenedorFormularioPersona").show();
     }else if (opciones.accion === "ver") {
         
         $("#contenedorDetallesPersona").show();
