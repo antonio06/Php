@@ -15,26 +15,26 @@ $(function () {
         }
 
     });
-    $("#formularioPersonas").submit(enviarFormulario);
+    $("#formularioPersona").submit(enviarFormulario);
     
     $('.datepicker').pickadate({
         selectMonths: true
     });
     
     $("#nuevaPersona").click(function () {
-        $("#formularioPersonas").trigger("submit", {
+        $("#formularioPersona").trigger("submit", {
             url: "/Controller/partePrivada/personas/insertarPersona.php"
         });
     });
     $("#modificarPersona").click(function () {
-        $("#formularioPersonas").trigger("submit", {
+        $("#formularioPersona").trigger("submit", {
             url: "/Controller/partePrivada/personas/modificarPersona.php"
         });
     });
 
     $("#cerrarModal").click(function () {
         $("#modalPersona").closeModal();
-        $("#formularioPersonas").data("idPersona", null);
+        $("#formularioPersona").data("idPersona", null);
     });
 
     $(document).on("click", "a[data-action='nuevo']", function (event) {
@@ -93,10 +93,10 @@ $(function () {
                 // Almacenar la id de la actividad que se ha seleccionado en el formulario
                 // Esto se hace para no usar input hidden
                 var persona = JSON.parse(respuesta.persona);
-                $("#formularioPersonas").data("idPersona", persona["codigo_persona"]);
+                $("#formularioPersona").data("idPersona", persona["codigo_persona"]);
 
                 // Recogemos los elementos del formulario
-                var controlesFormulario = $("#formularioPersonas")[0].elements;
+                var controlesFormulario = $("#formularioPersona")[0].elements;
                 mostrarModal({
                     accion: "modificar",
                     //id: $(event.currentTarget).attr("data-id")
@@ -189,10 +189,10 @@ function enviarFormulario(event, opciones) {
         return false;
     }
 
-    var formulario = $("#formularioPersonas")[0];
+    var formulario = $("#formularioPersona")[0];
     if (formulario.checkValidity()) {
-        var datos = $("#formularioPersonas").serialize();
-        var id = $("#formularioPersonas").data("idPersona");
+        var datos = $("#formularioPersona").serialize();
+        var id = $("#formularioPersona").data("idPersona");
         if (id) {
             datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
         }
@@ -247,5 +247,5 @@ function mostrarModal(opciones) {
 }
 
 function limpiarFormulario() {
-    $("#formularioPersonas").trigger("reset");
+    $("#formularioPersona").trigger("reset");
 }

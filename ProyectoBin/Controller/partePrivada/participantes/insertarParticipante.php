@@ -7,38 +7,40 @@ require_once '../../../Model/Actividad.php';
 require_once '../../../Model/Persona.php';
 
 if ($_SESSION['logeado'] == "Si") {
-    $respuesta = ["estado" => "error", "errores" => [], "valorEstado" => $_POST["estado"]];
-    $nombre = $_POST['nombre'];
-    
-    if (Persona::findCodigoPersona($nombre) == "TRUE"){
-        $respuesta["errores"][] = "La persona pertenece a la lista.";
-    }else{
+    $respuesta = ["estado" => "error", "errores" => []];
+    $codigo_persona = $_POST['nombre'];
+
+    if (!Persona::findCodigoPersona($codigo_persona)) {
         $respuesta["errores"][] = "La persona no pertenece a la lista.";
     }
 
-    $codigo = $_POST['titulo'];
+    $codigo_actividad = $_POST['titulo'];
 
-    if (Actividad::findCodigoActividad($codigo) == "TRUE"){
-        $respuesta["errores"][] = "El titulo pertenece a la lista de actividades.";
-    }else{
+    if (!Actividad::findCodigoActividad($codigo_actividad)) {
         $respuesta["errores"][] = "El titulo no pertenece a la lista de actividades.";
     }
-    
-    $perfil = $_POST['perfil'];
 
-    if (Actividad::findCodigoPerfil($perfil) == "TRUE"){
-        $respuesta["errores"][] = "El perfil pertenece a la lista de perfiles.";
-    }else{
+    $codigo_perfil = $_POST['perfil'];
+
+    if (!Actividad::findCodigoPerfil($codigo_perfil)) {
         $respuesta["errores"][] = "El perfil no pertenece a la lista de perfiles.";
     }
-    
-    if($participante = Actividad::insertParticipante($nombre, $codigo, $perfil)){
+
+    if (Actividad::comprobarPerfilActividad($codigo_persona, $codigo_actividad, $codigo_perfil)) {
+        $respuesta["errores"][] = "Esta persona ya está participando en la actividad.";
+    } else {
+        if ($participante = Actividad::insertParticipante($codigo_persona, $codigo_actividad, $codigo_perfil)) {
             $respuesta["estado"] = "success";
             $respuesta["mensaje"] = "Participante registrado con éxito.";
+        }else{
+            $respuesta["errores"][] = "No se pudo insertar el registro en la base datos";
+        }
     }
 
-    
+
+
+
     echo json_encode($respuesta);
-}else {
+} else {
     header("Location: /Controller/partePublica/actividades.php");
 }

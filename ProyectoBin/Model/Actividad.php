@@ -640,6 +640,18 @@ class Actividad {
         return FALSE;
     }
     
+    public static function comprobarPerfilActividad ($codigo_persona, $codigo_actividad, $codigo_perfil){
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT * FROM participa WHERE codigo_persona=$codigo_persona ".
+                "and codigo_actividad=$codigo_actividad and codigo_perfil=$codigo_perfil";
+
+         $registro = $conexion->query($seleccion);
+        if ($registro->rowCount() > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
     /**
      * Devuelve una representación del objeto en formato JSON.
      * @return type String El objeto en formato JSON. 

@@ -6,7 +6,7 @@ require_once '../../../Model/BinDb.php';
 require_once '../../../Model/Actividad.php';
 
 if ($_SESSION['logeado'] == "Si") {
-    $respuesta = ["estado" => "error", "errores" => [], "valorEstado" => $_POST["estado"]];
+    $respuesta = ["estado" => "error", "errores" => []];
     
     $titulo = trim($_POST['titulo']);
     if (empty($titulo)) {
