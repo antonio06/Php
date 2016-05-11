@@ -33,7 +33,7 @@
 
 {% block contenido %}
     <div class="row">
-        <form class="col s12" action="../../Controller/partePrivada/modificadoMiperfil.php" method="post" enctype="multipart/form-data" id="formularioModificarMiperfil">
+        <form class="col s12" action="../../Controller/partePublica/modificadoMiperfil.php" method="post" enctype="multipart/form-data" id="formularioModificarMiperfil">
             <input type="hidden" name="perfil" value="{{ perfil }}" id="perfil_persona">
             <input type="hidden" name="fecha_alta" value="{{ persona.fecha_alta }}" id="fecha_alta_persona">
             <input type="hidden" name="fecha_baja" value="{{ persona.fecha_baja }}" id="fecha_baja_persona">
@@ -98,10 +98,10 @@
                     <label style="margin-top: -1%">Email</label>
                     <input id="last_name" type="email" class="validate" name="email" value="{{ persona.email }}" id="email_persona">
                 </div>
-                <div class="input-field col s4">
+{#                <div class="input-field col s4">
                     <label style="margin-top: 1%">Password</label>
                     <input id="last_name" type="password" class="validate" name="password" value="{{ persona.password }}" id="password_persona">
-                </div>
+                </div>#}
                 <div class="file-field input-field col s8">
                     <div class="btn">
                         <span>Foto/Logo</span>

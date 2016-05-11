@@ -119,7 +119,7 @@ $(function () {
 
 function paginar(pagina) {
     $.ajax({
-        url: '/Controller/partePrivada/usuario/misActividades.php',
+        url: '/Controller/partePrivada/participantes/gestionParticipantes.php',
         method: 'GET',
         data: {
             pagina: pagina

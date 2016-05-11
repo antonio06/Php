@@ -476,7 +476,7 @@ class Actividad {
      */
     public function insertParticipante($perfil, $nombre, $codigo) {
         $conexion = BinDb::connectDB();
-        $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) "
+        echo $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) "
                 . "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
         return $conexion->exec($inserta);
     }

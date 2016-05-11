@@ -47,7 +47,7 @@ if ($_SESSION['logeado'] == "Si") {
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         //$_SESSION['pagina'] = Actividad::getSesionPagina($_GET['pagina'], $limite, $_SESSION['pagina']);
         $participantes = Actividad::getParticipantesByLimit(($pagina - 1)* $limite, $limite, $_SESSION['codigo']);
-        echo $twig->render('misActividades.html.twig', [
+        echo $twig->render('tablaMisActividades.html.twig', [
             "participantes" => $participantes,
             "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
             "email" => $_SESSION['email']

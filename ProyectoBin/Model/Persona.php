@@ -596,9 +596,13 @@ class Persona {
      * @param String $email email de la persona
      * @return array con el email de la persona
      */
-    public static function getPasswordByEmail($email) {
+    public static function getPasswordByCodigo($codigo, $email) {
         $conexion = BinDb::connectDB();
-        $seleccion = "SELECT password FROM persona WHERE email='$email'";
+        if (!empty($email)){
+            $seleccion = "SELECT password FROM persona WHERE email='$email'";
+        }else{
+             $seleccion = "SELECT password FROM persona WHERE codigo=$codigo";
+        }
         $consulta = $conexion->query($seleccion);
         $registro = $consulta->fetchObject();
         foreach ($registro as $key => $value) {
