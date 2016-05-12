@@ -19,7 +19,7 @@ $(function () {
     $(document).on("click", "a[data-action='borrar']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '/Controller/partePrivada/eliminarMisActividades.php',
+            url: '/Controller/partePublica/eliminarMisActividades.php',
             method: 'POST',
             dataType: "json",
             

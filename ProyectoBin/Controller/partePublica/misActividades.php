@@ -35,7 +35,9 @@ if ($_SESSION['logeado'] == "Si") {
         echo $twig->render('misActividades.html.twig', [
             "participantes" => $participantes,
             "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
-            "email" => $_SESSION['email']
+            "email" => $_SESSION['email'],
+            "pagina" => $pagina,
+            "totalPaginas" => $totalPaginas
             ]);
     } else {
         $pagina = $_GET['pagina'];
@@ -50,7 +52,9 @@ if ($_SESSION['logeado'] == "Si") {
         echo $twig->render('tablaMisActividades.html.twig', [
             "participantes" => $participantes,
             "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
-            "email" => $_SESSION['email']
+            "email" => $_SESSION['email'],
+            "pagina" => $pagina,
+            "totalPaginas" => $totalPaginas
              ]);
     }
 }else{

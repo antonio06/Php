@@ -24,20 +24,20 @@
         <form class="col s12" action="../../Controller/partePrivada/modificadopersona.php" method="post" enctype="multipart/form-data" id="formularioModificarPersona">
             <div class="row">
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="DNI" value="{{ persona.DNI }}" id="dni_persona">
-                    <label for="last_name">DNI</label>
+                    <input type="text" class="validate" name="DNI" value="{{ persona.DNI }}" id="dni_persona">
+                    <label for="dni_persona">DNI</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="nombre" value="{{ persona.nombre }}" id="nombre_persona">
-                    <label for="last_name">Nombre</label>
+                    <input type="text" class="validate" name="nombre" value="{{ persona.nombre }}" id="nombre_persona">
+                    <label for="nombre_persona">Nombre</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="apellido1" value="{{ persona.apellido1 }}" id="apellido1_persona">
-                    <label for="last_name">1º Apellido</label>
+                    <input type="text" class="validate" name="apellido1" value="{{ persona.apellido1 }}" id="apellido1_persona">
+                    <label for="apellido1_persona">1º Apellido</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="apellido2" value="{{ persona.apellido2 }}" id="apellido2_persona">
-                    <label for="last_name">2º Apellido</label>
+                    <input type="text" class="validate" name="apellido2" value="{{ persona.apellido2 }}" id="apellido2_persona">
+                    <label for="apellido2_persona">2º Apellido</label>
                 </div>
                 <div class="input-field col s4">
                     <select class="browser-default" name="perfil">
@@ -66,47 +66,47 @@
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Fecha Nacimiento</label>
-                    <input id="last_name" type="date" class="validate" name="fecha_nac" value="{{ persona.fecha_nac }}" id="fecha_nac_persona">
+                    <input id="fecha_nac_persona" type="date" class="validate" name="fecha_nac" value="{{ persona.fecha_nac }}" id="fecha_nac_persona">
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="direccion" value="{{ persona.direccion }}" id="direccion_persona">
-                    <label for="last_name">Direccion</label>
+                    <input type="text" class="validate" name="direccion" value="{{ persona.direccion }}" id="direccion_persona">
+                    <label for="direccion_persona">Direccion</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="municipio" value="{{ persona.municipio }}" id="municipio_persona">
-                    <label for="last_name">Municipio</label>
+                    <input type="text" class="validate" name="municipio" value="{{ persona.municipio }}" id="municipio_persona">
+                    <label for="municipio_persona">Municipio</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="provincia" value="{{ persona.provincia }}" id="provincia_persona">
-                    <label for="last_name">Provincia</label>
+                    <input type="text" class="validate" name="provincia" value="{{ persona.provincia }}" id="provincia_persona">
+                    <label for="provincia_persona">Provincia</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="last_name" type="text" class="validate" name="pais" value="{{ persona.pais }}" id="pais_persona">
-                    <label for="last_name">País</label>
+                    <input type="text" class="validate" name="pais" value="{{ persona.pais }}" id="pais_persona">
+                    <label for="pais_persona">País</label>
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Fecha Alta</label>
-                    <input id="last_name" type="date" class="validate" name="fecha_alta" value="{{ persona.fecha_alta }}" id="fecha_alta_persona">
+                    <input type="date" class="validate" name="fecha_alta" value="{{ persona.fecha_alta }}" id="fecha_alta_persona">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Fecha Baja</label>
-                    <input id="last_name" type="date" class="validate" name="fecha_baja" value="{{ persona.fecha_baja }}" id="fecha_baja_persona">
+                    <input type="date" class="validate" name="fecha_baja" value="{{ persona.fecha_baja }}" id="fecha_baja_persona">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -1%">Nº Seguridad Social</label>
-                    <input id="last_name" type="text" class="validate" name="n_Seguridad_Social" value="{{ persona.n_Seguridad_Social }}" id="n_seguridad_social_persona">
+                    <input type="text" class="validate" name="n_Seguridad_Social" value="{{ persona.n_Seguridad_Social }}" id="n_seguridad_social_persona">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -1%">Nº Cuenta Bancaria</label>
-                    <input id="last_name" type="text" class="validate" name="n_Cuenta_Bancaria" value="{{ persona.n_Cuenta_Bancaria }}" id="n_cuenta_bancaria_persona">
+                    <input type="text" class="validate" name="n_Cuenta_Bancaria" value="{{ persona.n_Cuenta_Bancaria }}" id="n_cuenta_bancaria_persona">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -1%">Email</label>
-                    <input id="last_name" type="email" class="validate" name="email" value="{{ persona.email }}" id="email_persona">
+                    <input type="email" class="validate" name="email" value="{{ persona.email }}" id="email_persona">
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: 1%">Password</label>
-                    <input id="last_name" type="password" class="validate" name="password" value="{{ persona.password }}" id="password_persona">
+                    <input type="password" class="validate" name="password" value="{{ persona.password }}" id="password_persona">
                 </div>
                 <div class="input-field col s3">
                     <select class="browser-default" name="perfil_usuario">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="input-field col s3">
                     <label style="margin-top: -11%">Observaciones</label>
-                    <input id="last_name" type="text" class="validate" name="observaciones" value="{{persona.observaciones}}" id="observaciones_persona">
+                    <input type="text" class="validate" name="observaciones" value="{{persona.observaciones}}" id="observaciones_persona">
                 </div>
             </div>
                 <input class="waves-effect waves-light btn yellow accent-2" type="submit" value="modificar" name="opcion" id="botonModificar">

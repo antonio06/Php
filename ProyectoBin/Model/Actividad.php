@@ -476,8 +476,8 @@ class Actividad {
      */
     public function insertParticipante($perfil, $nombre, $codigo) {
         $conexion = BinDb::connectDB();
-        echo $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) "
-                . "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
+        $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) ".
+            "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
         return $conexion->exec($inserta);
     }
 
@@ -570,7 +570,7 @@ class Actividad {
                             INNER JOIN persona ON persona.codigo = participa.codigo_persona 
                             INNER JOIN actividad ON actividad.codigo_actividad = participa.codigo_actividad 
                             INNER JOIN perfil ON participa.codigo_perfil = perfil.codigo 
-                          WHERE codigo_persona=$codigo_persona ORDER BY titulo LIMIT $sesionPagina , $limite";
+                          WHERE participa.codigo_persona=$codigo_persona ORDER BY titulo LIMIT $sesionPagina , $limite";
         } else {
             $seleccion = "SELECT 
                             participa.codigo_persona, 

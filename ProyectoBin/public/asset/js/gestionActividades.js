@@ -20,6 +20,16 @@ $(function () {
         selectMonths: true
     });
 
+    $(document).ready(function () {
+        $('.time_element').timepicki({
+		show_meridian:false,
+		min_hour_value:0,
+		max_hour_value:23,
+		overflow_minutes:true,
+		increase_direction:'up',
+		disable_keyboard_mobile: true})
+    });
+    
     $("#nuevaActividad").click(function () {
         $("#formularioActividad").trigger("submit", {
             url: "/Controller/partePrivada/actividades/insertarActividad.php"
@@ -98,6 +108,7 @@ $(function () {
                 }
                 mostrarModal({
                     accion: "ver",
+                    participa: respuesta.participa
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -217,43 +228,63 @@ function enviarFormulario(event, opciones) {
 
     var formulario = $("#formularioActividad")[0];
     if (formulario.checkValidity()) {
-        var datos = $("#formularioActividad").serialize();
+        var datos = $("#formularioActividad").serializeArray();
+        // Creamos un objeto llamado actividad
+        var actividad = {};
+        //iteramos sobre datos que es un array con todas las propiedades que tiene actividad.
+        for (var a = 0; a < datos.length; a++) {
+            // creamos una variable propiedad donde le decimos en posición x sacame name.
+            var propiedad = datos[a].name;
+            // creamos una variable valor donde le decimos en posición x sacame value.
+            var valor = datos[a].value;
+            // en actividad le añadimos una propiedad y le asignamos un valor.
+            actividad[propiedad] = valor;
+        }
+        // creamos una variable el cual coje la propiedad pickadate y obtenemos el valor con este formato
+        var fecha_inicio = $("#fecha_inicio_actividad").pickadate("picker").get("select", "yyyy-mm-dd");
+        var fecha_fin = $("#fecha_fin_actividad").pickadate("picker").get("select", "yyyy-mm-dd");
+
+        actividad.fecha_inicio = fecha_inicio;
+        actividad.fecha_fin = fecha_fin;
         var id = $("#formularioActividad").data("idActividad");
         if (id) {
-            datos += "&" + decodeURIComponent($.param({codigo_actividad: id}));
+            //datos += "&" + decodeURIComponent($.param({codigo_actividad: id}));
+            actividad.codigo_actividad = id;
         }
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: datos,
-            dataType: "json",
-            success: function (respuesta, textStatus, jqXHR) {
-                if (respuesta.estado === "success") {
-                    mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
-                    setTimeout(function () {
-                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
-                    }, 3000);
-                    limpiarFormulario();
+        console.log(actividad);
 
-                    $("#cerrarModal").trigger("click");
-
-                    // Refrescar la tabla
-                    paginar($("#paginacion").attr("data-pagina"));
-
-                } else {
-                    var errores = "<span>Ocurrieron los siguientes fallos:</span>";
-                    errores += "<ul class='lista'>";
-                    for (var i = 0; i < respuesta.errores.length; i++) {
-                        errores += "<li>" + respuesta.errores[i] + "</li>";
-                    }
-                    errores += "</ul>";
-                    mensaje.html(errores).removeClass("oculto").addClass("error");
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
-            }
-        });
+//        $.ajax({
+//            url: url,
+//            method: 'POST',
+//            data: actividad,
+//            dataType: "json",
+//            success: function (respuesta, textStatus, jqXHR) {
+//                if (respuesta.estado === "success") {
+//                    mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
+//                    setTimeout(function () {
+//                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
+//                    }, 3000);
+//                    limpiarFormulario();
+//
+//                    $("#cerrarModal").trigger("click");
+//
+//                    // Refrescar la tabla
+//                    paginar($("#paginacion").attr("data-pagina"));
+//
+//                } else {
+//                    var errores = "<span>Ocurrieron los siguientes fallos:</span>";
+//                    errores += "<ul class='lista'>";
+//                    for (var i = 0; i < respuesta.errores.length; i++) {
+//                        errores += "<li>" + respuesta.errores[i] + "</li>";
+//                    }
+//                    errores += "</ul>";
+//                    mensaje.html(errores).removeClass("oculto").addClass("error");
+//                }
+//            },
+//            error: function (jqXHR, textStatus, errorThrown) {
+//                mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
+//            }
+//        });
     }
 }
 
