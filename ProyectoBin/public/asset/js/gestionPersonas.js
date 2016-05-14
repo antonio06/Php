@@ -191,39 +191,62 @@ function enviarFormulario(event, opciones) {
 
     var formulario = $("#formularioPersona")[0];
     if (formulario.checkValidity()) {
-        var datos = $("#formularioPersona").serialize();
+        var datos = $("#formularioPersona").serializeArray();
+        
+        
+        var persona = {};
+        //iteramos sobre datos que es un array con todas las propiedades que tiene actividad.
+        for (var a = 0; a < datos.length; a++) {
+            // creamos una variable propiedad donde le decimos en posición x sacame name.
+            var propiedad = datos[a].name;
+            // creamos una variable valor donde le decimos en posición x sacame value.
+            var valor = datos[a].value;
+            // en actividad le añadimos una propiedad y le asignamos un valor.
+            persona[propiedad] = valor;
+        }
+        // creamos una variable el cual coje la propiedad pickadate y obtenemos el valor con este formato
+        var fecha_nac = $("#fecha_nac_persona").pickadate("picker").get("select", "yyyy-mm-dd");
+        var fecha_alta = $("#fecha_alta_persona").pickadate("picker").get("select", "yyyy-mm-dd");
+        var fecha_baja = $("#fecha_baja_persona").pickadate("picker").get("select", "yyyy-mm-dd");
+        persona.fecha_nac = fecha_nac;
+        persona.fecha_alta = fecha_alta;
+        persona.fecha_baja = fecha_baja;
+        
         var id = $("#formularioPersona").data("idPersona");
         if (id) {
-            datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
+//            datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
+              persona.codigo_persona = id;
         }
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: datos,
-            dataType: "json",
-            success: function (respuesta, textStatus, jqXHR) {
-                if (respuesta.estado === "success") {
-                    mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
-                    limpiarFormulario();
-                    $("#cerrarModal").trigger("click");
-
-                    // Refrescar la tabla
-                    paginar($("#paginacion").attr("data-pagina"));
-
-                } else {
-                    var errores = "<span>Ocurrieron los siguientes fallos:</span>";
-                    errores += "<ul class='lista'>";
-                    for (var i = 0; i < respuesta.errores.length; i++) {
-                        errores += "<li>" + respuesta.errores[i] + "</li>";
-                    }
-                    errores += "</ul>";
-                    mensaje.html(errores).removeClass("oculto").addClass("error");
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
-            }
-        });
+        
+        console.log(persona);
+//        $.ajax({
+//            url: url,
+//            method: 'POST',
+//            data: datos,
+//            dataType: "json",
+//            success: function (respuesta, textStatus, jqXHR) {
+//                if (respuesta.estado === "success") {
+//                    mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
+//                    limpiarFormulario();
+//                    $("#cerrarModal").trigger("click");
+//
+//                    // Refrescar la tabla
+//                    paginar($("#paginacion").attr("data-pagina"));
+//
+//                } else {
+//                    var errores = "<span>Ocurrieron los siguientes fallos:</span>";
+//                    errores += "<ul class='lista'>";
+//                    for (var i = 0; i < respuesta.errores.length; i++) {
+//                        errores += "<li>" + respuesta.errores[i] + "</li>";
+//                    }
+//                    errores += "</ul>";
+//                    mensaje.html(errores).removeClass("oculto").addClass("error");
+//                }
+//            },
+//            error: function (jqXHR, textStatus, errorThrown) {
+//                mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
+//            }
+//        });
     }
 }
 

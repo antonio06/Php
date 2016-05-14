@@ -16,20 +16,21 @@ $(function () {
 
     });
     $("#formularioActividad").submit(enviarFormulario);
+
     $('.datepicker').pickadate({
         selectMonths: true
     });
 
     $(document).ready(function () {
         $('.time_element').timepicki({
-		show_meridian:false,
-		min_hour_value:0,
-		max_hour_value:23,
-		overflow_minutes:true,
-		increase_direction:'up',
-		disable_keyboard_mobile: true})
+            show_meridian: false,
+            min_hour_value: 0,
+            max_hour_value: 23,
+            overflow_minutes: true,
+            increase_direction: 'up',
+            disable_keyboard_mobile: true})
     });
-    
+
     $("#nuevaActividad").click(function () {
         $("#formularioActividad").trigger("submit", {
             url: "/Controller/partePrivada/actividades/insertarActividad.php"
@@ -243,15 +244,24 @@ function enviarFormulario(event, opciones) {
         // creamos una variable el cual coje la propiedad pickadate y obtenemos el valor con este formato
         var fecha_inicio = $("#fecha_inicio_actividad").pickadate("picker").get("select", "yyyy-mm-dd");
         var fecha_fin = $("#fecha_fin_actividad").pickadate("picker").get("select", "yyyy-mm-dd");
+        // obtenemos la propiedad de la hora del objeto de actividad
+        var horario_inicio = actividad.horario_inicio;
+        var horario_fin = actividad.horario_fin;
+
+        horario_inicio = horario_inicio.split(" ").join("") + ":00";
+        horario_fin = horario_fin.split(" ").join("") + ":00";
+
+        actividad.horario_inicio = horario_inicio;
+        actividad.horario_fin = horario_fin;
 
         actividad.fecha_inicio = fecha_inicio;
         actividad.fecha_fin = fecha_fin;
+
         var id = $("#formularioActividad").data("idActividad");
         if (id) {
-            //datos += "&" + decodeURIComponent($.param({codigo_actividad: id}));
             actividad.codigo_actividad = id;
         }
-        console.log(actividad);
+        if (validarFormulario(actividad)) {
 
 //        $.ajax({
 //            url: url,
@@ -285,7 +295,46 @@ function enviarFormulario(event, opciones) {
 //                mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
 //            }
 //        });
+        }
     }
+}
+
+function validarFormulario(actividad) {
+
+    var errores = [];
+
+    var fecha_inicio = new Date(actividad.fecha_inicio);
+    var fecha_fin = new Data(actividad.fecha_fin);
+
+    var fechaHorarioInicio = tiempoAFecha(actividad.horario_inicio);
+    var fechaHorarioFin = tiempoAFecha(actividad.horario_fin);
+
+    // Validar que la fecha de fin sea mayor o igual a la fecha de inicio
+    if (fecha_fin < fecha_inicio) {
+        errores.push("La fecha de inicio de actividad debe ser anterior a la fecha de fin.");
+    }
+
+    // Validar que la hora fin sea mayor a hora inicio en caso de que fecha inicio sea igual a fecha fin
+    if (fecha_fin === fecha_inicio) {
+        if (fechaHorarioFin < fechaHorarioInicio) {
+            errores.push("La hora de inicio de actividad debe ser menor a la hora de finnalización.");
+        }
+    }
+
+    // Validar que si la actividad empieza y termina el mismo dia el total de horas debe coincidir con
+    //   las horas que hay entre hora inicio y hora fin
+
+    var totalHoras = actividad.n_Total_Horas;
+    var tiempoPasado = Math.round((fechaHorarioFin - fechaHorarioInicio) / 1000 / 60 / 60);
+    if (tiempoPasado !== totalHoras) {
+        // TODO: pregunta existencial
+        errores.push(".");
+    }
+    // Validar que si la actividad empieza y termina en distinto dia las horas totales (intervalo de
+    // hora inicio y hora fin) * dias que dura no debe ser superior a las horas totales
+
+
+    return errores;
 }
 
 function mostrarModal(opciones) {
@@ -314,4 +363,43 @@ function mostrarModal(opciones) {
 
 function limpiarFormulario() {
     $("#formularioActividad").trigger("reset");
+}
+
+function tiempoAFecha(horarioString) {
+    // Usaremos exponente para el nº de veces que hay que multiplicar por 60
+    // para pasar de tiempo a segundos
+    var exponente, tiempo;
+
+    // Convertimos el string de horario a array
+    var horarioArray = horarioString.split(":");
+
+    // Pasamos el array de strings a enteros
+    for (var i = 0; i < horarioArray.length; i++) {
+        horarioArray[i] = parseInt(horarioArray[i]);
+    }
+
+    // Obtenemos el tiempo del array en milisegundos
+    var horarioEnMs = 0;
+
+    for (var i = 0; i < horarioArray.length; i++) {
+
+        // Guardamos en tiempo el tiempo con el que iteramos
+        tiempo = horarioArray[i];
+
+        // Obtenemos el exponente:
+        // hora: 60 * 60 --> 2
+        // minutos: 60   --> 1 
+        // segundos: 60  --> 0
+        exponente = horarioArray.length - (i + 1);
+
+        // Aumentamos el acumulador con el tiempo pasado a milisegundos
+        // hora: 60^2 * 1000 = 3.600.000ms
+        // minutos: 60^1 * 1000 = 60.000ms
+        // segundos: 60^0 * 1000 = 1000ms
+        horarioEnMs += tiempo * Math.pow(60, exponente) * 1000;
+    }
+
+    // Devolvemos en formato fecha el horario
+    // Le restamos una hora porque la 1/1/1970 empieza por defecto a las 01:00:00
+    return new Date(horarioEnMs - (60 * 60 * 1000));
 }
