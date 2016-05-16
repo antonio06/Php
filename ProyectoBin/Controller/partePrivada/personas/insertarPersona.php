@@ -30,16 +30,12 @@ if ($_SESSION['logeado'] == "Si") {
     }
     
     $perfil = $_POST['perfil'];
-    if (Actividad::findCodigoPerfil($perfil) == "TRUE"){
-        $respuesta["errores"][] = "El perfil pertenece a la lista de perfiles.";
-    }else{
+    if (!Actividad::findCodigoPerfil($perfil) == "TRUE"){
         $respuesta["errores"][] = "El perfil no pertenece a la lista de perfiles.";
     }
     
     $sexo = $_POST['sexo'];
-    if (Persona::findSexoPersona($sexo) == "TRUE"){
-        $respuesta["errores"][] = "El sexo pertenece a la lista de sexos.";
-    }else{
+    if (!Persona::findSexoPersona($sexo) == "TRUE"){
         $respuesta["errores"][] = "El sexo no pertenece a la lista de sexos.";
     }
     
@@ -59,16 +55,27 @@ if ($_SESSION['logeado'] == "Si") {
     }
     
     $perfil_usuario = $_POST['perfil_usuario'];
-    if (Persona::findPerfil_usuario($perfil_usuario) == "TRUE"){
-        $respuesta["errores"][] = "El perfil de usuario pertenece a la lista de perfiles.";
-    }else{
+    if (!Persona::findPerfil_usuario($perfil_usuario) == "TRUE"){
         $respuesta["errores"][] = "El perfil de usuario no pertenece a la lista de perfiles.";
     }
     
     if (empty($respuesta["errores"])) {
-    move_uploaded_file($_FILES['foto']['tmp_name'], "../../public/asset/img/" . $_FILES['foto']['name']);
+    $foto = file_get_contents($_FILES['foto']['tmp_name']);
+        /*
+         * Para la foto en vez de utilizar el método de almacenarlo en un fichero,
+         * modificamos el campo foto en la BBDD de string a longblod, luego en el php
+         * sobre el $_FILES que nos devuelve el html le hacemos un file_get_contents,
+         * que transformara el fichero a cadena a eso le hacemos un addslashes,
+         * que añadirá barras sobre los caracteres y a eso un base64_encode para
+         * codificarlo a base 64 
+         * MIRAR DOCUMENTACIÓN OFICIAL DE PHP
+         * addslashes:http://php.net/manual/es/function.addslashes.php
+         * file_get_contents: http://php.net/manual/es/function.file-get-contents.php
+         *  base64_encode: http://php.net/manual/es/function.base64-encode.php
+         */
+        $foto = addslashes(base64_encode($foto));
         $persona = new Persona("", $DNI, $nombre, $apellido1, $apellido2, $perfil,
-                $_FILES['foto']['name'], $sexo, $fecha_nac, $_POST['direccion'],
+                $foto, $sexo, $fecha_nac, $_POST['direccion'],
                 $_POST['municipio'], $_POST['provincia'], $_POST['pais'], 
                 $_POST['fecha_alta'], $_POST['fecha_baja'], 
                 $_POST['n_Seguridad_Social'], $_POST['n_Cuenta_Bancaria'], 

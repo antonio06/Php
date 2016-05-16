@@ -245,6 +245,9 @@ function enviarFormulario(event, opciones) {
                 success: function (respuesta, textStatus, jqXHR) {
                     if (respuesta.estado === "success") {
                         mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
+                        setTimeout(function () {
+                            $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                        }, 3000);
                         limpiarFormulario();
                         $("#cerrarModal").trigger("click");
 

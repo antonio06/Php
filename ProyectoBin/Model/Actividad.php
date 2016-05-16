@@ -512,11 +512,10 @@ class Actividad {
      * @param Integer $sesionCodigo codigo de la persona
      * @return Objeto participa
      */
-    public static function deleteParticipa($codigo_persona, $codigo_actividad) {
+    public static function deleteParticipa($id) {
         $conexion = BinDb::connectDB();
 
-        $borrar = "DELETE FROM participa WHERE codigo_persona=$codigo_persona "
-                . "and codigo_actividad=$codigo_actividad ";
+        $borrar = "DELETE FROM participa WHERE id=$id";
         return $conexion->exec($borrar);
     }
 

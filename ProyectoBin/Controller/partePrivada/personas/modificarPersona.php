@@ -56,8 +56,26 @@ if ($_SESSION['logeado'] == "Si") {
     
     if (empty($respuesta["errores"])) {
         $foto = file_get_contents($_FILES['foto']['tmp_name']);
-//        $foto = base64_encode($foto);
-        $persona = new Persona($_POST['codigo_persona'], $_POST['DNI'], $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'], $perfil, $foto, $_POST['sexo'], $_POST['fecha_nac'], $_POST['direccion'], $_POST['municipio'], $_POST['provincia'], $_POST['pais'], $_POST['fecha_alta'], $_POST['fecha_baja'], $_POST['n_Seguridad_Social'], $_POST['n_Cuenta_Bancaria'], $_POST['email'], NULL, $_POST['perfil_usuario'], $_POST['observaciones']);
+        /*
+         * Para la foto en vez de utilizar el método de almacenarlo en un fichero,
+         * modificamos el campo foto en la BBDD de string a longblod, luego en el php
+         * sobre el $_FILES que nos devuelve el html le hacemos un file_get_contents,
+         * que transformara el fichero a cadena a eso le hacemos un addslashes,
+         * que añadirá barras sobre los caracteres y a eso un base64_encode para
+         * codificarlo a base 64 
+         * MIRAR DOCUMENTACIÓN OFICIAL DE PHP
+         * addslashes:http://php.net/manual/es/function.addslashes.php
+         * file_get_contents: http://php.net/manual/es/function.file-get-contents.php
+         *  base64_encode: http://php.net/manual/es/function.base64-encode.php
+         */
+        $foto = addslashes(base64_encode($foto));
+        $persona = new Persona($_POST['codigo_persona'], $_POST['DNI'],
+                $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'],
+                $perfil, $foto, $_POST['sexo'], $_POST['fecha_nac'],
+                $_POST['direccion'], $_POST['municipio'], $_POST['provincia'],
+                $_POST['pais'], $_POST['fecha_alta'], $_POST['fecha_baja'],
+                $_POST['n_Seguridad_Social'], $_POST['n_Cuenta_Bancaria'],
+                $_POST['email'], NULL, $_POST['perfil_usuario'], $_POST['observaciones']);
         if ($persona->update()){
             $respuesta["estado"] = "success";
             $respuesta["mensaje"] = "Persona modificada con éxito."; 

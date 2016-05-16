@@ -90,8 +90,7 @@ $(function () {
             method: 'POST',
             dataType: "json",
             data: {
-                codigo_actividad: $(event.currentTarget).attr("data-id"),
-                codigo_persona: $(event.currentTarget).attr("value")
+                id: $(event.currentTarget).attr("data-id"),
             },
             success: function (respuesta, textStatus, jqXHR) {
                 if (respuesta.estado) {

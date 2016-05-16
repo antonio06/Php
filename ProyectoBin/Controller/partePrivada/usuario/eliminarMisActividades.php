@@ -7,11 +7,9 @@ require_once '../../../Model/Actividad.php';
 
 if ($_SESSION['logeado'] == "Si") {
     
-    if (isset($_POST['codigo_actividad'])) {
-        $codigo_persona = $_SESSION['codigo'];
-        $codigo_actividad = $_POST['codigo_actividad'];
-        if (!empty($codigo_actividad)) {
-            $aRespuesta = ['estado' => Actividad::deleteParticipa($codigo_persona, $codigo_actividad)];
+    if (isset($_POST['id'])) {
+        if (!empty($_POST['id'])) {
+            $aRespuesta = ['estado' => Actividad::deleteParticipa($_POST['id'])];
             echo json_encode($aRespuesta);
         }
     }

@@ -24,7 +24,7 @@ $(function () {
             dataType: "json",
             
             data: {
-                codigo_actividad: $(event.currentTarget).attr("data-id")
+                id: $(event.currentTarget).attr("data-id")
             },
             success: function (respuesta, textStatus, jqXHR) {
                 if (respuesta.estado) {

@@ -11,6 +11,10 @@ class BinDb {
     private static $user = 'root';
     private static $password = 'root';
     
+//    private static $server = 'crsanti.es';
+//    private static $db = 'actividadesbin';
+//    private static $user = 'antonio';
+//    private static $password = 'antonio';
     /**
      * Este método se encargará de conectarnos a la base de datos actividades.
      * @param string $server nombre del servidor.
