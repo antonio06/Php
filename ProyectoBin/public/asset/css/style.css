@@ -89,3 +89,7 @@
 .paginaActual a{
     color: #f5f5f5 !important;
 }
+
+.foto{
+    max-width: 150px;
+}

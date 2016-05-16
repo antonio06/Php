@@ -7,7 +7,7 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../../View/partePrivada');
 $twig = new Twig_Environment($loader);
 if ($_SESSION['logeado'] == "Si") {
-    $persona = Persona::getPersonaByCodigo($_SESSION['codigo']);
+    $persona = Persona::getPersonaByCodigo($_SESSION['codigo'], NULL);
     //$perfilesUsuarios = Persona::getPerfiles_usuariosPersona();
     $perfil = Persona::getPerfilByCodigo($_SESSION['codigo']);
     $sexo = Persona::getSexoPersona();

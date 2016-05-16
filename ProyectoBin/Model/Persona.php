@@ -305,6 +305,10 @@ class Persona {
      */
     public function update() {
         $conexion = BinDb::connectDB();
+        $password = "";
+        if ($this->password != NULL){
+            $password = ", password=\"" . $this->password . "\"";
+        }
         $modificar = "UPDATE persona Set codigo=\"" . $this->codigo . "\", DNI=\""
                 . $this->DNI . "\", nombre=\"" . $this->nombre
                 . "\", apellido1=\"" . $this->apellido1 . "\", apellido2=\""
@@ -316,8 +320,8 @@ class Persona {
                 . $this->fecha_alta . "\", fecha_baja=\"" . $this->fecha_baja .
                 "\", n_Seguridad_Social=\"" . $this->n_Seguridad_Social .
                 "\", n_Cuenta_Bancaria=\"" . $this->n_Cuenta_Bancaria .
-                "\", email=\"" . $this->email . "\", password=\"" . $this->password
-                . "\", perfil_usuario=\"" . $this->perfil_usuario . "\", observaciones=\""
+                "\", email=\"" . $this->email . "\"" . $password
+                . ", perfil_usuario=\"" . $this->perfil_usuario . "\", observaciones=\""
                 . $this->observaciones .
                 "\" WHERE codigo=" . $this->codigo;
 
@@ -375,7 +379,7 @@ class Persona {
         $conexion = BinDb::connectDB($codigo_persona);
         $seleccion = "SELECT codigo FROM persona WHERE codigo=$codigo_persona";
 
-         $registro = $conexion->query($seleccion);
+        $registro = $conexion->query($seleccion);
         if ($registro->rowCount() > 0) {
             return TRUE;
         }
@@ -479,10 +483,15 @@ class Persona {
      * @param string $codigo codigo correspondiente a la persona.
      * @return array devuelve objetos de las personas
      */
-    public static function getPersonaByCodigo($codigo_persona) {
+    public static function getPersonaByCodigo($codigo_persona, $detallesPerfil) {
+
+        $perfil = "perfil.descripcion AS perfil";
+        if ($detallesPerfil != NULL) {
+            $perfil = "perfil.codigo AS perfil";
+        }
         $conexion = BinDb::connectDB();
         $selecciona = "SELECT persona.codigo, DNI, nombre, apellido1, apellido2,"
-                . " perfil.descripcion, foto, sexo, fecha_nac, direccion, "
+                . $perfil . ", foto, sexo, fecha_nac, direccion, "
                 . "municipio, provincia, pais, fecha_alta, fecha_baja, "
                 . "n_Seguridad_Social, n_Cuenta_Bancaria, email, password, "
                 . "perfil_usuario, observaciones FROM persona INNER JOIN perfil "
@@ -490,16 +499,15 @@ class Persona {
                 . " WHERE persona.codigo=\"" . $codigo_persona . "\"";
         $consulta = $conexion->query($selecciona);
         $registro = $consulta->fetchObject();
-        
-        if ($registro){
+        if ($registro) {
             return new Persona($registro->codigo, $registro->DNI
-                , $registro->nombre, $registro->apellido1, $registro->apellido2
-                , $registro->descripcion, $registro->foto, $registro->sexo
-                , $registro->fecha_nac, $registro->direccion
-                , $registro->municipio, $registro->provincia, $registro->pais
-                , $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social
-                , $registro->n_Cuenta_Bancaria, $registro->email, $registro->password
-                , $registro->perfil_usuario, $registro->observaciones);
+                    , $registro->nombre, $registro->apellido1, $registro->apellido2
+                    , $registro->perfil, $registro->foto, $registro->sexo
+                    , $registro->fecha_nac, $registro->direccion
+                    , $registro->municipio, $registro->provincia, $registro->pais
+                    , $registro->fecha_alta, $registro->fecha_baja, $registro->n_Seguridad_Social
+                    , $registro->n_Cuenta_Bancaria, $registro->email, $registro->password
+                    , $registro->perfil_usuario, $registro->observaciones);
         }
         return NULL;
     }
@@ -598,10 +606,10 @@ class Persona {
      */
     public static function getPasswordByCodigo($codigo, $email) {
         $conexion = BinDb::connectDB();
-        if (!empty($email)){
+        if (!empty($email)) {
             $seleccion = "SELECT password FROM persona WHERE email='$email'";
-        }else{
-             $seleccion = "SELECT password FROM persona WHERE codigo=$codigo";
+        } else {
+            $seleccion = "SELECT password FROM persona WHERE codigo=$codigo";
         }
         $consulta = $conexion->query($seleccion);
         $registro = $consulta->fetchObject();
@@ -691,33 +699,33 @@ class Persona {
         return $perfil;
     }
 
-    public static function findSexoPersona($sexo){
+    public static function findSexoPersona($sexo) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT sexo FROM persona WHERE sexo='$sexo'";
 
-         $registro = $conexion->query($seleccion);
+        $registro = $conexion->query($seleccion);
         if ($registro->rowCount() > 0) {
             return TRUE;
         }
         return FALSE;
     }
-    
-    public static function findPerfil_usuario($perfil_usuario){
+
+    public static function findPerfil_usuario($perfil_usuario) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT perfil_usuario FROM persona WHERE perfil_usuario='$perfil_usuario'";
 
-         $registro = $conexion->query($seleccion);
+        $registro = $conexion->query($seleccion);
         if ($registro->rowCount() > 0) {
             return TRUE;
         }
         return FALSE;
     }
-    
+
     /**
      * Devuelve una representación del objeto en formato JSON.
      * @return type String El objeto en formato JSON. 
      */
-    public function toJSON() {
+    public function toArray() {
         $persona = [
             "codigo" => $this->codigo,
             "DNI" => $this->DNI,
@@ -725,7 +733,7 @@ class Persona {
             "apellido1" => $this->apellido1,
             "apellido2" => $this->apellido2,
             "perfil" => $this->perfil,
-            "foto" => $this->foto,
+            "foto" => base64_encode($this->foto),
             "sexo" => $this->sexo,
             "fecha_nac" => $this->fecha_nac,
             "direccion" => $this->direccion,
@@ -741,6 +749,7 @@ class Persona {
             "perfil_usuario" => $this->perfil_usuario,
             "observaciones" => $this->observaciones,
         ];
-        return json_encode($persona);
+        return $persona;
     }
+
 }

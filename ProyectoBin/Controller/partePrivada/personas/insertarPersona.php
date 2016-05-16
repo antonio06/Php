@@ -7,7 +7,7 @@ require_once '../../../Model/Persona.php';
 require_once '../../../Model/Actividad.php';
 
 if ($_SESSION['logeado'] == "Si") {
-    $respuesta = ["estado" => "error", "errores" => [], "valorEstado" => $_POST["estado"]];
+    $respuesta = ["estado" => "error", "errores" => []];
     
     $DNI = trim($_POST['DNI']);
     if (empty($DNI)) {

@@ -302,13 +302,7 @@ class Actividad {
         $consulta = $conexion->query($selecciona);
         $registro = $consulta->fetchObject();
         if ($registro) {
-            return new Actividad($registro->codigo_actividad, $registro->titulo,
-                $registro->estado, $registro->coordinador, 
-                $registro->ponente, $registro->ubicacion, 
-                $registro->fecha_inicio, $registro->fecha_fin, 
-                $registro->horario_inicio, $registro->horario_fin,
-                $registro->n_Total_Horas, $registro->precio, 
-                $registro->IVA, $registro->descriptor, $registro->observaciones);
+            return new Actividad($registro->codigo_actividad, $registro->titulo, $registro->estado, $registro->coordinador, $registro->ponente, $registro->ubicacion, $registro->fecha_inicio, $registro->fecha_fin, $registro->horario_inicio, $registro->horario_fin, $registro->n_Total_Horas, $registro->precio, $registro->IVA, $registro->descriptor, $registro->observaciones);
         }
         return NULL;
     }
@@ -476,8 +470,8 @@ class Actividad {
      */
     public function insertParticipante($perfil, $nombre, $codigo) {
         $conexion = BinDb::connectDB();
-        $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) ".
-            "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
+        $inserta = "INSERT INTO participa (codigo_persona, codigo_actividad, codigo_perfil) " .
+                "VALUES (\"" . $perfil . "\", \"" . $nombre . "\", \"" . $codigo . "\")";
         return $conexion->exec($inserta);
     }
 
@@ -499,18 +493,16 @@ class Actividad {
 
     /**
      * Modifica un objeto participa con los datos que se envian como parámetros
-     * @param Integer $perfil codigo de la persona.
-     * @param Integer $nombre codigo de la actividad.
-     * @param Integer $codigo codigo del perfil de la persona
-     * @param Integer $sesionCodigo codigo de participa que está guardada como sesión
+     * @param Integer $codigo_persona codigo de la persona.
+     * @param Integer $codigo_actividad codigo de la actividad.
+     * @param Integer $codigo_perfil codigo del perfil de la persona
      * @return devuelve un objeto participa
      */
-    public static function updateParticipa($perfil, $nombre, $codigo, $sesionCodigo) {
+    public static function updateParticipa($id, $codigo_persona, $codigo_actividad, $codigo_perfil) {
         $conexion = BinDb::connectDB();
-        $modificar = "UPDATE participa  SET codigo_persona=\"" . $perfil . "\", codigo_actividad=\"" .
-                $nombre . "\", codigo_perfil=\"" . $codigo
-                . "\" WHERE codigo_persona=" . $sesionCodigo;
-        //print_r($modificar);
+            $modificar = "UPDATE participa  SET codigo_persona=\"" . $codigo_persona . "\", codigo_actividad=\"" .
+                    $codigo_actividad . "\", codigo_perfil=\"" . $codigo_perfil
+                    . "\" WHERE id=" . $id;
         return $conexion->exec($modificar);
     }
 
@@ -523,8 +515,8 @@ class Actividad {
     public static function deleteParticipa($codigo_persona, $codigo_actividad) {
         $conexion = BinDb::connectDB();
 
-            $borrar = "DELETE FROM participa WHERE codigo_persona=$codigo_persona "
-                    . "and codigo_actividad=$codigo_actividad ";
+        $borrar = "DELETE FROM participa WHERE codigo_persona=$codigo_persona "
+                . "and codigo_actividad=$codigo_actividad ";
         return $conexion->exec($borrar);
     }
 
@@ -560,6 +552,7 @@ class Actividad {
         $conexion = BinDb::connectDB();
         if ($codigo_persona != NULL) {
             $seleccion = "SELECT 
+                            participa.id,
                             participa.codigo_persona, 
                             persona.nombre, 
                             participa.codigo_actividad, 
@@ -573,6 +566,7 @@ class Actividad {
                           WHERE participa.codigo_persona=$codigo_persona ORDER BY titulo LIMIT $sesionPagina , $limite";
         } else {
             $seleccion = "SELECT 
+                            participa.id,
                             participa.codigo_persona, 
                             persona.nombre, 
                             participa.codigo_actividad, 
@@ -617,41 +611,41 @@ class Actividad {
         }
         return $codigo_perfil;
     }
-    
-    public static function findCodigoActividad($codigo_actividad){
+
+    public static function findCodigoActividad($codigo_actividad) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo_actividad FROM actividad WHERE codigo_actividad=$codigo_actividad";
 
-         $registro = $conexion->query($seleccion);
+        $registro = $conexion->query($seleccion);
         if ($registro->rowCount() > 0) {
             return TRUE;
         }
         return FALSE;
     }
-    
-    public static function findCodigoPerfil($codigo_perfil){
+
+    public static function findCodigoPerfil($codigo_perfil) {
         $conexion = BinDb::connectDB();
         $seleccion = "SELECT codigo FROM perfil WHERE codigo=$codigo_perfil";
 
-         $registro = $conexion->query($seleccion);
+        $registro = $conexion->query($seleccion);
         if ($registro->rowCount() > 0) {
             return TRUE;
         }
         return FALSE;
     }
-    
-    public static function comprobarPerfilActividad ($codigo_persona, $codigo_actividad, $codigo_perfil){
+
+    public static function comprobarPerfilActividad($codigo_persona, $codigo_actividad, $codigo_perfil) {
         $conexion = BinDb::connectDB();
-        $seleccion = "SELECT * FROM participa WHERE codigo_persona=$codigo_persona ".
+        $seleccion = "SELECT * FROM participa WHERE codigo_persona=$codigo_persona " .
                 "and codigo_actividad=$codigo_actividad and codigo_perfil=$codigo_perfil";
 
-         $registro = $conexion->query($seleccion);
+        $registro = $conexion->query($seleccion);
         if ($registro->rowCount() > 0) {
             return TRUE;
         }
         return FALSE;
     }
-    
+
     /**
      * Devuelve una representación del objeto en formato JSON.
      * @return type String El objeto en formato JSON. 
@@ -677,5 +671,16 @@ class Actividad {
         return json_encode($actividad);
     }
 
-    
+    public static function getParticipanteById($id) {
+        $conexion = BinDb::connectDB();
+        $seleccion = "SELECT * FROM participa WHERE id=$id";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+        $participante = [];
+
+        foreach ($registro as $key => $value) {
+            $participante[$key] = $value;
+        }
+        return $participante;
+    }
 }

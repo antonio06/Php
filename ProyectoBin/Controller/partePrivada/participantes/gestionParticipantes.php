@@ -31,6 +31,7 @@ if ($_SESSION['logeado'] == "Si") {
             $_SESSION['paginaParticipantes'] = $pagina;
         }
         $codigo_persona = "";
+        
         $participantes = Actividad::getParticipantesByLimit(($pagina - 1) * $limite, $limite, $codigo_persona);
         $perfil_usuario = Persona::getPerfil_usuarioByEmail($_SESSION['email']);
         if ($perfil_usuario == "Administrador") {
@@ -49,7 +50,7 @@ if ($_SESSION['logeado'] == "Si") {
                 "totalPaginas" => $totalPaginas,
                 "personas" => $personas,
                 "actividades" => $actividades,
-                "perfiles" => $perfiles
+                "perfiles" => $perfiles,
             ]);
         } else {
             echo $twig->render('participantes/gestionParticipantes.html.twig', [
@@ -57,7 +58,8 @@ if ($_SESSION['logeado'] == "Si") {
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "email" => $_SESSION['email'],
                 "pagina" => $pagina,
-                "totalPaginas" => $totalPaginas]);
+                "totalPaginas" => $totalPaginas,
+                ]);
         }
     } else {
         $pagina = $_GET['pagina'];
@@ -73,14 +75,16 @@ if ($_SESSION['logeado'] == "Si") {
                 "email" => $_SESSION['email'],
                 "esAdministrador" => $_SESSION['esAdministrador'],
                 "pagina" => $pagina,
-                "totalPaginas" => $totalPaginas]);
+                "totalPaginas" => $totalPaginas,
+                ]);
         } else {
             echo $twig->render('participantes/tablaParticipantes.html.twig', [
                 "participantes" => $participantes,
                 "arrayNumeros" => crearIndicesPaginacion($pagina, $totalPaginas),
                 "email" => $_SESSION['email'],
                 "pagina" => $pagina,
-                "totalPaginas" => $totalPaginas]);
+                "totalPaginas" => $totalPaginas,
+                ]);
         }
     }
 } else {

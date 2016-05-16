@@ -24,11 +24,12 @@
         <div id="divMensaje"></div>
     </div>
     <div id="contenedorTabla">
-    {% include "personas/tablaPersonas.html.twig" %}
+        {% include "personas/tablaPersonas.html.twig" %}
     </div>
-    
+
     <div id="modalPersona" class="modal">
         <div class="modal-content">
+            <div id="divMensajeModalPersona" class="error oculto"></div>
             {% include "personas/formularioPersona.html.twig" %}
             {% include "personas/detallesPersona.html.twig" %}
         </div>

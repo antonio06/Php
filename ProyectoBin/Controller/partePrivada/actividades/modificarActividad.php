@@ -38,7 +38,7 @@ if ($_SESSION['logeado'] == "Si") {
             if ($consulta = $actividad->update()) {
                 $respuesta["consulta"] = $consulta;
                 $respuesta["estado"] = "success";
-                $respuesta["mensaje"] = "Actividad registrada con éxito.";
+                $respuesta["mensaje"] = "Actividad modificada con éxito.";
             }
         }
 

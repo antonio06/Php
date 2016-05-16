@@ -16,11 +16,11 @@ $(function () {
 
     });
     $("#formularioPersona").submit(enviarFormulario);
-    
+
     $('.datepicker').pickadate({
         selectMonths: true
     });
-    
+
     $("#nuevaPersona").click(function () {
         $("#formularioPersona").trigger("submit", {
             url: "/Controller/partePrivada/personas/insertarPersona.php"
@@ -43,7 +43,7 @@ $(function () {
             accion: "crear"
         });
     });
-    
+
     $(document).on("click", "a[data-action='detalles']", function (event) {
         event.preventDefault();
         $.ajax({
@@ -56,12 +56,16 @@ $(function () {
             success: function (respuesta, textStatus, jqXHR) {
                 //$("#suscribirseActividad").parent().show();
                 if (respuesta) {
-                    var persona = $.parseJSON(respuesta.persona);
+                    var persona = respuesta.persona;
 
                     $("#contenedorDetallesPersona").find("div[data-persona]").each(function (indice, elemento) {
                         var dato = $(elemento).attr("data-persona");
                         if (persona[dato] !== "") {
-                            $(elemento).text(persona[dato]);
+                            if (dato === "foto") {
+                                $(elemento).find("img").attr("src", "data:image/jpeg;base64," + persona[dato]);
+                            } else {
+                                $(elemento).text(persona[dato]);
+                            }
                         } else {
                             $(elemento).text("-");
                         }
@@ -92,11 +96,13 @@ $(function () {
 
                 // Almacenar la id de la actividad que se ha seleccionado en el formulario
                 // Esto se hace para no usar input hidden
-                var persona = JSON.parse(respuesta.persona);
-                $("#formularioPersona").data("idPersona", persona["codigo_persona"]);
+                var persona = respuesta.persona;
+                console.log(persona);
+                $("#formularioPersona").data("idPersona", persona.codigo);
 
                 // Recogemos los elementos del formulario
                 var controlesFormulario = $("#formularioPersona")[0].elements;
+                console.log(controlesFormulario);
                 mostrarModal({
                     accion: "modificar",
                     //id: $(event.currentTarget).attr("data-id")
@@ -110,9 +116,11 @@ $(function () {
                     // Esto lo hacemos para filtrar los elementos que no tengan name como los botones
                     // de submit
                     if (nombre) {
-                        $(elemento).val(persona[nombre]);
-                        // Martillazo para que Materialize ponga los labels encima del input
-                        $(elemento).trigger("focus");
+                        if ($(elemento).attr("type") !== "file") {
+                            $(elemento).val(persona[nombre]);
+                            // Martillazo para que Materialize ponga los labels encima del input
+                            $(elemento).trigger("focus");
+                        }
                     }
                 });
 
@@ -192,8 +200,8 @@ function enviarFormulario(event, opciones) {
     var formulario = $("#formularioPersona")[0];
     if (formulario.checkValidity()) {
         var datos = $("#formularioPersona").serializeArray();
-        
-        
+
+
         var persona = {};
         //iteramos sobre datos que es un array con todas las propiedades que tiene actividad.
         for (var a = 0; a < datos.length; a++) {
@@ -211,42 +219,62 @@ function enviarFormulario(event, opciones) {
         persona.fecha_nac = fecha_nac;
         persona.fecha_alta = fecha_alta;
         persona.fecha_baja = fecha_baja;
-        
+
         var id = $("#formularioPersona").data("idPersona");
+        console.log(id);
         if (id) {
 //            datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
-              persona.codigo_persona = id;
+            persona.codigo_persona = id;
         }
-        
-        console.log(persona);
-//        $.ajax({
-//            url: url,
-//            method: 'POST',
-//            data: datos,
-//            dataType: "json",
-//            success: function (respuesta, textStatus, jqXHR) {
-//                if (respuesta.estado === "success") {
-//                    mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
-//                    limpiarFormulario();
-//                    $("#cerrarModal").trigger("click");
-//
-//                    // Refrescar la tabla
-//                    paginar($("#paginacion").attr("data-pagina"));
-//
-//                } else {
-//                    var errores = "<span>Ocurrieron los siguientes fallos:</span>";
-//                    errores += "<ul class='lista'>";
-//                    for (var i = 0; i < respuesta.errores.length; i++) {
-//                        errores += "<li>" + respuesta.errores[i] + "</li>";
-//                    }
-//                    errores += "</ul>";
-//                    mensaje.html(errores).removeClass("oculto").addClass("error");
-//                }
-//            },
-//            error: function (jqXHR, textStatus, errorThrown) {
-//                mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
-//            }
-//        });
+        var errores = validarFormulario(persona);
+
+        console.log(errores);
+        if (errores.length === 0) {
+            var datosformulario = new FormData(formulario);
+            datosformulario.append("fecha_nac", persona.fecha_nac);
+            datosformulario.append("fecha_alta", persona.fecha_alta);
+            datosformulario.append("fecha_baja", persona.fecha_baja);
+            datosformulario.append("codigo_persona", persona.codigo_persona);
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: datosformulario,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function (respuesta, textStatus, jqXHR) {
+                    if (respuesta.estado === "success") {
+                        mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
+                        limpiarFormulario();
+                        $("#cerrarModal").trigger("click");
+
+                        // Refrescar la tabla
+                        paginar($("#paginacion").attr("data-pagina"));
+
+                    } else {
+                        var errores = "<span>Ocurrieron los siguientes fallos:</span>";
+                        errores += "<ul class='lista'>";
+                        for (var i = 0; i < respuesta.errores.length; i++) {
+                            errores += "<li>" + respuesta.errores[i] + "</li>";
+                        }
+                        errores += "</ul>";
+                        mensaje.html(errores).removeClass("oculto").addClass("error");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
+                }
+            });
+        } else {
+            $("#divMensajeModalPersona").removeClass("oculto");
+            var mensajes = "<span>Ocurrieron los siguientes fallos:</span>";
+            for (var a = 0; a < errores.length; a++) {
+                mensajes += "<li>" + errores[a] + "</li>";
+            }
+            mensajes += "</ul>";
+            $("#divMensajeModalPersona").html(mensajes);
+        }
+
     }
 }
 
@@ -262,8 +290,8 @@ function mostrarModal(opciones) {
     } else if (opciones.accion === "modificar") {
         $("#modificarPersona").parent().show();
         $("#contenedorFormularioPersona").show();
-    }else if (opciones.accion === "ver") {
-        
+    } else if (opciones.accion === "ver") {
+
         $("#contenedorDetallesPersona").show();
     }
     $("#modalPersona").openModal();
@@ -271,4 +299,28 @@ function mostrarModal(opciones) {
 
 function limpiarFormulario() {
     $("#formularioPersona").trigger("reset");
+}
+
+function validarFormulario(persona) {
+    var errores = [];
+    var edad = 18;
+    var fecha_alta = new Date(persona.fecha_alta);
+    var fecha_baja = new Date(persona.fecha_baja);
+    var fecha_nac = new Date(persona.fecha_nac)
+
+    if (fecha_alta > fecha_baja) {
+        errores.push("La fecha de alta debe ser menor a la de baja.");
+    }
+    // obtenemos la fecha de hoy.
+    var fechaHoy = new Date();
+    // Obtenemos la fecha de hoy hace 18. 
+    var hace18Años = new Date().setFullYear(fechaHoy.getFullYear() - edad);
+    // transformamos la fecha de hace 18 años a objeto date.
+    var fechaHace18 = new Date(hace18Años);
+
+    if (fecha_nac > fechaHace18) {
+        errores.push("La persona introducida no es mayor de 18 años.");
+    }
+
+    return errores;
 }

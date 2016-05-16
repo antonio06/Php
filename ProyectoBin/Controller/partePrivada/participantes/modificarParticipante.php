@@ -1,34 +1,48 @@
 <?php
 
 session_start();
-require_once '../twig/lib/Twig/Autoloader.php';
-require_once '../../Model/BinDb.php';
-require_once '../../Model/Actividad.php';
-require_once '../../Model/Persona.php';
-Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../../View/partePrivada');
-$twig = new Twig_Environment($loader);
+require_once '../../twig/lib/Twig/Autoloader.php';
+require_once '../../../Model/BinDb.php';
+require_once '../../../Model/Actividad.php';
+require_once '../../../Model/Persona.php';
+
 if ($_SESSION['logeado'] == "Si") {
-    switch ($_POST['opcion']) {
-        case "modificar":
-            if (!isset($_POST['nombre']) || ($_POST['titulo']) || ($_POST['perfil'])) {
-                
-            }
-            $nombre = Persona::getCodigoPersonabyNombre($_POST['nombre']);
+    $respuesta = ["estado" => "error", "errores" => []];
+    $id = $_POST['id'];
+    $codigo_persona = $_POST['codigo_persona'];
 
-            $codigo = Actividad::getCodigoActividadByTitulo($_POST['titulo']);
+//    if (!Persona::findCodigoPersona($codigo_persona)) {
+//        $respuesta["errores"][] = "La persona no pertenece a la lista.";
+//    }
+    
+    $codigo_actividad = $_POST['codigo_actividad'];
 
-            $perfil = Persona::getCodigoPerfilbyDescripcion($_POST['perfil']);
-
-            Actividad::updateParticipa($nombre, $codigo, $perfil, $_SESSION['codigo_persona']);
-            header('Location: gestionParticipantes.php');
-            break;
-        case "cancelar":
-            header('Location: gestionParticipantes.php');
-            break;
-        default :
+    if (!Actividad::findCodigoActividad($codigo_actividad)) {
+        $respuesta["errores"][] = "El titulo no pertenece a la lista de actividades.";
     }
-}else {
-    header("Location: ../partePublica/actividades.php");
+
+    $codigo_perfil = $_POST['codigo_perfil'];
+
+    if (!Actividad::findCodigoPerfil($codigo_perfil)) {
+        $respuesta["errores"][] = "El perfil no pertenece a la lista de perfiles.";
+    }
+
+    if (Actividad::comprobarPerfilActividad($codigo_persona, $codigo_actividad, $codigo_perfil)) {
+        $respuesta["errores"][] = "Esta persona ya está participando en la actividad.";
+    } else {
+        if ($participante = Actividad::updateParticipa($id, $codigo_persona, $codigo_actividad, $codigo_perfil)) {
+            $respuesta["estado"] = "success";
+            $respuesta["mensaje"] = "Participante modificado con éxito.";
+        }else{
+            $respuesta["errores"][] = "No se pudo modificar el registro en la base datos";
+        }
+    }
+
+
+
+
+    echo json_encode($respuesta);
+} else {
+    header("Location: /Controller/partePublica/actividades.php");
 }
 

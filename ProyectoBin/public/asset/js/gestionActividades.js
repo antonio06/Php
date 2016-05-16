@@ -257,44 +257,54 @@ function enviarFormulario(event, opciones) {
         actividad.fecha_inicio = fecha_inicio;
         actividad.fecha_fin = fecha_fin;
 
+
         var id = $("#formularioActividad").data("idActividad");
         if (id) {
             actividad.codigo_actividad = id;
         }
-        if (validarFormulario(actividad)) {
+        var errores = validarFormulario(actividad);
+        if (errores.length === 0) {
 
-//        $.ajax({
-//            url: url,
-//            method: 'POST',
-//            data: actividad,
-//            dataType: "json",
-//            success: function (respuesta, textStatus, jqXHR) {
-//                if (respuesta.estado === "success") {
-//                    mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
-//                    setTimeout(function () {
-//                        $("#divMensaje").removeClass("correcto error").addClass("oculto");
-//                    }, 3000);
-//                    limpiarFormulario();
-//
-//                    $("#cerrarModal").trigger("click");
-//
-//                    // Refrescar la tabla
-//                    paginar($("#paginacion").attr("data-pagina"));
-//
-//                } else {
-//                    var errores = "<span>Ocurrieron los siguientes fallos:</span>";
-//                    errores += "<ul class='lista'>";
-//                    for (var i = 0; i < respuesta.errores.length; i++) {
-//                        errores += "<li>" + respuesta.errores[i] + "</li>";
-//                    }
-//                    errores += "</ul>";
-//                    mensaje.html(errores).removeClass("oculto").addClass("error");
-//                }
-//            },
-//            error: function (jqXHR, textStatus, errorThrown) {
-//                mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
-//            }
-//        });
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: actividad,
+                dataType: "json",
+                success: function (respuesta, textStatus, jqXHR) {
+                    if (respuesta.estado === "success") {
+                        mensaje.html(respuesta.mensaje).removeClass("oculto error").addClass("correcto");
+                        setTimeout(function () {
+                            $("#divMensaje").removeClass("correcto error").addClass("oculto");
+                        }, 3000);
+                        limpiarFormulario();
+
+                        $("#cerrarModal").trigger("click");
+
+                        // Refrescar la tabla
+                        paginar($("#paginacion").attr("data-pagina"));
+
+                    } else {
+                        var errores = "<span>Ocurrieron los siguientes fallos:</span>";
+                        errores += "<ul class='lista'>";
+                        for (var i = 0; i < respuesta.errores.length; i++) {
+                            errores += "<li>" + respuesta.errores[i] + "</li>";
+                        }
+                        errores += "</ul>";
+                        mensaje.html(errores).removeClass("oculto").addClass("error");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    mensaje.html("Hubo un error al realizar la petición, por favor inténtelo más tarde.").removeClass("oculto").addClass("error");
+                }
+            });
+        } else {
+            $("#divMensajeModal").removeClass("oculto");
+            var mensajes = "<span>Ocurrieron los siguientes fallos:</span>";
+            for (var a = 0; a < errores.length; a++) {
+                mensajes += "<li>" + errores[a] + "</li>";
+            }
+            mensajes += "</ul>";
+            $("#divMensajeModal").html(mensajes);
         }
     }
 }
@@ -304,7 +314,8 @@ function validarFormulario(actividad) {
     var errores = [];
 
     var fecha_inicio = new Date(actividad.fecha_inicio);
-    var fecha_fin = new Data(actividad.fecha_fin);
+    var fecha_fin = new Date(actividad.fecha_fin);
+    var totalHoras = parseInt(actividad.n_Total_Horas);
 
     var fechaHorarioInicio = tiempoAFecha(actividad.horario_inicio);
     var fechaHorarioFin = tiempoAFecha(actividad.horario_fin);
@@ -315,29 +326,50 @@ function validarFormulario(actividad) {
     }
 
     // Validar que la hora fin sea mayor a hora inicio en caso de que fecha inicio sea igual a fecha fin
-    if (fecha_fin === fecha_inicio) {
+    if (fecha_fin.getTime() === fecha_inicio.getTime()) {
         if (fechaHorarioFin < fechaHorarioInicio) {
-            errores.push("La hora de inicio de actividad debe ser menor a la hora de finnalización.");
+            errores.push("La hora de inicio de actividad debe ser menor a la hora de finalización.");
+        } else {
+            // Validar que si la actividad empieza y termina el mismo dia el total de horas debe coincidir con
+            //   las horas que hay entre hora inicio y hora fin
+
+            var tiempoPasado = Math.round((fechaHorarioFin - fechaHorarioInicio) / 1000 / 60 / 60);
+            if (tiempoPasado !== totalHoras) {
+                // TODO: pregunta existencial
+                errores.push("El total de horas no está comprendido dentro de las horas de la actividad.");
+                errores.push("Añada una hora más si el total de horas no es fija.");
+            }
+        }
+
+
+    } else {
+        // Validar que si la actividad empieza y termina en distinto dia las horas totales (intervalo de
+        // hora inicio y hora fin) * dias que dura no debe ser superior a las horas totales
+        // Restamos el horario de fin menos el horario inicio en milisegundos.
+        var tiempoPasadoEnMs = fecha_fin - fecha_inicio;
+        // optenemos los dias pasado entre la fecha de inicio  y la fecha fin (primero pasamos a 
+        // milisisegundos luego a segundos, luego a minutos, luego a horas, luego a días y sumanos 1 para 
+        // que incluya el primer día).
+        var diasPasados = tiempoPasadoEnMs / 1000 / 60 / 60 / 24 + 1;
+        // Calculamos la duración de la actividad al día en horas 
+        var duracionPorDiaEnMs = fechaHorarioFin - fechaHorarioInicio;
+        var duracionPorDia = duracionPorDiaEnMs / 1000 / 60 / 60;
+        // Obtenemos las horas supuestas que hay entre la fecha de inicio y la fecha fin.
+        var horasSupuestas = Math.round(duracionPorDia * diasPasados);
+
+        if (totalHoras > horasSupuestas) {
+            errores.push("El total de horas introducidas es superior al estimado.");
         }
     }
-
-    // Validar que si la actividad empieza y termina el mismo dia el total de horas debe coincidir con
-    //   las horas que hay entre hora inicio y hora fin
-
-    var totalHoras = actividad.n_Total_Horas;
-    var tiempoPasado = Math.round((fechaHorarioFin - fechaHorarioInicio) / 1000 / 60 / 60);
-    if (tiempoPasado !== totalHoras) {
-        // TODO: pregunta existencial
-        errores.push(".");
-    }
-    // Validar que si la actividad empieza y termina en distinto dia las horas totales (intervalo de
-    // hora inicio y hora fin) * dias que dura no debe ser superior a las horas totales
 
 
     return errores;
 }
 
 function mostrarModal(opciones) {
+    // Limpiamos los mensajes del modal
+    $("#divMensajeModal").html("");
+
     $("#nuevaActividad").parent().hide();
     $("#modificarActividad").parent().hide();
     $("#suscribirseActividad").parent().hide();

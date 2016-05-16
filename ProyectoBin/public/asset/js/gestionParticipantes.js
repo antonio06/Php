@@ -43,37 +43,35 @@ $(function () {
     $(document).on("click", "a[data-action='editar']", function (event) {
         event.preventDefault();
         $.ajax({
-            url: '/Controller/partePrivada/participantes/detallesParticipante.php',
+            url: '/Controller/partePrivada/participantes/detallesParticipantes.php',
             method: 'GET',
             dataType: "json",
             data: {
-                codigo_actividad: $(event.currentTarget).attr("data-id")
+                id: $(event.currentTarget).attr("data-id"),
             },
             success: function (respuesta, textStatus, jqXHR) {
 
                 // Almacenar la id de la actividad que se ha seleccionado en el formulario
                 // Esto se hace para no usar input hidden
-                var actividad = JSON.parse(respuesta.actividad);
-                $("#formularioParticipante").data("idParticipante", actividad["codigo_actividad"]);
+                var participante = respuesta.participante;
+                $("#formularioParticipante").data("idParticipante", participante["id"]);
 
                 // Recogemos los elementos del formulario
                 var controlesFormulario = $("#formularioParticipante")[0].elements;
                 mostrarModal({
                     accion: "modificar",
-                    id: $(event.currentTarget).attr("data-id")
+                    //id: $(event.currentTarget).attr("data-id")
                 });
 
                 // Iteramos por cada elemento del formulario de fin a inicio
                 $.each(controlesFormulario, function (index) {
-                    var elemento = controlesFormulario[controlesFormulario.length - 1 - index];
+                    var elemento = controlesFormulario[index];
                     var nombre = $(elemento).attr("name");
                     // Si el elemento tiene atributo name lo modificamos
                     // Esto lo hacemos para filtrar los elementos que no tengan name como los botones
                     // de submit
                     if (nombre) {
-                        $(elemento).val(actividad[nombre]);
-                        // Martillazo para que Materialize ponga los labels encima del input
-                        $(elemento).trigger("focus");
+                        $(elemento).val(participante[nombre]);
                     }
                 });
 
@@ -156,7 +154,7 @@ function enviarFormulario(event, opciones) {
         var datos = $("#formularioParticipante").serialize();
         var id = $("#formularioParticipante").data("idParticipante");
         if (id) {
-            datos += "&" + decodeURIComponent($.param({codigo_persona: id}));
+            datos += "&" + decodeURIComponent($.param({id: id}));
         }
         $.ajax({
             url: url,
@@ -200,8 +198,15 @@ function mostrarModal(opciones) {
         limpiarFormulario();
         $("#nuevoParticipante").parent().show();
         $("#contenedorFormularioParticipante").show();
+        $("#codigoPersona").show().attr("required", "required");
+        $("#codigoActividad").show();
+        $("#codigoPerfil").show();
     } else if (opciones.accion === "modificar") {
         $("#modificarParticipante").parent().show();
+        $("#contenedorFormularioParticipante").show();
+        $("#codigoPersona").hide().removeAttr("required");
+        $("#codigoActividad").show();
+        $("#codigoPerfil").show();
     }
     $("#modalParticipante").openModal();
 }
