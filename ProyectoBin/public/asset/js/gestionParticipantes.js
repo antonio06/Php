@@ -13,8 +13,11 @@ $(function () {
         if (parseInt($("#paginacion").attr("data-pagina")) !== paginaBoton) {
             paginar(paginaBoton);
         }
-
     });
+    
+    // Linea para inicializar el menú desplegable para móviles
+    $(".button-collapse").sideNav();
+    
     $("#formularioParticipante").submit(enviarFormulario);
 
     $("#nuevoParticipante").click(function () {

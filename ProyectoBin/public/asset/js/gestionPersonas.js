@@ -20,7 +20,10 @@ $(function () {
     $('.datepicker').pickadate({
         selectMonths: true
     });
-
+    
+    // Linea para inicializar el menú desplegable para móviles
+    $(".button-collapse").sideNav();
+    
     $("#nuevaPersona").click(function () {
         $("#formularioPersona").trigger("submit", {
             url: "/Controller/partePrivada/personas/insertarPersona.php"

@@ -20,7 +20,13 @@ $(function () {
     $('.datepicker').pickadate({
         selectMonths: true
     });
-
+    
+    // Linea para inicializar el menú desplegable para móviles
+    $(".button-collapse").sideNav();
+    
+    // Para el menú desplegable
+    $(".dropdown-button").dropdown();
+    
     $(document).ready(function () {
         $('.time_element').timepicki({
             show_meridian: false,

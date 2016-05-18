@@ -11,17 +11,17 @@
         <script type="text/javascript" src="/public/lib/jquery/jquery.min.js"></script>
     </head>
     <body>
-        <div class="row">
+        <div class="container">
             <header class="indigo lighten-5 section">
                 <section class="container white-text center-align">
                     <h1>Panel Principal de Gestion</h1>
                 </section>
             </header>
-        {% block menuPrincipalPanel %}{% endblock %}
-        <div id="contenedorPrincipal" class="container">
-        {% block contenidoPanel %}{% endblock %}
-    </div>
-</div>
+                {% block menuPrincipalPanel %}{% endblock %}
+            <div id="contenedorPrincipal" class="row">
+                {% block contenidoPanel %}{% endblock %}
+            </div>
+        </div>
 <footer class="page-footer indigo lighten-4">
     <div class="footer-copyright">
         <div class="container">
