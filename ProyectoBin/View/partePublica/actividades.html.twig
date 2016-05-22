@@ -2,15 +2,26 @@
 
 {% block menuPrincipal %}
     {% if email != null %}
-        <nav class="nav-wrapper">
+        <nav>
             <div class="nav-wrapper indigo lighten-3">
-                <a href="#" class="brand-logo">Logo</a>
-                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons"><i class="fa fa-bars" aria-hidden="true"></i></i></a>
+                <ul class="right hide-on-med-and-down indigo lighten-3">
                     <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
-                        {#<li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>#}
                     <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
                     <!-- Dropdown Structure -->
-                    <ul id="dropdown1" class="dropdown-content">
+                    <div class="collapsible-body">
+                        <ul id="dropdown1" class="dropdown-content">
+                            <li><a href="../../Controller/partePublica/miPerfil.php">Mi perfil</a></li>
+                            <li><a href="../../Controller/partePublica/misActividades.php">Mis actividades</a></li>
+                            <li><a href="../../Controller/partePublica/salirPerfil.php">Salir del perfil</a></li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                    <li><a class="dropdown-button1" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
+                    <!-- Dropdown Structure -->
+                    <ul id="dropdown1">
                         <li><a href="../../Controller/partePublica/miPerfil.php">Mi perfil</a></li>
                         <li><a href="../../Controller/partePublica/misActividades.php">Mis actividades</a></li>
                         <li><a href="../../Controller/partePublica/salirPerfil.php">Salir del perfil</a></li>
@@ -19,13 +30,17 @@
             </div>
         </nav>
     {% else %}
-        <nav class="nav-wrapper">
+        <nav>
             <div class="nav-wrapper indigo lighten-3">
-                <a href="#" class="brand-logo">Logo</a>
-                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons"><i class="fa fa-bars" aria-hidden="true"></i></i></a>
+                <ul class="right hide-on-med-and-down indigo lighten-3">
                     <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
                     <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
                 </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                        <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
+                    </ul>
             </div>
         </nav>
     {% endif %}
@@ -38,7 +53,7 @@
     <div id="contenedorTabla">
         {% include "tablaActividades.html.twig" %}
     </div>
-    
+
     <!-- Modal Structure -->
     <div id="modalActividad" class="modal">
         <div class="modal-content">
@@ -46,8 +61,8 @@
         </div>
         <div class="modal-footer no-overflow">
             <input class="waves-effect waves-light btn modal-action modal-close" type="button" value="Cerrar">
-{#            <input class="waves-effect waves-light btn" id="nuevaActividad" type="submit" form="formularioActividad" value="Registrar actividad">#}
-{#            <input class="waves-effect waves-light btn" id="modificarActividad" form="formularioActividad" type="button" value="Guardad cambios">#}
+            {#            <input class="waves-effect waves-light btn" id="nuevaActividad" type="submit" form="formularioActividad" value="Registrar actividad">#}
+            {#            <input class="waves-effect waves-light btn" id="modificarActividad" form="formularioActividad" type="button" value="Guardad cambios">#}
             {% if email != null %}
                 <input class="waves-effect waves-light btn" id="suscribirseActividad" form="formularioActividad" type="button" value="Suscribirse a la actividad">
             {% endif %}

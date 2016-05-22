@@ -20,6 +20,12 @@ $(function () {
         $("#formularioActividad").data("idActividad", null);
     });
     
+    // Linea para inicializar el menú desplegable para móviles
+    $(".button-collapse").sideNav();
+    
+    // Para el menú desplegable
+    $(".dropdown-button").dropdown();
+    
     $("#suscribirseActividad").click(function () {
         $.ajax({
             url: '/Controller/partePublica/miNuevaActividad.php',

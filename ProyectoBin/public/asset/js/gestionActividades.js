@@ -15,6 +15,7 @@ $(function () {
         }
 
     });
+    
     $("#formularioActividad").submit(enviarFormulario);
 
     $('.datepicker').pickadate({
@@ -26,7 +27,6 @@ $(function () {
     
     // Para el menú desplegable
     $(".dropdown-button").dropdown();
-    $(".dropdown-button1").dropdown();
     
     $(document).ready(function () {
         $('.time_element').timepicki({

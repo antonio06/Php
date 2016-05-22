@@ -2,15 +2,26 @@
 
 {% block menuPrincipal %}
     {% if email != null %}
-        <nav class="nav-wrapper">
+        <nav>
             <div class="nav-wrapper indigo lighten-3">
-                <a href="#" class="brand-logo">Logo</a>
-                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons"><i class="fa fa-bars" aria-hidden="true"></i></i></a>
+                <ul class="right hide-on-med-and-down indigo lighten-3">
                     <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
-                        {#<li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>#}
                     <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
                     <!-- Dropdown Structure -->
-                    <ul id="dropdown1" class="dropdown-content">
+                    <div class="collapsible-body">
+                        <ul id="dropdown1" class="dropdown-content">
+                            <li><a href="../../Controller/partePublica/miPerfil.php">Mi perfil</a></li>
+                            <li><a href="../../Controller/partePublica/misActividades.php">Mis actividades</a></li>
+                            <li><a href="../../Controller/partePublica/salirPerfil.php">Salir del perfil</a></li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                    <li><a class="dropdown-button1" href="#!" data-activates="dropdown1">{{ email }} <i class="fa fa-arrow-down"></i></a></li>
+                    <!-- Dropdown Structure -->
+                    <ul id="dropdown1">
                         <li><a href="../../Controller/partePublica/miPerfil.php">Mi perfil</a></li>
                         <li><a href="../../Controller/partePublica/misActividades.php">Mis actividades</a></li>
                         <li><a href="../../Controller/partePublica/salirPerfil.php">Salir del perfil</a></li>
@@ -19,13 +30,17 @@
             </div>
         </nav>
     {% else %}
-        <nav class="nav-wrapper">
+        <nav>
             <div class="nav-wrapper indigo lighten-3">
-                <a href="#" class="brand-logo">Logo</a>
-                <ul id="nav-mobile indigo lighten-3" class="right hide-on-med-and-down">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons"><i class="fa fa-bars" aria-hidden="true"></i></i></a>
+                <ul class="right hide-on-med-and-down indigo lighten-3">
                     <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
                     <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
                 </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="../../Controller/partePublica/actividades.php">Actividades</a></li>
+                        <li><a href="../../Controller/partePublica/formulario_login.php">Login</a></li>
+                    </ul>
             </div>
         </nav>
     {% endif %}
@@ -40,27 +55,27 @@
             <input type="hidden" name="perfil_usuario" value="{{ perfil_usuario }}" id="perfil_persona"> 
             <input type="hidden" name="observaciones" value="{{ persona.observaciones }}" id="observaciones_persona">
             <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="DNI" value="{{ persona.DNI }}" id="dni_persona">
                     <label for="dni_persona">DNI</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="nombre" value="{{ persona.nombre }}" id="nombre_persona">
                     <label for="nombre_persona">Nombre</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="apellido1" value="{{ persona.apellido1 }}" id="apellido1_persona">
                     <label for="apellido1_persona">1º Apellido</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="apellido2" value="{{ persona.apellido2 }}" id="apellido2_persona">
                     <label for="apellido2_persona">2º Apellido</label>
                 </div>
 
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <select class="browser-default" name="sexo">
                         <option  disabled selected>Sexo</option>
                         {% for sexo in sexo %}
@@ -69,42 +84,42 @@
                     </select>
                 </div>
    
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="direccion" value="{{ persona.direccion }}" id="direccion_persona">
                     <label for="direccion_persona">Direccion</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="municipio" value="{{ persona.municipio }}" id="municipio_persona">
                     <label for="municipio_persona">Municipio</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="provincia" value="{{ persona.provincia }}" id="provincia_persona">
                     <label for="provincia_persona">Provincia</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="pais" value="{{ persona.pais }}" id="pais_persona">
                     <label for="pais_persona">País</label>
                 </div>
 
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="n_Seguridad_Social" value="{{ persona.n_Seguridad_Social }}" id="n_seguridad_social_persona">
                     <label for="n_seguridad_social_persona" style="margin-top: -1%">Nº Seguridad Social</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="text" class="validate" name="n_Cuenta_Bancaria" value="{{ persona.n_Cuenta_Bancaria }}" id="n_cuenta_bancaria_persona">
                     <label for="n_cuenta_bancaria_persona" style="margin-top: -1%">Nº Cuenta Bancaria</label>
                 </div>
                     
-                <div class="input-field col s4">
+                <div class="input-field col s7 m6 l3">
                     <input type="email" class="validate" name="email" value="{{ persona.email }}" id="email_persona">
                     <label for="email_persona" style="margin-top: -1%">Email</label>
                 </div>
 
-                <div class="file-field input-field col s8">
+                <div class="file-field input-field col s7 m6 l3">
                     <div class="btn">
                         <span>Foto/Logo</span>
                         <input type="file" name="foto" value="{{ persona.foto }}" id="foto_persona">
