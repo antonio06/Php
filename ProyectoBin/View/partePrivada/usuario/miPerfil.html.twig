@@ -37,6 +37,7 @@
     <div class="row">
         <form class="col s12" action="../../../Controller/partePrivada/usuario/modificarMiPerfil.php" method="post" enctype="multipart/form-data" id="formularioModificarMiperfil">
             <input type="hidden" name="perfil" value="{{ perfil }}" id="perfil_persona">
+            <input type="hidden" name="fecha_nac" value="{{ persona.fecha_nac }}" id="fecha_alta_persona">
             <input type="hidden" name="fecha_alta" value="{{ persona.fecha_alta }}" id="fecha_alta_persona">
             <input type="hidden" name="fecha_baja" value="{{ persona.fecha_baja }}" id="fecha_baja_persona">
             <input type="hidden" name="perfil_usuario" value="{{ perfil_usuario }}" id="perfil_persona"> 
@@ -69,11 +70,6 @@
                             <option value="{{ sexo }}" id="sexo_persona">{{ sexo }}</option>
                         {% endfor %}}
                     </select>
-                </div>
-
-                <div class="input-field col s7 m6 l3">
-                    <input type="date" class="validate" name="fecha_nac" value="{{ persona.fecha_nac }}" id="fecha_nac_persona">
-                    <label for="fecha_nac_persona" style="margin-top: -11%">Fecha Nacimiento</label>
                 </div>
 
                 <div class="input-field col s7 m6 l3">

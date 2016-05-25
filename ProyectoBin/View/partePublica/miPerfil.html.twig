@@ -50,6 +50,7 @@
     <div class="row">
         <form class="col s12" action="../../Controller/partePublica/modificadoMiperfil.php" method="post" enctype="multipart/form-data" id="formularioModificarMiperfil">
             <input type="hidden" name="perfil" value="{{ perfil }}" id="perfil_persona">
+            <input type="hidden" name="fecha_nac" value="{{ persona.fecha_nac }}" id="fecha_alta_persona">
             <input type="hidden" name="fecha_alta" value="{{ persona.fecha_alta }}" id="fecha_alta_persona">
             <input type="hidden" name="fecha_baja" value="{{ persona.fecha_baja }}" id="fecha_baja_persona">
             <input type="hidden" name="perfil_usuario" value="{{ perfil_usuario }}" id="perfil_persona"> 

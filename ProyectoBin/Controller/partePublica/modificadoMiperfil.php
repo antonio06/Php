@@ -12,6 +12,7 @@ if ($_SESSION['logeado'] == "Si") {
     switch ($_POST['opcion']) {
         case "modificar":
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
+
             /*
             * Para la foto en vez de utilizar el método de almacenarlo en un fichero,
             * modificamos el campo foto en la BBDD de string a longblod, luego en el php
@@ -28,9 +29,9 @@ if ($_SESSION['logeado'] == "Si") {
             $persona = new Persona($_SESSION['codigo'], $_POST['DNI'],
                     $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'],
                     $_POST['perfil'], $foto, $_POST['sexo'],
-                    NULL, $_POST['direccion'], $_POST['municipio'],
-                    $_POST['provincia'], $_POST['pais'], NULL,
-                    NULL, $_POST['n_Seguridad_Social'],
+                    $_POST['fecha_nac'], $_POST['direccion'], $_POST['municipio'],
+                    $_POST['provincia'], $_POST['pais'], $_POST['fecha_alta'],
+                    $_POST['fecha_baja'], $_POST['n_Seguridad_Social'],
                     $_POST['n_Cuenta_Bancaria'], $_POST['email'], NULL,
                     $_POST['perfil_usuario'], $_POST['observaciones']);
             $persona->update();
