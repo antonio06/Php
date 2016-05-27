@@ -83,13 +83,29 @@
 }
 
 .paginaActual {
-    background-color: #ba1e11;
-}
-
-.paginaActual a{
-    color: #f5f5f5 !important;
+    background-color: #db36cd;
 }
 
 .foto{
     max-width: 150px;
+}
+
+.iconoHamburguesa{
+    margin-left: 10px; 
+}
+
+.colorMenu{
+    background-color: #43bebd;
+}
+
+.colorBase1{
+    color: #555454;
+}
+
+.colorPagina{
+    background-color: #ff82f4;
+}
+
+.paginaActual a, .colorPagina  a{
+    color: #fff7fe!important;
 }

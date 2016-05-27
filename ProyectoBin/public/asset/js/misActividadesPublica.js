@@ -16,6 +16,9 @@ $(function () {
 
     });
     
+    // Linea para inicializar el menú desplegable para móviles
+    $(".button-collapse").sideNav();
+    
     $(document).on("click", "a[data-action='borrar']", function (event) {
         event.preventDefault();
         $.ajax({

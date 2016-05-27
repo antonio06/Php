@@ -3,7 +3,7 @@ $(function () {
     $(".button-collapse").sideNav();
     
     // Para el menú desplegable
-    $(".dropdown-button").dropdown();
+    //$(".dropdown-button").dropdown();
 });
 
 
