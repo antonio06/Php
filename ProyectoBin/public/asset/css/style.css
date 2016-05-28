@@ -68,6 +68,8 @@
 }
 #contenedorPrincipal{
     padding-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .no-overflow{

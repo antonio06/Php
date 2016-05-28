@@ -1,7 +1,7 @@
 <div id="contenedorFormularioParticipante">
 <form class="col s12" action="/Controller/partePrivada/insertarParticipante.php" method="POST" id="formularioParticipante">
     <div class="row">
-        <div class="file-field input-field col s3" id="codigoPersona">
+        <div class="file-field input-field col s9 m6 l3" id="codigoPersona">
             <select class="browser-default" name="codigo_persona" required>
                 <option value="" disabled selected>Persona</option>
                 {% for persona in personas %}
@@ -9,7 +9,7 @@
                 {% endfor %}
             </select>
         </div>  
-        <div class="file-field input-field col s5" id="codigoActividad">
+        <div class="file-field input-field col s9 m6 l3" id="codigoActividad">
             <select class="browser-default" name="codigo_actividad" required>
                 <option value="" disabled selected>Actividad</option>
                 {% for actividad in actividades %}
@@ -18,7 +18,7 @@
             </select>
         </div>
             
-        <div class="input-field col s3" id="codigoPerfil">
+        <div class="input-field col s9 m6 l3" id="codigoPerfil">
             <select class="browser-default" name="codigo_perfil" required>
                 <option value="" disabled selected>Perfiles</option>
                 {% for perfil in perfiles %}
