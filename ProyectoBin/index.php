@@ -1,3 +1,3 @@
 <?php
 
-header("Location: Controller/partePublica/actividades.php");
+header("Location: Controller/partePublica/home.php");
