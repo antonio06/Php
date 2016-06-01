@@ -20,6 +20,7 @@
                 <nav>
                     <div class="nav-wrapper colorMenu">
                         {# Menu principal #}
+                        <a href="#" class="brand-logo">Logo</a>
                         <a href="#" data-activates="mobile-demo" class="button-collapse">
                             <i class="material-icons">
                                 <i class="fa fa-bars iconoHamburguesa" aria-hidden="true"></i>
@@ -53,6 +54,7 @@
             {% else %}
                 <nav>
                     <div class="nav-wrapper colorMenu">
+                        <a href="#" class="brand-logo">Asociación Bin</a>
                         <a href="#" data-activates="mobile-demo" class="button-collapse">
                             <i class="material-icons">
                                 <i class="fa fa-bars iconoHamburguesa" aria-hidden="true"></i>      
@@ -75,23 +77,29 @@
             {% block contenido %}{% endblock %}
         </div>
     </div>
-    {#<footer class="page-footer indigo lighten-4">
+    <footer class="page-footer colorPiePagina">
         <div class="container">
             <div class="row">
-                <div class="col l6 s12 white-text">
-                    Asociacion BIN 
-                    <a class="grey-text text-lighten-4 right" href="#">Realizado por Antonio</a>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Asociación Bin</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="/Controller/partePublica/home.php">Inicio</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Controller/partePublica/actividades.php">Actividades</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Controller/partePublica/formulario_login.php">Iniciar Sesion</a></li>
+                        <li><a class="grey-text text-lighten-3" href="/Controller/partePublica/formulario_login.php">@Asocición BIN</a></li>
+                    </ul>
                 </div>
+                <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Siguenos</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
             </div>
         </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2014 Copyright Text
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-        </div>
-    </footer>#}
-    <script type="text/javascript" src="/public/lib/materialize/js/materialize.min.js"></script>
-    <script type="text/javascript" src="/public/lib/timepicki/js/timepicki.js"></script>
+</footer>
+<script type="text/javascript" src="/public/lib/materialize/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/lib/timepicki/js/timepicki.js"></script>
 </body>
 </html>

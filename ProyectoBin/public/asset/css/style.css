@@ -112,6 +112,10 @@
     color: #fff7fe!important;
 }
 
+.colorPiePagina{
+    background-color: #282828!important;
+}
+
 /* CSS para el home */
 
 .flex-container {
@@ -161,9 +165,9 @@
     line-height: 50px;
 }
 
-/*.flex-item a:hover{
+.flex-item a:hover{
     background-color: #187474;
-}*/
+}
 
 
 .container{
