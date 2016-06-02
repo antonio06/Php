@@ -96,7 +96,7 @@
     margin-left: 10px; 
 }
 
-.colorMenu{
+.colorMenu, .menu{
     background-color: #43bebd;
 }
 
@@ -118,10 +118,33 @@
 
 /* CSS para el home */
 
-.flex-container {
+.home {
+    min-width: 200px;
+}
+
+.menu ul{
     margin: 0px;
     padding: 0px;
+    list-style: none;
+}
 
+.menu ul li{
+    transition: all ease .3s;
+}
+
+.menu ul li:hover{
+    background-color: #187474;
+}
+.menu ul li a{
+    text-decoration: none;
+    color: #fff7fe;
+    padding: 13px;
+    line-height: 50px;
+    margin: 5px 0px;
+}
+
+
+.flex-container {
     -ms-box-orient: horizontal;
     display: -webkit-box;
     display: -moz-box;
@@ -129,7 +152,6 @@
     display: -moz-flex;
     display: -webkit-box;
     display: inline-flex;
-    list-style: none;
 }
 
 .flex-row { 
@@ -144,29 +166,20 @@
     flex-direction: row-reverse;
 }
 
+a.brand-logo {
+    padding-left: 10px;
+}
+
 .contenedorMenu{
-    background-color: #43bebd;
+    box-shadow: 0px 2px 2px #d9d9d9;
 }
 
 .right{
     float: right;
 }
 
-.flex-item{
-    margin: 5px;
-}
-
 .flex-item a {
-    color: white;
-    text-decoration: none;
-    color: #fff7fe;
     text-align: center;
-    padding: 13px;
-    line-height: 50px;
-}
-
-.flex-item a:hover{
-    background-color: #187474;
 }
 
 
@@ -177,17 +190,13 @@
 }
 
 .contenidoPrincipal p{
-    margin: 25px 136px;
-    padding: 0px 25px;
-    width: 48%;
-    display: inline-block;
-    vertical-align: top;
+    margin: 35px auto;
+    width: 70%;
+    text-align: justify;
 }
 
-.piePagina{
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #282828;
+.footer{
+    background-color: #4C4C4C;
     color: white;
 }
 
@@ -221,4 +230,179 @@
     text-decoration: none;
     color: white;
     text-align: left; 
+}
+
+.listaPiePagina{
+    list-style: none;
+    display: inline-block;
+}
+
+.listaPiePagina li a{
+    text-decoration: none;
+    color: white;
+}
+
+.piePagina{
+    display: flex;
+    padding-top: 20px;
+}
+
+.piePagina .contenedorLista{
+    width: 50%;
+}
+
+.social{
+    text-align: right;
+}
+
+.social .listaPiePagina{
+    padding-right: 35px;
+    padding-left: 0px;
+}
+
+.social .listaPiePagina li{
+    text-align: left;
+}
+
+.social .listaPiePagina li a{
+    font-size: 30px;
+    margin: 0px 6px;
+    cursor: pointer;
+}
+.social .listaPiePagina li a i{
+    transition: all linear .3s;
+}
+
+.social .listaPiePagina li a i.fa-facebook:hover{
+    color: #4862A3;
+}
+.social .listaPiePagina li a i.fa-twitter:hover{
+    color: #55acee;
+}
+
+
+.enlaces .listaPiePagina li{
+    margin: 7px;
+}
+
+.enlaces .listaPiePagina li:first-child{
+    margin-top: 5px;
+}
+
+.copyright{
+    padding: 15px 18px;
+    margin: 0px;
+    background-color: #303030;
+}
+
+.listaPiePagina li:first-child{
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    padding-left: 0px;
+    min-width: 115px;
+    color: #fff7fe;
+    border-bottom: 1px solid #c4c4c4;
+}
+
+.social .listaPiePagina li:first-child{
+    padding-left: 3px;
+}
+
+.listaPiePagina li a{
+    transition: all ease .3s;
+}
+
+.listaPiePagina li a:hover{
+    color: #f5f5f5;
+}
+
+.listaPiePagina li a, .copyright{
+    color: #c4c4c4;
+}
+
+.home #menuMovil{
+    display: none;
+}
+
+.home #submenuMovil{
+    width: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-200px);
+    transition: all ease-out 0.3s;
+    z-index: 100;
+}
+
+.overlay{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 99;
+    display: none;
+}
+
+/* Responsive */
+
+@media (max-width: 992px){
+    .home #menuPrincipal{
+        display: none;
+    }
+
+    .home #menuMovil{
+        display: block;
+    }
+
+    .copyright{
+        text-align: center;
+    }
+
+    .home .contenidoPrincipal p {
+        width: 90%;
+    }
+
+    .home .logo {
+        width: 60%;
+    }
+
+    .home .container {
+        width: 85%;
+    }
+
+}
+
+@media (max-width: 685px){
+    .home .piePagina {
+        display: block;
+    }
+
+    .home .piePagina .contenedorLista{
+        width: 100%;
+        text-align: center;
+    }
+
+    .home .piePagina .contenedorLista ul{
+        padding: 0;
+    }
+
+    .home .piePagina .contenedorLista ul li {
+        text-align: center;
+    }
+
+    .home .contenidoPrincipal p {
+        width: 100%;
+    }
+
+    .home .logo {
+        width: 90%;
+    }
+    
+    .home .container {
+        width: 100%;
+    }
+
 }
